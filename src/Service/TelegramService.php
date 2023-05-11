@@ -10,7 +10,12 @@ use App\HttpClient\Request\Request;
 
 class TelegramService implements TelegramServiceInterface
 {
-    public function sendMessage(HttpClientInterface $httpClient, MessageDto $messageDto, string $token)
+    public function __construct(
+        private readonly HttpClientInterface $httpClient,
+    ) {
+    }
+
+    public function sendMessage(MessageDto $messageDto, string $token): void
     {
         $request = $this->buildRequest(
             $messageDto->getArray(),
@@ -19,11 +24,10 @@ class TelegramService implements TelegramServiceInterface
             HttpClient::METHOD_POST,
         );
 
-
-        $httpClient->request($request);
+        $this->httpClient->request($request);
     }
 
-    public function setWebhook(HttpClientInterface $httpClient, WebhookDto $webhookDto, string $token)
+    public function setWebhook(WebhookDto $webhookDto, string $token): void
     {
         $request = $this->buildRequest(
             $webhookDto->getArray(),
@@ -32,7 +36,7 @@ class TelegramService implements TelegramServiceInterface
             HttpClient::METHOD_POST,
         );
 
-        $httpClient->request($request);
+        $this->httpClient->request($request);
     }
 
     private function buildRequest(array $data, string $scenario, string $token, string $method): Request
