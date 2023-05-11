@@ -1,6 +1,6 @@
 <?php
 
-namespace telegram_client\HttpClient\Request;
+namespace App\HttpClient\Request;
 
 class Request implements RequestInterface
 {

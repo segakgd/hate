@@ -1,9 +1,9 @@
 <?php
 
-namespace telegram_client\HttpClient;
+namespace App\HttpClient;
 
-use telegram_client\HttpClient\Request\RequestInterface;
-use telegram_client\HttpClient\Response\ResponseInterface;
+use App\HttpClient\Request\RequestInterface;
+use App\HttpClient\Response\ResponseInterface;
 
 interface HttpClientInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace telegram_client\HttpClient;
+namespace App\HttpClient;
 
-use telegram_client\HttpClient\Request\RequestInterface;
-use telegram_client\HttpClient\Response\Response;
-use telegram_client\HttpClient\Response\ResponseInterface;
+use App\HttpClient\Request\RequestInterface;
+use App\HttpClient\Response\Response;
+use App\HttpClient\Response\ResponseInterface;
 
 class HttpClient implements HttpClientInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace telegram_client\Dto\Chat;
+namespace App\Dto\Chat;
 
 class ChatDto
 {

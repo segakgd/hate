@@ -1,12 +1,12 @@
 <?php
 
-namespace telegram_client\Service;
+namespace App\Service;
 
-use telegram_client\Dto\Message\MessageDto;
-use telegram_client\Dto\Webhook\WebhookDto;
-use telegram_client\HttpClient\HttpClient;
-use telegram_client\HttpClient\HttpClientInterface;
-use telegram_client\HttpClient\Request\Request;
+use App\Dto\Message\MessageDto;
+use App\Dto\Webhook\WebhookDto;
+use App\HttpClient\HttpClient;
+use App\HttpClient\HttpClientInterface;
+use App\HttpClient\Request\Request;
 
 class TelegramService implements TelegramServiceInterface
 {

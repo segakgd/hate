@@ -1,6 +1,6 @@
 <?php
 
-namespace telegram_client\HttpClient\Response;
+namespace App\HttpClient\Response;
 
 interface ResponseInterface
 {
