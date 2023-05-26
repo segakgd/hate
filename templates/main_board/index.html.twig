@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Main board{% endblock %}
+
+{% block body %}
+    <style>
+        label{
+            display: block;
+        }
+
+        form{
+            margin: 10px 0px;
+        }
+
+        input{
+            margin: 5px 0px;
+        }
+    </style>
+
+    <div>
+        Добавление нового вебхука:
+        {{ form(formAddWebhook) }}
+    </div>
+    <br>
+    <div>
+        Отправка сообщения в чат с пользователем от имени бота (873817360):
+        {{ form(formSendTestMessage) }}
+    </div>
+{% endblock %}
