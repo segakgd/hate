@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Dto\Message\MessageDto;
 use App\Dto\Webhook\WebhookDto;
 use App\Form\Type\Message\SendTestMessageType;
+use App\Form\Type\Scenario\ScenarioType;
 use App\Form\Type\Webhook\AddWebhookType;
+use App\Service\ActionBuilder;
 use App\Service\TelegramService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +20,7 @@ class MainBoardController extends AbstractController
 
     public function __construct(
         private readonly TelegramService $telegramService,
+        private readonly ActionBuilder $actionBuilder,
     ){
     }
 
@@ -29,6 +32,9 @@ class MainBoardController extends AbstractController
 
         $formAddWebhook = $this->createForm(AddWebhookType::class);
         $formAddWebhook->handleRequest($request);
+
+        $formScenario = $this->createForm(ScenarioType::class);
+        $formScenario->handleRequest($request);
 
         if ($formSendTestMessage->isSubmitted() && $formSendTestMessage->isValid()) {
             $data = $formSendTestMessage->getData();
@@ -55,9 +61,20 @@ class MainBoardController extends AbstractController
             return $this->redirectToRoute('app_main_board');
         }
 
+        if ($formScenario->isSubmitted() && $formScenario->isValid()) {
+            $data = $formScenario->getData();
+
+            match ($data['type']){
+                'messagesSend' => $this->actionBuilder->go()
+            };
+
+            return $this->redirectToRoute('app_main_board');
+        }
+
         return $this->render('main_board/index.html.twig', [
             'formSendTestMessage' => $formSendTestMessage,
             'formAddWebhook' => $formAddWebhook,
+            'formScenario' => $formScenario,
         ]);
     }
 }
