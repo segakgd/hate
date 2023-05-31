@@ -67,16 +67,10 @@ class ActionBuilder
             'name' => 'messages', // hmmm...
             'actions' => [
                 [
+                    'chatId' => 873817360,
                     'type' => 'send',
-                    'content' => [
-                        'text' => 'Hello v rot'
-                    ],
-                ],
-                [
-                    'type' => 'send',
-                    'content' => [
-                        'text' => 'Helasdasd'
-                    ],
+                    'content' => 'Hello v rot',
+                    'subAction' => 2
                 ],
             ]
         ];

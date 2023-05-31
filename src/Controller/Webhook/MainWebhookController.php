@@ -19,15 +19,15 @@ class MainWebhookController extends AbstractController
     }
 
     #[Route('/webhook/', name: 'app_webhook', methods: ['POST'])]
-    public function ass(Request $request): JsonResponse
+    public function addWebhookAction(Request $request): JsonResponse
     {
         $arrayWebhookData = $this->serializer->decode($request->getContent(), 'json');
 
         $webhookType = $this->getType($arrayWebhookData);
 
         $action = (new Action())
-            ->setType($webhookType['chatId'])
-            ->setChatId($webhookType['type'])
+            ->setType($webhookType['type'])
+            ->setChatId($webhookType['chatId'])
             ->setContent($webhookType['content'])
         ;
 
