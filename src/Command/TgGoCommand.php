@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Dto\Message\MessageDto;
 use App\Repository\ActionRepository;
 use App\Service\ActionBuilder;
+use App\Service\ActionHandler;
 use App\Service\TelegramService;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -23,6 +24,7 @@ class TgGoCommand extends Command
     public function __construct(
         private readonly TelegramService $telegramService,
         private readonly ActionRepository $actionRepository,
+        private readonly ActionHandler $actionHandler,
         string $name = null
     ) {
         parent::__construct($name);
@@ -32,21 +34,14 @@ class TgGoCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $isSuccess = false;
 
         try {
             $action = $this->actionRepository->findOneBy([]) ?? throw new Exception('Action not found');
 
-            if ('message' === $action->getType()) {
-                $messageDto = (new MessageDto())
-                    ->setChatId($action->getChatId())
-                    ->setText($action->getContent())
-                ;
+            $isSuccess = $this->actionHandler->handle($action);
 
-                $this->telegramService->sendMessage($messageDto, '5109953245:AAE7TIhplLRxJdGmM27YSeSIdJdOh4ZXVVY');
-
+            if ($isSuccess){
                 $this->actionRepository->remove($action);
-                $isSuccess = true;
             }
         } catch (Throwable $throwable){
             $io->error($throwable->getMessage());

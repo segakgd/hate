@@ -38,6 +38,17 @@ class MainWebhookController extends AbstractController
 
     private function getType(array $arrayWebhookData): ?array // todo не место этой функции тут
     {
+        if (
+            isset($arrayWebhookData['message']['entities'][0]['type']) &&
+            $arrayWebhookData['message']['entities'][0]['type'] === 'bot_command'
+        ) {
+            return [
+                'chatId' => $arrayWebhookData['message']['chat']['id'],
+                'type' => 'command',
+                'content' => $arrayWebhookData['message']['text'],
+            ];
+        }
+
         if (isset($arrayWebhookData['message']['text'])){
             return [
                 'chatId' => $arrayWebhookData['message']['chat']['id'],
