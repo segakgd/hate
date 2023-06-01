@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Dto\Message\MessageDto;
 use App\Dto\Webhook\WebhookDto;
 use App\Form\Type\Message\SendTestMessageType;
+use App\Form\Type\Message\SendTestMessageWithButtonsType;
 use App\Form\Type\Scenario\ScenarioType;
 use App\Form\Type\Webhook\AddWebhookType;
 use App\Service\ActionBuilder;
@@ -30,27 +31,30 @@ class MainBoardController extends AbstractController
         $formSendTestMessage = $this->createForm(SendTestMessageType::class);
         $formSendTestMessage->handleRequest($request);
 
+        $formSendTestMessageWithButtons = $this->createForm(SendTestMessageWithButtonsType::class);
+        $formSendTestMessageWithButtons->handleRequest($request);
+
         $formAddWebhook = $this->createForm(AddWebhookType::class);
         $formAddWebhook->handleRequest($request);
 
         $formScenario = $this->createForm(ScenarioType::class);
         $formScenario->handleRequest($request);
 
-//        if ($formSendTestMessage->isSubmitted() && $formSendTestMessage->isValid()) {
-//            $data = $formSendTestMessage->getData();
-//
-//            $messageDto = (new MessageDto())
-//                ->setChatId($data['chatId'])
-//                ->setText($data['message'])
-//            ;
-//
-//            $this->telegramService->sendMessage($messageDto, self::TOKEN_BOT);
-//
-//            return $this->redirectToRoute('app_main_board');
-//        }
-
         if ($formSendTestMessage->isSubmitted() && $formSendTestMessage->isValid()) {
             $data = $formSendTestMessage->getData();
+
+            $messageDto = (new MessageDto())
+                ->setChatId($data['chatId'])
+                ->setText($data['message'])
+            ;
+
+            $this->telegramService->sendMessage($messageDto, self::TOKEN_BOT);
+
+            return $this->redirectToRoute('app_main_board');
+        }
+
+        if ($formSendTestMessageWithButtons->isSubmitted() && $formSendTestMessageWithButtons->isValid()) {
+            $data = $formSendTestMessageWithButtons->getData();
 
             $messageDto = (new MessageDto())
                 ->setChatId($data['chatId'])
@@ -59,10 +63,10 @@ class MainBoardController extends AbstractController
                     [
                         [
                             [
-                                'text' => 'эфывфыв'
+                                'text' => 'да да да'
                             ],
                             [
-                                'text' => 'asdasdasd'
+                                'text' => 'нет нет нет'
                             ],
                         ]
                     ]
@@ -97,6 +101,7 @@ class MainBoardController extends AbstractController
         }
 
         return $this->render('main_board/index.html.twig', [
+            'formSendTestMessageWithButtons' => $formSendTestMessageWithButtons,
             'formSendTestMessage' => $formSendTestMessage,
             'formAddWebhook' => $formAddWebhook,
             'formScenario' => $formScenario,
