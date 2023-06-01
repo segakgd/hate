@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ActionRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActionRepository::class)]
@@ -20,8 +21,8 @@ class Action
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $content = null;
+    #[ORM\Column(type: Types::JSON)]
+    private ?array $content = null;
 
     public function getId(): ?int
     {
@@ -52,12 +53,12 @@ class Action
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent(): ?array
     {
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(array $content): self
     {
         $this->content = $content;
 

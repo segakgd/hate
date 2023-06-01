@@ -15,10 +15,16 @@ class MessageHandler
     public function handle($action): bool
     {
         if ('message' === $action->getType()) {
+            $actionContent = $action->getContent();
+
             $messageDto = (new MessageDto())
                 ->setChatId($action->getChatId())
-                ->setText($action->getContent())
+                ->setText($actionContent['message'])
             ;
+
+            if(!empty($actionContent['replyMarkup'])){
+                $messageDto->setReplyMarkup($actionContent['replyMarkup']);
+            }
 
             $this->telegramService->sendMessage($messageDto, '5109953245:AAE7TIhplLRxJdGmM27YSeSIdJdOh4ZXVVY');
 

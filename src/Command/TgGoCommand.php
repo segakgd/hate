@@ -2,11 +2,8 @@
 
 namespace App\Command;
 
-use App\Dto\Message\MessageDto;
 use App\Repository\ActionRepository;
-use App\Service\ActionBuilder;
 use App\Service\ActionHandler;
-use App\Service\TelegramService;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -22,14 +19,12 @@ use Throwable;
 class TgGoCommand extends Command
 {
     public function __construct(
-        private readonly TelegramService $telegramService,
         private readonly ActionRepository $actionRepository,
         private readonly ActionHandler $actionHandler,
         string $name = null
     ) {
         parent::__construct($name);
     }
-
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
