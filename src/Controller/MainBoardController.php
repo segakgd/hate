@@ -36,16 +36,40 @@ class MainBoardController extends AbstractController
         $formScenario = $this->createForm(ScenarioType::class);
         $formScenario->handleRequest($request);
 
+//        if ($formSendTestMessage->isSubmitted() && $formSendTestMessage->isValid()) {
+//            $data = $formSendTestMessage->getData();
+//
+//            $messageDto = (new MessageDto())
+//                ->setChatId($data['chatId'])
+//                ->setText($data['message'])
+//            ;
+//
+//            $this->telegramService->sendMessage($messageDto, self::TOKEN_BOT);
+//
+//            return $this->redirectToRoute('app_main_board');
+//        }
+
         if ($formSendTestMessage->isSubmitted() && $formSendTestMessage->isValid()) {
             $data = $formSendTestMessage->getData();
 
             $messageDto = (new MessageDto())
                 ->setChatId($data['chatId'])
                 ->setText($data['message'])
+                ->setReplyMarkup(
+                    [
+                        [
+                            [
+                                'text' => 'эфывфыв'
+                            ],
+                            [
+                                'text' => 'asdasdasd'
+                            ],
+                        ]
+                    ]
+                )
             ;
 
-//            $this->telegramService->sendMessage($messageDto, self::TOKEN_BOT);
-            $this->telegramService->sendReplyKeyboardMarkup(self::TOKEN_BOT);
+            $this->telegramService->sendMessage($messageDto, self::TOKEN_BOT);
 
             return $this->redirectToRoute('app_main_board');
         }

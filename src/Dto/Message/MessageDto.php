@@ -198,9 +198,35 @@ class MessageDto
 
     public function getArray(): array
     {
-        return [
+        $normalize = [
             'chat_id' => $this->getChatId(),
             'text' => $this->getText(),
         ];
+
+        if (!empty($this->getReplyMarkup())){
+            $normalize['reply_markup'] = json_encode([
+                'keyboard' => $this->getReplyMarkup(),
+            ]);
+        }
+
+        return $normalize;
+    }
+
+    private function keyboardNormalize($keyboards): array
+    {
+        $result = [];
+
+        foreach ($keyboards as $keyboard){
+            $result[] = [
+                [
+                    'text' => $keyboard['text']
+                ],
+                [
+                    'text' => $keyboard['text']
+                ],
+            ];
+        }
+
+        return $result;
     }
 }
