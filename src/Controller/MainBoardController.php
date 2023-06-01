@@ -44,7 +44,8 @@ class MainBoardController extends AbstractController
                 ->setText($data['message'])
             ;
 
-            $this->telegramService->sendMessage($messageDto, self::TOKEN_BOT);
+//            $this->telegramService->sendMessage($messageDto, self::TOKEN_BOT);
+            $this->telegramService->sendReplyKeyboardMarkup(self::TOKEN_BOT);
 
             return $this->redirectToRoute('app_main_board');
         }

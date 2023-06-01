@@ -39,6 +39,46 @@ class TelegramService implements TelegramServiceInterface
         $this->httpClient->request($request);
     }
 
+    public function sendReplyKeyboardMarkup(string $token): void
+    {
+        $request = $this->buildRequest(
+            [
+                'chat_id' => 873817360,
+                'text' => 'sssss',
+                'reply_markup' => json_encode([
+                    'keyboard' => $this->keyboardNormalize(),
+                ])
+            ],
+            'sendMessage',
+            $token,
+            HttpClient::METHOD_POST,
+        );
+
+        $this->httpClient->request($request);
+    }
+
+    private function keyboardNormalize(): array
+    {
+        $result = [];
+        $keyboards = [
+            ['text' => 'sad'],
+            ['text' => 'asds'],
+        ];
+
+        foreach ($keyboards as $keyboard){
+            $result[] = [
+                [
+                    'text' => $keyboard['text']
+                ],
+                [
+                    'text' => $keyboard['text']
+                ],
+            ];
+        }
+
+        return $result;
+    }
+
     private function buildRequest(array $data, string $scenario, string $token, string $method): Request
     {
         return (new Request())
