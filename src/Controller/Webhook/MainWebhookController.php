@@ -4,8 +4,7 @@ namespace App\Controller\Webhook;
 
 use App\Entity\Action;
 use App\Repository\ActionRepository;
-use App\Service\ActionVoter;
-use App\UserSetting;
+use App\Service\Webhook\ActionDecodeHandler;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,24 +17,36 @@ class MainWebhookController extends AbstractController
     public function __construct(
         private readonly SerializerInterface $serializer,
         private readonly ActionRepository $actionRepository,
-        private readonly ActionVoter $actionVoter,
+        private readonly ActionDecodeHandler $actionDecodeHandler,
     ) {
     }
 
     /**
      * @throws Exception
      */
-    #[Route('/webhook/', name: 'app_webhook', methods: ['POST'])]
-    public function addWebhookAction(Request $request): JsonResponse
+    #[Route('/webhook/{type}/{id}/', name: 'app_webhook', methods: ['POST'])]
+    public function addWebhookAction(Request $request, string $type, int $id): JsonResponse
     {
-        $arrayWebhookData = $this->serializer->decode($request->getContent(), 'json');
+//        todo обрабатывать заранее через слушатели (тогда когда будет userWebhookRepository):
+//        $this->userWebhookRepository->findBy(
+//            [
+//                'id' => $id,
+//                'type' => $type
+//            ]
+//        );
 
-        $webhookType = $this->actionVoter->getType($arrayWebhookData);
+        $webhookData = $this->serializer->decode($request->getContent(), 'json');
+
+        $actionDecoded = $this->actionDecodeHandler->findAndDecodeActionByTypeWebhook($type, $webhookData);
+
+        if (!$actionDecoded){
+            return new JsonResponse('Action data not found', 400);
+        }
 
         $action = (new Action())
-            ->setType($webhookType['type'])
-            ->setChatId($webhookType['chatId'])
-            ->setContent($webhookType['content'])
+            ->setType($actionDecoded['type'])
+            ->setChatId($actionDecoded['chatId'])
+            ->setContent($actionDecoded['content'])
         ;
 
         $this->actionRepository->saveAndFlush($action);

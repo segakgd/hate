@@ -11,7 +11,7 @@ class WebhookTest extends WebTestCase
 
         $crawler = $client->request(
             'POST',
-            '/webhook/',
+            '/webhook/telegram/1/',
             [],
             [],
             [],

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Webhook\Telegram;
 
 use App\UserSetting;
 use Exception;
 
-class ActionVoter
+class TelegramActionDecode
 {
     /**
      * @throws Exception
      */
-    public function getType(array $arrayWebhookData): ?array // todo не место этой функции тут
+    public function getType(array $arrayWebhookData): ?array
     {
         if ($this->isCommand($arrayWebhookData)) {
             return $this->createCommandAction($arrayWebhookData);
@@ -26,7 +26,7 @@ class ActionVoter
     /**
      * @throws Exception
      */
-    private function createCommandAction(array $arrayWebhookData): array // todo не место этой функции тут
+    private function createCommandAction(array $arrayWebhookData): array
     {
         $action = UserSetting::searchNextAction($arrayWebhookData['message']['text']) ??
             throw new Exception('Undefined command ' . $arrayWebhookData['message']['text'])
@@ -40,7 +40,7 @@ class ActionVoter
     /**
      * @throws Exception
      */
-    private function createMessageAction(array $arrayWebhookData): array // todo не место этой функции тут
+    private function createMessageAction(array $arrayWebhookData): array
     {
         $action = UserSetting::searchNextAction($arrayWebhookData['message']['text']) ??
             throw new Exception('Undefined command ' . $arrayWebhookData['message']['text'])
@@ -51,13 +51,13 @@ class ActionVoter
         return $action;
     }
 
-    private function isCommand(array $arrayWebhookData): bool // todo не место этой функции тут
+    private function isCommand(array $arrayWebhookData): bool
     {
         return isset($arrayWebhookData['message']['entities'][0]['type']) &&
             $arrayWebhookData['message']['entities'][0]['type'] === 'bot_command';
     }
 
-    private function isMessage(array $arrayWebhookData): bool // todo не место этой функции тут
+    private function isMessage(array $arrayWebhookData): bool
     {
         return isset($arrayWebhookData['message']['text']);
     }
