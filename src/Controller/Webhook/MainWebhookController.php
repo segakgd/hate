@@ -2,7 +2,6 @@
 
 namespace App\Controller\Webhook;
 
-use App\Entity\Action;
 use App\Repository\ActionRepository;
 use App\Service\Webhook\ActionDecodeHandler;
 use Exception;
@@ -43,13 +42,7 @@ class MainWebhookController extends AbstractController
             return new JsonResponse('Action data not found', 400);
         }
 
-        $action = (new Action())
-            ->setType($actionDecoded['type'])
-            ->setChatId($actionDecoded['chatId'])
-            ->setContent($actionDecoded['content'])
-        ;
-
-        $this->actionRepository->saveAndFlush($action);
+        $this->actionRepository->createAction($actionDecoded);
 
         return new JsonResponse();
     }

@@ -21,6 +21,18 @@ class ActionRepository extends ServiceEntityRepository
         parent::__construct($registry, Action::class);
     }
 
+    public function createAction(array $actionDecoded): void
+    {
+        $action = (new Action())
+            ->setType($actionDecoded['type'])
+            ->setChatId($actionDecoded['chatId'])
+            ->setContent($actionDecoded['content'])
+            ->setState(Action::STATE_NEW)
+        ;
+
+        $this->saveAndFlush($action);
+    }
+
     public function saveAndFlush(Action $entity): void
     {
         $this->getEntityManager()->persist($entity);

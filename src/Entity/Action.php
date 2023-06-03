@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`action`')]
 class Action
 {
+    public const STATE_NEW = 'new';
+
+    public const STATE_PROCESS = 'process';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,6 +27,9 @@ class Action
 
     #[ORM\Column(type: Types::JSON)]
     private ?array $content = null;
+
+    #[ORM\Column(length: 15)]
+    private ?string $state = null;
 
     public function getId(): ?int
     {
@@ -61,6 +68,18 @@ class Action
     public function setContent(array $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
