@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Action;
+use App\Entity\ChatEvent;
 use App\Service\Handler\MessageHandler;
 
 class ActionHandler
@@ -12,7 +12,7 @@ class ActionHandler
     ) {
     }
 
-    public function handle(Action $action): bool
+    public function handle(ChatEvent $action): bool
     {
         return match ($action->getType()) {
             'message' => $this->messageHandler->handle($action),

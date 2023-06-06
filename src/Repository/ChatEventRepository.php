@@ -2,44 +2,44 @@
 
 namespace App\Repository;
 
-use App\Entity\Action;
+use App\Entity\ChatEvent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Action>
+ * @extends ServiceEntityRepository<ChatEvent>
  *
- * @method Action|null find($id, $lockMode = null, $lockVersion = null)
- * @method Action|null findOneBy(array $criteria, array $orderBy = null)
- * @method Action[]    findAll()
- * @method Action[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ChatEvent|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ChatEvent|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ChatEvent[]    findAll()
+ * @method ChatEvent[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ActionRepository extends ServiceEntityRepository
+class ChatEventRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Action::class);
+        parent::__construct($registry, ChatEvent::class);
     }
 
     public function createAction(array $actionDecoded): void
     {
-        $action = (new Action())
+        $action = (new ChatEvent())
             ->setType($actionDecoded['type'])
             ->setChatId($actionDecoded['chatId'])
             ->setContent($actionDecoded['content'])
-            ->setState(Action::STATE_NEW)
+            ->setState(ChatEvent::STATE_NEW)
         ;
 
         $this->saveAndFlush($action);
     }
 
-    public function saveAndFlush(Action $entity): void
+    public function saveAndFlush(ChatEvent $entity): void
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
     }
 
-    public function remove(Action $entity): void
+    public function remove(ChatEvent $entity): void
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();

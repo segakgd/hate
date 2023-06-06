@@ -2,33 +2,33 @@
 
 namespace App\Repository;
 
-use App\Entity\Step;
+use App\Entity\BehaviorScenario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Step>
+ * @extends ServiceEntityRepository<BehaviorScenario>
  *
- * @method Step|null find($id, $lockMode = null, $lockVersion = null)
- * @method Step|null findOneBy(array $criteria, array $orderBy = null)
- * @method Step[]    findAll()
- * @method Step[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method BehaviorScenario|null find($id, $lockMode = null, $lockVersion = null)
+ * @method BehaviorScenario|null findOneBy(array $criteria, array $orderBy = null)
+ * @method BehaviorScenario[]    findAll()
+ * @method BehaviorScenario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class StepRepository extends ServiceEntityRepository
+class BehaviorScenarioRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Step::class);
+        parent::__construct($registry, BehaviorScenario::class);
     }
 
-    public function save(Step $entity): void
+    public function save(BehaviorScenario $entity): void
     {
         $this->getEntityManager()->persist($entity);
 
         $this->getEntityManager()->flush();
     }
 
-    public function remove(Step $entity, bool $flush = false): void
+    public function remove(BehaviorScenario $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

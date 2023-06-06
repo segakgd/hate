@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\Entity\Step;
-use App\Repository\StepRepository;
+use App\Entity\BehaviorScenario;
+use App\Repository\BehaviorScenarioRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -81,8 +81,8 @@ class ConverterSettingCommand extends Command
     ];
 
     public function __construct(
-        private readonly StepRepository $stepRepository,
-        string $name = null
+        private readonly BehaviorScenarioRepository $stepRepository,
+        string                                      $name = null
     ) {
         parent::__construct($name);
     }
@@ -111,7 +111,7 @@ class ConverterSettingCommand extends Command
 
         foreach ($settings as $key => $settingItem) {
 
-            $step = (new Step())
+            $step = (new BehaviorScenario())
                 ->setType($settingItem['type'])
                 ->setName($key)
                 ->setContent($settingItem['content'])

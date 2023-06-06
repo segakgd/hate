@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\StepRepository;
+use App\Repository\BehaviorScenarioRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: StepRepository::class)]
-class Step
+#[ORM\Entity(repositoryClass: BehaviorScenarioRepository::class)]
+class BehaviorScenario
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,11 +19,11 @@ class Step
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $ownerStepId = null;
-
     #[ORM\Column]
     private array $content = [];
+
+    #[ORM\Column(nullable: true)]
+    private ?int $ownerStepId = null;
 
     public function getId(): ?int
     {

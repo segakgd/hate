@@ -2,7 +2,7 @@
 
 namespace App\Controller\Webhook;
 
-use App\Repository\ActionRepository;
+use App\Repository\ChatEventRepository;
 use App\Service\Webhook\ActionDecodeHandler;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +15,7 @@ class MainWebhookController extends AbstractController
 {
     public function __construct(
         private readonly SerializerInterface $serializer,
-        private readonly ActionRepository $actionRepository,
+        private readonly ChatEventRepository $chatEventRepository,
         private readonly ActionDecodeHandler $actionDecodeHandler,
     ) {
     }
@@ -34,15 +34,25 @@ class MainWebhookController extends AbstractController
 //            ]
 //        );
 
+        // step -> chatSession
+
+
+        // -------------- decode ----------------
         $webhookData = $this->serializer->decode($request->getContent(), 'json');
-
         $actionDecoded = $this->actionDecodeHandler->findAndDecodeActionByTypeWebhook($type, $webhookData);
+        // -------------- decode ----------------
 
+
+        // this block check exist action(event)\step
         if (!$actionDecoded){
             return new JsonResponse('Action data not found', 400);
         }
 
-        $this->actionRepository->createAction($actionDecoded);
+        // todo add check in step db
+        // this block check exist action(event)\step
+
+
+        $this->chatEventRepository->createAction($actionDecoded);
 
         return new JsonResponse();
     }
