@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: BehaviorScenarioRepository::class)]
 class BehaviorScenario
 {
+    // todo требуется добавить userId
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

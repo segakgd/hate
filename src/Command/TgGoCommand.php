@@ -33,12 +33,15 @@ class TgGoCommand extends Command
         try {
             $action = $this->chatEventRepository->findOneBy([]) ?? throw new Exception('Action not found');
 
+//            dd($action);
+
             $isSuccess = $this->actionHandler->handle($action);
 
             if ($isSuccess){
-                $this->chatEventRepository->remove($action);
+//                $this->chatEventRepository->remove($action);
             }
         } catch (Throwable $throwable){
+            dd($throwable);
             $io->error($throwable->getMessage());
 
             return Command::FAILURE;

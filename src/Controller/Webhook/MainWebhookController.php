@@ -2,8 +2,13 @@
 
 namespace App\Controller\Webhook;
 
+use App\Dto\TelegramWebhookDto;
+use App\Entity\ChatEvent;
+use App\Entity\ChatSession;
 use App\Repository\ChatEventRepository;
-use App\Service\Webhook\ActionDecodeHandler;
+use App\Repository\ChatSessionRepository;
+use App\Service\BehaviorScenarioService;
+use App\Service\Webhook\ChatEventDecodeService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +21,9 @@ class MainWebhookController extends AbstractController
     public function __construct(
         private readonly SerializerInterface $serializer,
         private readonly ChatEventRepository $chatEventRepository,
-        private readonly ActionDecodeHandler $actionDecodeHandler,
+        private readonly ChatEventDecodeService $chatEventDecodeService,
+        private readonly ChatSessionRepository $chatSessionRepository,
+        private readonly BehaviorScenarioService $behaviorScenarioService,
     ) {
     }
 
@@ -36,24 +43,69 @@ class MainWebhookController extends AbstractController
 
         // step -> chatSession
 
+        // -------------- decode telegram message ----------------
+        $webhookData = $this->serializer->deserialize(
+            $request->getContent(),
+            TelegramWebhookDto::class,
+            'json'
+        );
+        // от dto я хочу получить:
+        // быстрый доступ к пониманию типа.
+        // быстрый доступ к контенту.
 
-        // -------------- decode ----------------
-        $webhookData = $this->serializer->decode($request->getContent(), 'json');
-        $actionDecoded = $this->actionDecodeHandler->findAndDecodeActionByTypeWebhook($type, $webhookData);
-        // -------------- decode ----------------
+//        dd($webhookData->getMessage()->getChat());
+        $chatSession = $this->chatSessionRepository->getSessionByChatMessage(
+            $webhookData->getMessage()->getChat()['id'], // todo
+            'telegram'
+        );
 
+        if (!$chatSession){
+            $chatSession = (new ChatSession())
+                ->setChatId($webhookData->getMessage()->getChat()['id'])
+                ->setChannel('telegram')
+            ;
 
-        // this block check exist action(event)\step
-        if (!$actionDecoded){
-            return new JsonResponse('Action data not found', 400);
+            $this->chatSessionRepository->save($chatSession);
         }
 
-        // todo add check in step db
-        // this block check exist action(event)\step
+        if ($webhookData->getMessage()->isCommand()){
+            $type = 'command';
+        } elseif ($webhookData->getMessage()->isMessage()){
+            $type = 'message';
+        } else {
+            throw new Exception('Хз что пришло...');
+        }
 
+        $chatEventId = $chatSession->getChatEvent();
 
-        $this->chatEventRepository->createAction($actionDecoded);
+        if (!$chatEventId){
+            $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $webhookData->getMessage()->getText());
+
+            $chatEvent = (new ChatEvent())
+                ->setType($type)
+                ->setBehaviorScenario($scenario->getId())
+            ;
+
+            $this->chatEventRepository->saveAndFlush($chatEvent);
+
+            $this->chatSessionRepository->save($chatSession->setChatEvent(
+                $chatEvent->getId()
+            ));
+        } else {
+            $chatEvent = $this->chatEventRepository->find($chatEventId);
+
+            if ($this->isMandatoryEvent()){
+                throw new Exception('Хз что пришло...');
+            }
+        }
 
         return new JsonResponse();
+    }
+
+    public function isMandatoryEvent(): bool
+    {
+        // todo игнорировать команды
+
+        return false;
     }
 }

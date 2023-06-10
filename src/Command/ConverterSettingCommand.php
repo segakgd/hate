@@ -19,7 +19,7 @@ class ConverterSettingCommand extends Command
 {
     private const USER_SETTING = [
         '/command1' => [
-            'type' => 'message',
+            'type' => 'command',
             'content' => [
                 'message' => 'Что делаешь?',
                 'replyMarkup' => [
@@ -49,7 +49,7 @@ class ConverterSettingCommand extends Command
             ]
         ],
         '/command2' => [
-            'type' => 'message',
+            'type' => 'command',
             'content' => [
                 'message' => 'Как дела?',
                 'replyMarkup' => [

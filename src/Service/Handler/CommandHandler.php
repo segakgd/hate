@@ -8,7 +8,7 @@ use App\Repository\BehaviorScenarioRepository;
 use App\Repository\ChatSessionRepository;
 use App\Service\TelegramService;
 
-class MessageHandler
+class CommandHandler
 {
     public function __construct(
         private readonly TelegramService $telegramService,

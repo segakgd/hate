@@ -21,18 +21,6 @@ class ChatEventRepository extends ServiceEntityRepository
         parent::__construct($registry, ChatEvent::class);
     }
 
-    public function createAction(array $actionDecoded): void
-    {
-        $action = (new ChatEvent())
-            ->setType($actionDecoded['type'])
-            ->setChatId($actionDecoded['chatId'])
-            ->setContent($actionDecoded['content'])
-            ->setState(ChatEvent::STATE_NEW)
-        ;
-
-        $this->saveAndFlush($action);
-    }
-
     public function saveAndFlush(ChatEvent $entity): void
     {
         $this->getEntityManager()->persist($entity);

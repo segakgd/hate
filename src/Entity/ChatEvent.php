@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ChatEventRepository::class)]
 class ChatEvent
 {
+    // todo добавить влаг того, сто событие отправлено
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,9 +32,11 @@ class ChatEvent
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id): self // todo откуда сеттер? хм..
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getType(): ?string
@@ -40,9 +44,11 @@ class ChatEvent
         return $this->type;
     }
 
-    public function setType(?string $type): void
+    public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
     }
 
     public function getBehaviorScenario(): ?int

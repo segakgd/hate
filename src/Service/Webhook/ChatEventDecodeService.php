@@ -5,7 +5,7 @@ namespace App\Service\Webhook;
 use App\Service\Webhook\Telegram\TelegramActionDecode;
 use Exception;
 
-class ActionDecodeHandler
+class ChatEventDecodeService
 {
     public function __construct(
         private readonly TelegramActionDecode $telegramActionDecode,

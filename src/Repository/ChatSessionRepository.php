@@ -21,13 +21,20 @@ class ChatSessionRepository extends ServiceEntityRepository
         parent::__construct($registry, ChatSession::class);
     }
 
-    public function save(ChatSession $entity, bool $flush = false): void
+    public function getSessionByChatMessage(int $chatId, string $channel): ?ChatSession
+    {
+        return $this->findOneBy(
+            [
+                'chatId' => $chatId,
+                'channel' => $channel,
+            ]
+        );
+    }
+
+    public function save(ChatSession $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(ChatSession $entity, bool $flush = false): void
