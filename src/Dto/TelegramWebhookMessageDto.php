@@ -7,31 +7,21 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class TelegramWebhookMessageDto
 {
     #[SerializedName('message_id')]
-    public $messageId;
+    private $messageId;
 
-    public $from;
+    private $from;
 
-    public $chat;
+    private $chat;
 
-    public $date;
+    private $date;
 
-    public $text;
+    private $text;
 
-    public $entities;
-
-    public function getMessageId()
-    {
-        return $this->messageId;
-    }
+    private $entities;
 
     public function setMessageId($messageId): void
     {
         $this->messageId = $messageId;
-    }
-
-    public function getFrom()
-    {
-        return $this->from;
     }
 
     public function setFrom($from): void
@@ -39,19 +29,9 @@ class TelegramWebhookMessageDto
         $this->from = $from;
     }
 
-    public function getChat()
-    {
-        return $this->chat;
-    }
-
     public function setChat($chat): void
     {
         $this->chat = $chat;
-    }
-
-    public function getDate()
-    {
-        return $this->date;
     }
 
     public function setDate($date): void
@@ -69,11 +49,6 @@ class TelegramWebhookMessageDto
         $this->text = $text;
     }
 
-    public function getEntities()
-    {
-        return $this->entities;
-    }
-
     public function setEntities($entities): void
     {
         $this->entities = $entities;
@@ -81,13 +56,13 @@ class TelegramWebhookMessageDto
 
     public function isCommand(): bool
     {
-        $entities = $this->getEntities();
+        $entities = $this->entities;
 
         return isset($entities[0]['type']) && $entities[0]['type'] === 'bot_command';
     }
 
     public function isMessage(): bool
     {
-        return $this->getText() !== null;
+        return $this->text !== null;
     }
 }

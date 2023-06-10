@@ -7,8 +7,7 @@ use App\Entity\ChatEvent;
 use App\Entity\ChatSession;
 use App\Repository\ChatEventRepository;
 use App\Repository\ChatSessionRepository;
-use App\Service\BehaviorScenarioService;
-use App\Service\Webhook\ChatEventDecodeService;
+use App\Service\Scenario\BehaviorScenarioService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +20,6 @@ class MainWebhookController extends AbstractController
     public function __construct(
         private readonly SerializerInterface $serializer,
         private readonly ChatEventRepository $chatEventRepository,
-        private readonly ChatEventDecodeService $chatEventDecodeService,
         private readonly ChatSessionRepository $chatSessionRepository,
         private readonly BehaviorScenarioService $behaviorScenarioService,
     ) {
@@ -53,6 +51,12 @@ class MainWebhookController extends AbstractController
         // быстрый доступ к пониманию типа.
         // быстрый доступ к контенту.
 
+        dd(
+            $webhookData,
+            $webhookData->getWebhookType(),
+            $webhookData->getWebhookContent(),
+        );
+
 //        dd($webhookData->getMessage()->getChat());
         $chatSession = $this->chatSessionRepository->getSessionByChatMessage(
             $webhookData->getMessage()->getChat()['id'], // todo
@@ -79,7 +83,7 @@ class MainWebhookController extends AbstractController
         $chatEventId = $chatSession->getChatEvent();
 
         if (!$chatEventId){
-            $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $webhookData->getMessage()->getText());
+            $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $webhookData->getWebhookContent());
 
             $chatEvent = (new ChatEvent())
                 ->setType($type)

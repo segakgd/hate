@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Repository\ChatEventRepository;
-use App\Service\ActionHandler;
+use App\Service\Handler\ActionHandler;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
