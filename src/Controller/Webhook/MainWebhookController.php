@@ -28,47 +28,51 @@ class MainWebhookController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/webhook/{type}/{id}/', name: 'app_webhook', methods: ['POST'])]
-    public function addWebhookAction(Request $request, string $type, int $id): JsonResponse
+    #[Route('/webhook/{channel}/{id}/', name: 'app_webhook', methods: ['POST'])]
+    public function addWebhookAction(Request $request, string $channel, int $id): JsonResponse
     {
-//        todo обрабатывать заранее через слушатели (тогда когда будет userWebhookRepository):
-//        $this->userWebhookRepository->findBy(
-//            [
-//                'id' => $id,
-//                'type' => $type
-//            ]
-//        );
-
-        // step -> chatSession
-
-        // -------------- decode telegram message ----------------
         $webhookData = $this->serializer->deserialize(
             $request->getContent(),
             TelegramWebhookDto::class,
             'json'
         );
 
-//        dd($webhookData->getMessage()->getChat());
+        $chatSession = $this->getOrCreateChatSession($webhookData->getWebhookChatId(), $channel);
+
+        $this->createChatEventForSession(
+            $chatSession,
+            $webhookData->getWebhookType(),
+            $webhookData->getWebhookContent()
+        );
+
+        return new JsonResponse();
+    }
+
+    private function getOrCreateChatSession(int $chatId, string $channel): ?ChatSession
+    {
         $chatSession = $this->chatSessionRepository->getSessionByChatMessage(
-            $webhookData->getWebhookChatId(),
-            'telegram'
+            $chatId,
+            $channel
         );
 
         if (!$chatSession){
             $chatSession = (new ChatSession())
-                ->setChatId($webhookData->getWebhookChatId())
-                ->setChannel('telegram')
+                ->setChatId($chatId)
+                ->setChannel($channel)
             ;
 
             $this->chatSessionRepository->save($chatSession);
         }
 
-        $type = $webhookData->getWebhookType();
+        return $chatSession;
+    }
 
+    private function createChatEventForSession($chatSession, $type, $content): void
+    {
         $chatEventId = $chatSession->getChatEvent();
 
         if (!$chatEventId){
-            $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $webhookData->getWebhookContent());
+            $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
 
             $chatEvent = (new ChatEvent())
                 ->setType($type)
@@ -87,8 +91,6 @@ class MainWebhookController extends AbstractController
                 throw new Exception('Хз что пришло...');
             }
         }
-
-        return new JsonResponse();
     }
 
     public function isMandatoryEvent(): bool
