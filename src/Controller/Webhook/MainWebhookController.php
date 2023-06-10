@@ -47,38 +47,23 @@ class MainWebhookController extends AbstractController
             TelegramWebhookDto::class,
             'json'
         );
-        // от dto я хочу получить:
-        // быстрый доступ к пониманию типа.
-        // быстрый доступ к контенту.
-
-        dd(
-            $webhookData,
-            $webhookData->getWebhookType(),
-            $webhookData->getWebhookContent(),
-        );
 
 //        dd($webhookData->getMessage()->getChat());
         $chatSession = $this->chatSessionRepository->getSessionByChatMessage(
-            $webhookData->getMessage()->getChat()['id'], // todo
+            $webhookData->getWebhookChatId(),
             'telegram'
         );
 
         if (!$chatSession){
             $chatSession = (new ChatSession())
-                ->setChatId($webhookData->getMessage()->getChat()['id'])
+                ->setChatId($webhookData->getWebhookChatId())
                 ->setChannel('telegram')
             ;
 
             $this->chatSessionRepository->save($chatSession);
         }
 
-        if ($webhookData->getMessage()->isCommand()){
-            $type = 'command';
-        } elseif ($webhookData->getMessage()->isMessage()){
-            $type = 'message';
-        } else {
-            throw new Exception('Хз что пришло...');
-        }
+        $type = $webhookData->getWebhookType();
 
         $chatEventId = $chatSession->getChatEvent();
 

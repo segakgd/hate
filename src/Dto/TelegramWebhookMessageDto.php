@@ -11,7 +11,7 @@ class TelegramWebhookMessageDto
 
     private $from;
 
-    private $chat;
+    private TelegramWebhookChatDto $chat;
 
     private $date;
 
@@ -27,6 +27,11 @@ class TelegramWebhookMessageDto
     public function setFrom($from): void
     {
         $this->from = $from;
+    }
+
+    public function getChat()
+    {
+        return $this->chat;
     }
 
     public function setChat($chat): void

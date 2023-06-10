@@ -40,4 +40,9 @@ class TelegramWebhookDto
     {
         return $this->message->getText();
     }
+
+    public function getWebhookChatId(): int // мб targetId ??
+    {
+        return $this->message->getChat()->getId();
+    }
 }
