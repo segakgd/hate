@@ -14,6 +14,8 @@ class ChatEvent
 
     public const STATUS_DONE = 'done';
 
+    public const STATUS_FAIL = 'fail';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

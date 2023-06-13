@@ -67,45 +67,88 @@ class MainWebhookController extends AbstractController
         return $chatSession;
     }
 
+    /**
+     * @throws Exception
+     */
     private function createChatEventForSession($chatSession, $type, $content): void
     {
         $chatEventId = $chatSession->getChatEvent();
 
-        if (!$chatEventId){
-            $this->createChatEventByScenario($chatSession, $type, $content);
-         } else {
+        if ($chatEventId){
             $chatEvent = $this->chatEventRepository->find($chatEventId);
 
-            if (!$chatEvent){
-                $this->createChatEventByScenario($chatSession, $type, $content);
+            // если мы находимся тут, это значит что пора проверить, можем ли мы затереть собитие, которое ожидает что-то или нет.
+            if (null !== $chatEvent && $this->isMandatoryEvent($chatEvent, $type)){
+                throw new Exception('Событие обязательно, нужно уведомить пользователя об этом');
             }
 
-            if ($this->isMandatoryEvent()){ // todo сейчас мы не нарушаем сценарий заданный пользователем, но если команда, то нужно будет пропускать создание команды и затерать старые события
-                throw new Exception('Хз что пришло...');
+            if (null !== $chatEvent){
+                $this->rewriteChatEventByScenario($chatSession, $type, $content);
+
+                return;
             }
         }
+
+        $this->createChatEventByScenario($chatSession, $type, $content);
     }
 
-    private function createChatEventByScenario($chatSession, $type, $content): void
+    private function createChatEventByScenario(ChatSession $chatSession, string $type, string $content): void
     {
         $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
 
+        $chatEvent = $this->createChatEvent($type, $scenario->getId());
+        $chatEventId = $chatEvent->getId();
+
+        $chatSession->setChatEvent($chatEventId);
+
+        $this->chatSessionRepository->save($chatSession);
+
+    }
+
+    private function rewriteChatEventByScenario(ChatSession $chatSession, string $type, string $content): void
+    {
+        $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
+
+        $chatEvent = $this->createChatEvent($type, $scenario->getId());
+
+        $oldEventId = $chatSession->getChatEvent();
+        $chatEventId = $chatEvent->getId();
+
+        // обновляем сессию
+        $chatSession->setChatEvent($chatEventId);
+
+        $this->chatSessionRepository->save($chatSession);
+
+        // старое событие удаляем
+        $oldEvent = $this->chatEventRepository->find($oldEventId);
+        $this->chatEventRepository->remove($oldEvent);
+    }
+
+    public function createChatEvent(string $type, int $scenarioId): ChatEvent
+    {
         $chatEvent = (new ChatEvent())
             ->setType($type)
-            ->setBehaviorScenario($scenario->getId())
+            ->setBehaviorScenario($scenarioId)
         ;
 
         $this->chatEventRepository->saveAndFlush($chatEvent);
 
-        $this->chatSessionRepository->save($chatSession->setChatEvent(
-            $chatEvent->getId()
-        ));
+        return $chatEvent;
     }
 
-    public function isMandatoryEvent(): bool
+    /**
+     * НЕ Является обязательным событием
+     */
+    public function isMandatoryEvent(ChatEvent $chatEvent, string $type): bool
     {
-        // todo игнорировать команды
+        if ($type === 'command') {
+            return false;
+        }
 
-        return false;
+        if (empty($chatEvent->getActionAfter())) {
+            return false;
+        }
+
+        return true;
     }
 }

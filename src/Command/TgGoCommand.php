@@ -2,9 +2,9 @@
 
 namespace App\Command;
 
+use App\Entity\ChatEvent;
 use App\Repository\ChatEventRepository;
 use App\Service\Handler\ActionHandler;
-use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,29 +30,39 @@ class TgGoCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        $action = $this->chatEventRepository->findOneBy(
+            [
+                'status' => ChatEvent::STATUS_NEW,
+            ]
+        );
+
+        if (!$action){
+            return Command::SUCCESS;
+        }
+
         try {
-            $action = $this->chatEventRepository->findOneBy([]) ?? throw new Exception('Action not found');
+            $this->updateChatEventStatus($action, ChatEvent::STATUS_IN_PROCESS);
 
-//            dd($action);
+            $this->actionHandler->handle($action);
 
-            $isSuccess = $this->actionHandler->handle($action);
+            $this->updateChatEventStatus($action, ChatEvent::STATUS_DONE);
 
-            if ($isSuccess){
-//                $this->chatEventRepository->remove($action);
-            }
         } catch (Throwable $throwable){
-            dd($throwable);
+
+            $this->updateChatEventStatus($action, ChatEvent::STATUS_FAIL);
+
             $io->error($throwable->getMessage());
 
             return Command::FAILURE;
         }
 
-        if (!$isSuccess){
-            $io->error('Command is not success');
-        } else {
-            $io->success('Command is success');
-        }
-
         return Command::SUCCESS;
+    }
+
+    protected function updateChatEventStatus(ChatEvent $chatEvent, string $status): void
+    {
+        $chatEvent->setStatus($status);
+
+        $this->chatEventRepository->saveAndFlush($chatEvent);
     }
 }
