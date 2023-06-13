@@ -72,25 +72,34 @@ class MainWebhookController extends AbstractController
         $chatEventId = $chatSession->getChatEvent();
 
         if (!$chatEventId){
-            $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
-
-            $chatEvent = (new ChatEvent())
-                ->setType($type)
-                ->setBehaviorScenario($scenario->getId())
-            ;
-
-            $this->chatEventRepository->saveAndFlush($chatEvent);
-
-            $this->chatSessionRepository->save($chatSession->setChatEvent(
-                $chatEvent->getId()
-            ));
-        } else {
+            $this->createChatEventByScenario($chatSession, $type, $content);
+         } else {
             $chatEvent = $this->chatEventRepository->find($chatEventId);
 
-            if ($this->isMandatoryEvent()){
+            if (!$chatEvent){
+                $this->createChatEventByScenario($chatSession, $type, $content);
+            }
+
+            if ($this->isMandatoryEvent()){ // todo сейчас мы не нарушаем сценарий заданный пользователем, но если команда, то нужно будет пропускать создание команды и затерать старые события
                 throw new Exception('Хз что пришло...');
             }
         }
+    }
+
+    private function createChatEventByScenario($chatSession, $type, $content): void
+    {
+        $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
+
+        $chatEvent = (new ChatEvent())
+            ->setType($type)
+            ->setBehaviorScenario($scenario->getId())
+        ;
+
+        $this->chatEventRepository->saveAndFlush($chatEvent);
+
+        $this->chatSessionRepository->save($chatSession->setChatEvent(
+            $chatEvent->getId()
+        ));
     }
 
     public function isMandatoryEvent(): bool

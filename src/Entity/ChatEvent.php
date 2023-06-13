@@ -8,7 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ChatEventRepository::class)]
 class ChatEvent
 {
-    // todo добавить влаг того, сто событие отправлено
+    public const STATUS_IN_PROCESS = 'in_process';
+
+    public const STATUS_NEW = 'new';
+
+    public const STATUS_DONE = 'done';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,6 +30,9 @@ class ChatEvent
 
     #[ORM\Column(nullable: true)]
     private array $actionAfter = [];
+
+    #[ORM\Column(length: 15)]
+    private string $status = self::STATUS_NEW;
 
     public function getId(): ?int
     {
@@ -83,6 +90,18 @@ class ChatEvent
     public function setActionAfter(?array $actionAfter): self
     {
         $this->actionAfter = $actionAfter;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
