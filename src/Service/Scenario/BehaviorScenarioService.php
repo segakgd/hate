@@ -21,4 +21,13 @@ class BehaviorScenarioService
             ]
         );
     }
+
+    public function getScenarioByOwnerId(int $ownerBehaviorScenarioId): ?BehaviorScenario
+    {
+        return $this->behaviorScenarioRepository->findOneBy(
+            [
+                'ownerStepId' => $ownerBehaviorScenarioId,
+            ]
+        );
+    }
 }

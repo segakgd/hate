@@ -83,7 +83,7 @@ class BehaviorScenario
         return $this;
     }
 
-    public function getActionAfter(): array
+    public function getActionAfter(): ?array
     {
         return $this->actionAfter;
     }

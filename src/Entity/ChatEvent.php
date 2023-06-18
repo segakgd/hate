@@ -30,10 +30,10 @@ class ChatEvent
     private ?int $behaviorScenario = null;
 
     #[ORM\Column(nullable: true)]
-    private array $actionBefore = [];
+    private ?array $actionBefore = [];
 
     #[ORM\Column(nullable: true)]
-    private array $actionAfter = [];
+    private ?array $actionAfter = [];
 
     #[ORM\Column(length: 15)]
     private string $status = self::STATUS_NEW;

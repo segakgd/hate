@@ -7,6 +7,8 @@ use App\Entity\ChatEvent;
 use App\Entity\ChatSession;
 use App\Repository\ChatEventRepository;
 use App\Repository\ChatSessionRepository;
+use App\Service\Handler\ActionAfterHandler;
+use App\Service\Handler\ActionBeforeHandler;
 use App\Service\Scenario\BehaviorScenarioService;
 use Exception;
 
@@ -16,6 +18,8 @@ class ChatEventService
         private readonly ChatEventRepository $chatEventRepository,
         private readonly ChatSessionRepository $chatSessionRepository,
         private readonly BehaviorScenarioService $behaviorScenarioService,
+        private readonly ActionAfterHandler $actionAfterHandler,
+        private readonly ActionBeforeHandler $actionBeforeHandler,
     ) {
     }
 
@@ -29,13 +33,27 @@ class ChatEventService
         if ($chatEventId){
             $chatEvent = $this->chatEventRepository->find($chatEventId);
 
+            if (null !== $chatEvent && $chatEvent->issetActions()){
+                if ($chatEvent->getActionAfter()){
+                    $this->actionAfterHandler->handle();
+                }
+
+                if ($chatEvent->getActionAfter()){
+                    $this->actionBeforeHandler->handle();
+                }
+
+                $chatEvent->setStatus(ChatEvent::STATUS_DONE);
+
+                $this->chatEventRepository->saveAndFlush($chatEvent);
+            }
+
             // если мы находимся тут, это значит что пора проверить, можем ли мы затереть собитие, которое ожидает что-то или нет.
             if (null !== $chatEvent && $this->isMandatoryEvent($chatEvent, $type)){
                 throw new Exception('Событие обязательно, нужно уведомить пользователя об этом');
             }
 
             if (null !== $chatEvent){
-                $this->rewriteChatEventByScenario($chatSession, $type, $content);
+                $this->rewriteChatEventByScenario($chatEvent, $chatSession, $type, $content);
 
                 return;
             }
@@ -57,9 +75,18 @@ class ChatEventService
 
     }
 
-    private function rewriteChatEventByScenario(ChatSession $chatSession, string $type, string $content): void
-    {
+    private function rewriteChatEventByScenario(
+        ChatEvent $chatEvent,
+        ChatSession $chatSession,
+        string $type,
+        string $content
+    ): void {
         $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
+
+        if (!$scenario){
+            $ownerBehaviorScenarioId = $chatEvent->getBehaviorScenario();
+            $scenario = $this->behaviorScenarioService->getScenarioByOwnerId($ownerBehaviorScenarioId);
+        }
 
         $chatEvent = $this->createChatEvent($scenario, $type);
 
@@ -96,6 +123,10 @@ class ChatEventService
         }
 
         if (empty($chatEvent->getActionAfter())) {
+            return false;
+        }
+
+        if (ChatEvent::STATUS_DONE === $chatEvent->getStatus()) {
             return false;
         }
 

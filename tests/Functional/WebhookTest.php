@@ -16,9 +16,9 @@ class WebhookTest extends WebTestCase
             [],
             [],
             '{
-              "update_id": 671775862,
+              "update_id": 671775864,
               "message": {
-                "message_id": 131,
+                "message_id": 136,
                 "from": {
                   "id": 873817360,
                   "is_bot": false,
@@ -32,15 +32,8 @@ class WebhookTest extends WebTestCase
                   "username": "sega_kgd",
                   "type": "private"
                 },
-                "date": 1687094419,
-                "text": "/command1",
-                "entities": [
-                  {
-                    "offset": 0,
-                    "length": 9,
-                    "type": "bot_command"
-                  }
-                ]
+                "date": 1687119306,
+                "text": "Моё имя"
               }
             }'
         );
