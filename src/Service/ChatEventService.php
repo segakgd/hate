@@ -88,6 +88,10 @@ class ChatEventService
             $scenario = $this->behaviorScenarioService->getScenarioByOwnerId($ownerBehaviorScenarioId);
         }
 
+        if (!$scenario){
+            $scenario = $this->behaviorScenarioService->generateDefaultScenario();
+        }
+
         $chatEvent = $this->createChatEvent($scenario, $type);
 
         $oldEventId = $chatSession->getChatEvent();

@@ -30,4 +30,21 @@ class BehaviorScenarioService
             ]
         );
     }
+
+    public function generateDefaultScenario(): BehaviorScenario
+    {
+        $behaviorScenario = (new BehaviorScenario)
+            ->setName('default')
+            ->setType('message')
+            ->setContent(
+                [
+                    'message' => 'Не понимаю что вы хотите, выберите одну из доступных комманд',
+                ]
+            )
+        ;
+
+        $this->behaviorScenarioRepository->save($behaviorScenario);
+
+        return $behaviorScenario;
+    }
 }
