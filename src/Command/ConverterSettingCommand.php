@@ -2,8 +2,7 @@
 
 namespace App\Command;
 
-use App\Entity\BehaviorScenario;
-use App\Repository\BehaviorScenarioRepository;
+use App\Converter\SettingConverter;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -80,9 +79,48 @@ class ConverterSettingCommand extends Command
         ],
     ];
 
+    private const USER_SETTING_2 = [
+        '/command1' => [
+            'type' => 'command',
+            'content' => [
+                'message' => 'Как вас зовут? (ФИО)',
+            ],
+            'actionAfter' => [
+                'contact' => [
+                    'name' => [
+                        'save'
+                    ]
+                ]
+            ],
+            'sub' => [
+                '#' => [
+                    'type' => 'message',
+                    'content' => [
+                        'message' => 'Гони номер телефона',
+                    ],
+                    'actionAfter' => [
+                        'contact' => [
+                            'phone' => [
+                                'save'
+                            ]
+                        ]
+                    ],
+                    'sub' => [
+                        '#' => [
+                            'type' => 'message',
+                            'content' => [
+                                'message' => 'Спасибо, мы с вами свяжемся',
+                            ],
+                        ],
+                    ]
+                ],
+            ]
+        ],
+    ];
+
     public function __construct(
-        private readonly BehaviorScenarioRepository $stepRepository,
-        string                                      $name = null
+        private readonly SettingConverter $settingConverter,
+        string $name = null
     ) {
         parent::__construct($name);
     }
@@ -92,7 +130,7 @@ class ConverterSettingCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         try {
-            $this->convert(self::USER_SETTING);
+            $this->settingConverter->convert(self::USER_SETTING_2);
 
         } catch (Throwable $throwable){
             $io->error($throwable->getMessage());
@@ -100,36 +138,6 @@ class ConverterSettingCommand extends Command
             return Command::FAILURE;
         }
 
-
         return Command::SUCCESS;
-    }
-
-    private function convert(array $settings, int $ownerId = null): array
-    {
-        $result = [];
-
-
-        foreach ($settings as $key => $settingItem) {
-
-            $step = (new BehaviorScenario())
-                ->setType($settingItem['type'])
-                ->setName($key)
-                ->setContent($settingItem['content'])
-            ;
-
-            if ($ownerId){
-                $step->setOwnerStepId($ownerId);
-            }
-
-            $this->stepRepository->save($step);
-
-            if (isset($settingItem['sub'])){
-                $resultSud = $this->convert($settingItem['sub'], $step->getId());
-
-                $result = array_merge($result, $resultSud);
-            }
-        }
-
-        return $result;
     }
 }

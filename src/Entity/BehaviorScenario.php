@@ -27,6 +27,9 @@ class BehaviorScenario
     #[ORM\Column(nullable: true)]
     private ?int $ownerStepId = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $actionAfter = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class BehaviorScenario
     public function setContent(array $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getActionAfter(): array
+    {
+        return $this->actionAfter;
+    }
+
+    public function setActionAfter(?array $actionAfter): self
+    {
+        $this->actionAfter = $actionAfter;
 
         return $this;
     }
