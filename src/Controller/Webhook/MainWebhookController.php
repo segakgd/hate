@@ -24,8 +24,8 @@ class MainWebhookController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/webhook/{channel}/{id}/', name: 'app_webhook', methods: ['POST'])]
-    public function addWebhookAction(Request $request, string $channel, int $id): JsonResponse
+    #[Route('/webhook/{id}/{channel}/', name: 'app_webhook', methods: ['POST'])]
+    public function addWebhookAction(Request $request, int $id, string $channel): JsonResponse
     {
         $webhookData = $this->serializer->deserialize(
             $request->getContent(),
