@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\BehaviorScenario;
 use App\Entity\ChatEvent;
 use App\Entity\ChatSession;
 use App\Repository\ChatEventRepository;
@@ -21,7 +22,7 @@ class ChatEventService
     /**
      * @throws Exception
      */
-    public function createChatEventForSession($chatSession, $type, $content): void
+    public function createChatEventForSession(ChatSession $chatSession, string $type, string $content): void
     {
         $chatEventId = $chatSession->getChatEvent();
 
@@ -47,7 +48,7 @@ class ChatEventService
     {
         $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
 
-        $chatEvent = $this->createChatEvent($type, $scenario->getId());
+        $chatEvent = $this->createChatEvent($scenario, $type);
         $chatEventId = $chatEvent->getId();
 
         $chatSession->setChatEvent($chatEventId);
@@ -60,7 +61,7 @@ class ChatEventService
     {
         $scenario = $this->behaviorScenarioService->getScenarioByNameAndType($type, $content);
 
-        $chatEvent = $this->createChatEvent($type, $scenario->getId());
+        $chatEvent = $this->createChatEvent($scenario, $type);
 
         $oldEventId = $chatSession->getChatEvent();
         $chatEventId = $chatEvent->getId();
@@ -75,11 +76,12 @@ class ChatEventService
         $this->chatEventRepository->remove($oldEvent);
     }
 
-    private function createChatEvent(string $type, int $scenarioId): ChatEvent
+    private function createChatEvent(BehaviorScenario $scenario, string $type): ChatEvent
     {
         $chatEvent = (new ChatEvent())
             ->setType($type)
-            ->setBehaviorScenario($scenarioId)
+            ->setBehaviorScenario($scenario->getId())
+            ->setActionAfter($scenario->getActionAfter() ?? null)
         ;
 
         $this->chatEventRepository->saveAndFlush($chatEvent);

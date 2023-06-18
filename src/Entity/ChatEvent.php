@@ -12,6 +12,8 @@ class ChatEvent
 
     public const STATUS_NEW = 'new';
 
+    public const WAITING_ACTION = 'waiting_action';
+
     public const STATUS_DONE = 'done';
 
     public const STATUS_FAIL = 'fail';
@@ -106,5 +108,10 @@ class ChatEvent
         $this->status = $status;
 
         return $this;
+    }
+
+    public function issetActions(): bool
+    {
+        return $this->actionAfter || $this->actionBefore;
     }
 }

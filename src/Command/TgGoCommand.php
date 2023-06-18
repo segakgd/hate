@@ -45,7 +45,11 @@ class TgGoCommand extends Command
 
             $this->actionHandler->handle($action);
 
-            $this->updateChatEventStatus($action, ChatEvent::STATUS_DONE);
+            if ($action->issetActions()){
+                $this->updateChatEventStatus($action, ChatEvent::WAITING_ACTION);
+            } else {
+                $this->updateChatEventStatus($action, ChatEvent::STATUS_DONE);
+            }
 
         } catch (Throwable $throwable){
 
