@@ -9,42 +9,6 @@ class WebhookTest extends WebTestCase
     public function test(){
         $client = static::createClient();
 
-//        $crawler = $client->request(
-//            'POST',
-//            '/webhook/1/telegram/',
-//            [],
-//            [],
-//            [],
-//            '{
-//              "update_id": 671775862,
-//              "message": {
-//                "message_id": 131,
-//                "from": {
-//                  "id": 873817360,
-//                  "is_bot": false,
-//                  "first_name": "Sega",
-//                  "username": "sega_kgd",
-//                  "language_code": "ru"
-//                },
-//                "chat": {
-//                  "id": 873817360,
-//                  "first_name": "Sega",
-//                  "username": "sega_kgd",
-//                  "type": "private"
-//                },
-//                "date": 1687094419,
-//                "text": "/command1",
-//                "entities": [
-//                  {
-//                    "offset": 0,
-//                    "length": 9,
-//                    "type": "bot_command"
-//                  }
-//                ]
-//              }
-//            }'
-//        );
-
         $crawler = $client->request(
             'POST',
             '/webhook/1/telegram/',
@@ -52,9 +16,9 @@ class WebhookTest extends WebTestCase
             [],
             [],
             '{
-              "update_id": 671775864,
+              "update_id": 671775868,
               "message": {
-                "message_id": 136,
+                "message_id": 149,
                 "from": {
                   "id": 873817360,
                   "is_bot": false,
@@ -68,11 +32,47 @@ class WebhookTest extends WebTestCase
                   "username": "sega_kgd",
                   "type": "private"
                 },
-                "date": 1687119306,
-                "text": "Моё имя"
+                "date": 1687894238,
+                "text": "/command1",
+                "entities": [
+                  {
+                    "offset": 0,
+                    "length": 9,
+                    "type": "bot_command"
+                  }
+                ]
               }
             }'
         );
+
+//        $crawler = $client->request(
+//            'POST',
+//            '/webhook/1/telegram/',
+//            [],
+//            [],
+//            [],
+//            '{
+//              "update_id": 671775864,
+//              "message": {
+//                "message_id": 136,
+//                "from": {
+//                  "id": 873817360,
+//                  "is_bot": false,
+//                  "first_name": "Sega",
+//                  "username": "sega_kgd",
+//                  "language_code": "ru"
+//                },
+//                "chat": {
+//                  "id": 873817360,
+//                  "first_name": "Sega",
+//                  "username": "sega_kgd",
+//                  "type": "private"
+//                },
+//                "date": 1687119306,
+//                "text": "Моё имя"
+//              }
+//            }'
+//        );
 
         dd($crawler);
 

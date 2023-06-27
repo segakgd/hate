@@ -25,7 +25,7 @@ class TgAddWebhookCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $webhookDto = (new WebhookDto())
-            ->setUrl('https://webhook.site/bec17a54-f0ac-4bab-9431-e3f1d4834a6e')
+            ->setUrl('https://webhook.site/42761825-a112-43c4-9d94-3208c129efda')
         ;
 
         $this->telegramService->setWebhook($webhookDto, '5109953245:AAE7TIhplLRxJdGmM27YSeSIdJdOh4ZXVVY');

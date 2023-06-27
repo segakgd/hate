@@ -118,6 +118,58 @@ class ConverterSettingCommand extends Command
         ],
     ];
 
+    private const USER_SETTING_3 = [
+        '/command1' => [
+            'type' => 'command',
+            'content' => [
+                'product' => [
+                    'name' => 'Продукт 1',
+                    'imageUri' => 'https://spb.zoon.ru/shops/magazin_belorusskih_produktov_na_grazhdanskom_prospekte_80_k_1/'
+                ],
+                'replyMarkup' => [
+                    [
+                        [
+                            'text' => 'Добавить в корзину'
+                        ],
+                        [
+                            'text' => 'Посмотреть корзину'
+                        ],
+                    ]
+                ]
+            ],
+            'sub' => [
+                'Добавить в корзину' => [
+                    'type' => 'message',
+                    'content' => [
+                        'message' => 'Товар добавлен в корзину',
+                    ],
+                    'replyMarkup' => [
+                        [
+                            [
+                                'text' => 'Посмотреть корзину'
+                            ],
+                            [
+                                'text' => 'Перейти к оплате'
+                            ],
+                        ]
+                    ],
+                ],
+            ]
+        ],
+        'Посмотреть корзину' => [
+            'type' => 'product',
+            'content' => [
+                'message' => 'У вас в корзине товаров: ',
+            ],
+        ],
+        'Перейти к оплате' => [
+            'type' => 'product',
+            'content' => [
+                'message' => 'Оплата...',
+            ],
+        ],
+    ];
+
     public function __construct(
         private readonly SettingConverter $settingConverter,
         string $name = null
@@ -130,7 +182,7 @@ class ConverterSettingCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         try {
-            $this->settingConverter->convert(self::USER_SETTING_2);
+            $this->settingConverter->convert(self::USER_SETTING_3);
 
         } catch (Throwable $throwable){
             $io->error($throwable->getMessage());

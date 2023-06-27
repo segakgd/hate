@@ -41,15 +41,15 @@ class TgGoCommand extends Command
         }
 
         try {
-            $this->updateChatEventStatus($action, ChatEvent::STATUS_IN_PROCESS);
+//            $this->updateChatEventStatus($action, ChatEvent::STATUS_IN_PROCESS);
 
             $this->actionHandler->handle($action);
 
-            if ($action->issetActions()){
-                $this->updateChatEventStatus($action, ChatEvent::WAITING_ACTION);
-            } else {
-                $this->updateChatEventStatus($action, ChatEvent::STATUS_DONE);
-            }
+//            if ($action->issetActions()){
+//                $this->updateChatEventStatus($action, ChatEvent::WAITING_ACTION);
+//            } else {
+//                $this->updateChatEventStatus($action, ChatEvent::STATUS_DONE);
+//            }
 
         } catch (Throwable $throwable){
 

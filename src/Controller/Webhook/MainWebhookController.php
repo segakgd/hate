@@ -21,6 +21,14 @@ class MainWebhookController extends AbstractController
     ) {
     }
 
+    //method connected:
+    //- ЮKassa Test: 381764678:TEST:60367 2023-06-27 18:42
+
+    //Принято! Ваши тестовые настройки:
+    //shopId 506751
+    //shopArticleId 538350
+    //Для оплаты используйте данные тестовой карты: 1111 1111 1111 1026, 12/22, CVC 000.
+
     /**
      * @throws Exception
      */

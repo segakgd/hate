@@ -2,6 +2,7 @@
 
 namespace App\Service\Client\Telegram;
 
+use App\Dto\Telegram\Invoice\InvoiceDto;
 use App\Dto\Telegram\Message\MessageDto;
 use App\Dto\Telegram\Webhook\WebhookDto;
 use App\Service\Client\Http\HttpClient;
@@ -20,6 +21,18 @@ class TelegramService implements TelegramServiceInterface
         $request = $this->buildRequest(
             $messageDto->getArray(),
             'sendMessage',
+        $token,
+            HttpClient::METHOD_POST,
+        );
+
+        $this->httpClient->request($request);
+    }
+
+    public function sendInvoice(InvoiceDto $messageDto, string $token): void
+    {
+        $request = $this->buildRequest(
+            $messageDto->getArray(),
+            'sendInvoice',
         $token,
             HttpClient::METHOD_POST,
         );
