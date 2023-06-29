@@ -13,7 +13,18 @@ class AdminController extends AbstractController
      * @throws Exception
      */
     #[Route('/admin/', name: 'admin', methods: ['GET'])]
-    public function addWebhookAction(): JsonResponse
+    public function admin(): JsonResponse
+    {
+        return new JsonResponse(
+            ['isAdmin' => $this->getUser() ?? '']
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[Route('/api/hi/', name: 'api_hi', methods: ['GET'])]
+    public function apiHi(): JsonResponse
     {
         return new JsonResponse(
             ['isAdmin' => $this->getUser() ?? '']
