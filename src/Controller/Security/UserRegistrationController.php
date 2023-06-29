@@ -2,9 +2,9 @@
 
 namespace App\Controller\Security;
 
-//use App\Dto\UserDto;
-//use App\Exception\Security\UserExistException;
-//use App\Service\SecurityService;
+use App\Dto\Security\UserDto;
+use App\Exception\Security\UserExistException;
+use App\Service\Security\SecurityService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,14 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
-//use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserRegistrationController extends AbstractController
 {
     public function __construct(
         private readonly SerializerInterface $serializer,
-//        private readonly ValidatorInterface $validator,
-//        private readonly SecurityService $securityService,
+        private readonly ValidatorInterface $validator,
+        private readonly SecurityService $securityService,
     ) {
     }
 
