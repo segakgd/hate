@@ -2,7 +2,7 @@
 
 namespace App\Service\Handler\Items;
 
-use App\Dto\Telegram\Message\MessageDto;
+use App\Dto\Core\Telegram\Message\MessageDto;
 use App\Entity\ChatEvent;
 use App\Repository\BehaviorScenarioRepository;
 use App\Repository\ChatSessionRepository;

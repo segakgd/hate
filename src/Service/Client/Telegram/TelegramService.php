@@ -2,9 +2,9 @@
 
 namespace App\Service\Client\Telegram;
 
-use App\Dto\Telegram\Invoice\InvoiceDto;
-use App\Dto\Telegram\Message\MessageDto;
-use App\Dto\Telegram\Webhook\WebhookDto;
+use App\Dto\Core\Telegram\Invoice\InvoiceDto;
+use App\Dto\Core\Telegram\Message\MessageDto;
+use App\Dto\Core\Telegram\Webhook\WebhookDto;
 use App\Service\Client\Http\HttpClient;
 use App\Service\Client\Http\HttpClientInterface;
 use App\Service\Client\Http\Request\Request;

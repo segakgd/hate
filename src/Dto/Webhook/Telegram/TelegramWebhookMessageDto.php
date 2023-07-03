@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dto;
+namespace App\Dto\Webhook\Telegram;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 

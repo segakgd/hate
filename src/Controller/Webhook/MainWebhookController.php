@@ -2,7 +2,7 @@
 
 namespace App\Controller\Webhook;
 
-use App\Dto\TelegramWebhookDto;
+use App\Dto\Webhook\Telegram\TelegramWebhookDto;
 use App\Service\ChatEventService;
 use App\Service\ChatSessionService;
 use Exception;

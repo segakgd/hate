@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Dto\Telegram\Webhook\WebhookDto;
+use App\Dto\Core\Telegram\Webhook\WebhookDto;
 use App\Service\Client\Telegram\TelegramService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
