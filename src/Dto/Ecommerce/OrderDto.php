@@ -4,16 +4,24 @@ namespace App\Dto\Ecommerce;
 
 class OrderDto implements OrderInterface
 {
-    private ?ProductInterface $product = null;
+    /** @var array<ProductInterface>|null */
+    private ?array $products = null;
 
-    public function getProduct(): ?ProductInterface
+    public function getProducts(): ?array
     {
-        return $this->product;
+        return $this->products;
     }
 
-    public function setProduct(?ProductInterface $product): self
+    public function setProducts(?array $products): self
     {
-        $this->product = $product;
+        $this->products = $products;
+
+        return $this;
+    }
+
+    public function addProducts(?ProductInterface $product): self
+    {
+        $this->products[] = $product;
 
         return $this;
     }

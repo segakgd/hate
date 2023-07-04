@@ -6,7 +6,7 @@ class ProductDto implements ProductInterface
 {
     private ?string $name = null;
 
-    private ?string $value = null;
+    private ?string $image = null; // todo ImageCollection
 
     private ?PriceInterface $price = null;
 
@@ -22,14 +22,14 @@ class ProductDto implements ProductInterface
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getImage(): ?string
     {
-        return $this->value;
+        return $this->image;
     }
 
-    public function setValue(?string $value): self
+    public function setImage(?string $image): self
     {
-        $this->value = $value;
+        $this->image = $image;
 
         return $this;
     }
