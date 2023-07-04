@@ -4,7 +4,9 @@ namespace App\Dto\Ecommerce;
 
 interface OrderInterface
 {
-    public function getProduct(): ?ProductInterface;
+    public function getProducts(): ?array;
 
-    public function setProduct(?ProductInterface $product): self;
+    public function setProducts(?array $products): self;
+
+    public function addProducts(?ProductInterface $product): self;
 }

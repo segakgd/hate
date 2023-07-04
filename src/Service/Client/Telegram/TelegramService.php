@@ -28,10 +28,10 @@ class TelegramService implements TelegramServiceInterface
         $this->httpClient->request($request);
     }
 
-    public function sendInvoice(InvoiceDto $messageDto, string $token): void
+    public function sendInvoice(InvoiceDto $invoiceDto, string $token): void
     {
         $request = $this->buildRequest(
-            $messageDto->getArray(),
+            $invoiceDto->getArray(),
             'sendInvoice',
         $token,
             HttpClient::METHOD_POST,

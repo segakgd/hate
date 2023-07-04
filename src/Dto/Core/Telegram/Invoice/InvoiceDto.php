@@ -384,7 +384,7 @@ private $reply_markup;
 
         if (!empty($this->getReplyMarkup())){
             $normalize['reply_markup'] = json_encode([
-                'keyboard' => $this->getReplyMarkup(),
+                'inline_keyboard' => $this->getReplyMarkup(),
             ]);
         }
 
