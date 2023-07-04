@@ -4,5 +4,7 @@ namespace App\Dto\Ecommerce;
 
 interface FieldsInterface
 {
-    public function getField(): FieldInterface;
+    public function getValue(): ?FieldInterface;
+
+    public function setValue(?FieldInterface $value): self;
 }

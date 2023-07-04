@@ -4,5 +4,5 @@ namespace App\Dto\Ecommerce;
 
 interface ContactsInterface
 {
-    public function getField(): FieldInterface;
+    public function getField(): ?FieldInterface;
 }
