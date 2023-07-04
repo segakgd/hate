@@ -376,6 +376,7 @@ private $reply_markup;
             'title' => $this->getTitle(),
             'description' => $this->getDescription(),
             'payload' => $this->getPayload(),
+            'photo_url' => $this->getPhotoUrl(),
             'provider_token' => $this->getProviderToken(), // 381764678:TEST:60367
             'currency' => $this->getCurrency(), // RUB
             'prices' => $this->getPrices(), // [{"label":"first","amount":"200"}]
