@@ -5,6 +5,7 @@ namespace App\Service\Ecommerce;
 use App\Dto\Ecommerce\PriceDto;
 use App\Dto\Ecommerce\ProductDto;
 
+/** @deprecated  */
 class EcommerceService
 {
     public function getProducts(): array

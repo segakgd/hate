@@ -22,6 +22,9 @@ class DealEntity
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?OrderEntity $Orders = null;
 
+    #[ORM\Column]
+    private ?int $project = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class DealEntity
     public function setOrders(?OrderEntity $Orders): static
     {
         $this->Orders = $Orders;
+
+        return $this;
+    }
+
+    public function getProject(): ?int
+    {
+        return $this->project;
+    }
+
+    public function setProject(int $project): static
+    {
+        $this->project = $project;
 
         return $this;
     }
