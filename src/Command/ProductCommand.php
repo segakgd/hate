@@ -37,6 +37,28 @@ class ProductCommand extends Command
                     'text' => 'Что-то',
                     'callback_data'=>'{"action":"like","count":0,"text":":like:"}'
                 ],
+                [
+                    'text' => 'Что-то',
+                    'callback_data'=>'{"action":"like","count":0,"text":":like:"}'
+                ],
+                [
+                    'text' => 'Что-то',
+                    'callback_data'=>'{"action":"like","count":0,"text":":like:"}'
+                ],
+            ],
+            [
+                [
+                    'text' => 'Что-то',
+                    'callback_data'=>'{"action":"like","count":0,"text":":like:"}'
+                ],
+                [
+                    'text' => 'Что-то',
+                    'callback_data'=>'{"action":"like","count":0,"text":":like:"}'
+                ],
+                [
+                    'text' => 'Что-то',
+                    'callback_data'=>'{"action":"like","count":0,"text":":like:"}'
+                ],
             ]
         ];
 
