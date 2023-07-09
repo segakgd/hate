@@ -1,17 +1,28 @@
 <?php
 
-namespace App\Dto\Ecommerce;
+namespace App\Entity\Ecommerce;
 
-class ContactsDto implements ContactsInterface
+use App\Repository\ContactsEntityRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ContactsEntityRepository::class)]
+class ContactsEntity
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 50)]
     private ?string $firstName = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $lastName = null;
 
+    #[ORM\Column(length: 25, nullable: true)]
     private ?string $phone = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $email = null;
 
     public function getId(): ?int

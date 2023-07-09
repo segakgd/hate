@@ -3,7 +3,7 @@
 namespace App\Service\Security;
 
 use App\Dto\Security\UserDto;
-use App\Entity\User;
+use App\Entity\User\User;
 use App\Exception\Security\UserExistException;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;

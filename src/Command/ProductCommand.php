@@ -62,7 +62,6 @@ class ProductCommand extends Command
             ]
         ];
 
-
         $chatId = 873817360;
 
         $products = $this->ecommerceService->getProducts();
