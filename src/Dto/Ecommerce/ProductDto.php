@@ -2,13 +2,13 @@
 
 namespace App\Dto\Ecommerce;
 
-class ProductDto implements ProductInterface
+class ProductDto
 {
     private ?string $name = null;
 
     private ?string $image = null; // todo ImageCollection
 
-    private ?PriceInterface $price = null;
+    private ?PriceDto $price = null;
 
     public function getName(): ?string
     {
@@ -34,12 +34,12 @@ class ProductDto implements ProductInterface
         return $this;
     }
 
-    public function getPrice(): ?PriceInterface
+    public function getPrice(): ?PriceDto
     {
         return $this->price;
     }
 
-    public function setPrice(?PriceInterface $price): self
+    public function setPrice(?PriceDto $price): self
     {
         $this->price = $price;
 

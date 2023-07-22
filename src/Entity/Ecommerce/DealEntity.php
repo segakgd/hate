@@ -47,7 +47,7 @@ class DealEntity
         return $this->fields;
     }
 
-    public function setFields(?FieldEntity $fields): static
+    public function setFields(?FieldEntity $fields): static // todo setField!!!
     {
         $this->fields = $fields;
 

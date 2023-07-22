@@ -2,7 +2,7 @@
 
 namespace App\Dto\Ecommerce;
 
-class FieldDto implements FieldInterface
+class FieldDto
 {
     private ?string $name = null;
 

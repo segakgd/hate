@@ -2,44 +2,44 @@
 
 namespace App\Dto\Ecommerce;
 
-class DealDto implements DealInterface
+class DealDto
 {
-    private ?ContactsInterface $contacts = null;
+    private ?ContactsDto $contacts = null;
 
-    private ?FieldsInterface $fields = null;
+    private ?FieldDto $field = null;
 
-    private ?OrderInterface $order = null;
+    private ?OrderDto $order = null;
 
-    public function getContacts(): ?ContactsInterface
+    public function getContacts(): ?ContactsDto
     {
         return $this->contacts;
     }
 
-    public function setContacts(?ContactsInterface $contacts): self
+    public function setContacts(?ContactsDto $contacts): self
     {
         $this->contacts = $contacts;
 
         return $this;
     }
 
-    public function getFields(): ?FieldsInterface
+    public function getField(): ?FieldDto
     {
-        return $this->fields;
+        return $this->field;
     }
 
-    public function setFields(?FieldsInterface $fields): self
+    public function setField(?FieldDto $field): self
     {
-        $this->fields = $fields;
+        $this->field = $field;
 
         return $this;
     }
 
-    public function getOrder(): ?OrderInterface
+    public function getOrder(): ?OrderDto
     {
         return $this->order;
     }
 
-    public function setOrder(?OrderInterface $order): self
+    public function setOrder(?OrderDto $order): self
     {
         $this->order = $order;
 

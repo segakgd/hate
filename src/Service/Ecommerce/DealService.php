@@ -4,27 +4,26 @@ namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\DealDto;
 use App\Entity\Ecommerce\DealEntity;
+use App\Mapper\Ecommerce\DealMapper;
 use App\Repository\DealEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class DealService
+class DealService implements DealServiceInterface
 {
     public function __construct(
-        private DealEntityRepository $dealEntityRepository,
-        private LoggerInterface $logger,
+        private readonly DealEntityRepository $dealEntityRepository,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
     public function getDeals(int $projectId): array // с пагинацией
     {
-        $this->dealEntityRepository->findBy(
+        return $this->dealEntityRepository->findBy(
             [
                 'project' => $projectId
             ]
         );
-
-        return [];
     }
 
     public function getDeal(int $dealId): ?DealEntity
@@ -32,8 +31,14 @@ class DealService
         return $this->dealEntityRepository->find($dealId);
     }
 
-    public function addDeal(DealDto $projectId, DealDto $dealDto): DealEntity
+    public function addDeal(int $projectId, DealDto $dealDto): DealEntity
     {
+        $dealEntity = DealMapper::mapToEntity($dealDto);
+
+        $dealEntity->setProject($projectId);
+
+        $this->dealEntityRepository->saveAndFlush($dealEntity);
+
         return new DealEntity;
     }
 

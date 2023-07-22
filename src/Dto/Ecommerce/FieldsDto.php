@@ -2,16 +2,16 @@
 
 namespace App\Dto\Ecommerce;
 
-class FieldsDto implements FieldsInterface
+class FieldsDto
 {
-    private ?FieldInterface $value = null;
+    private ?FieldDto $value = null;
 
-    public function getValue(): ?FieldInterface
+    public function getValue(): ?FieldDto
     {
         return $this->value;
     }
 
-    public function setValue(?FieldInterface $value): self
+    public function setValue(?FieldDto $value): self
     {
         $this->value = $value;
 

@@ -2,7 +2,7 @@
 
 namespace App\Dto\Ecommerce;
 
-class PriceDto implements PriceInterface
+class PriceDto
 {
     private ?int $value = null;
     private ?string $valueFraction = null;
