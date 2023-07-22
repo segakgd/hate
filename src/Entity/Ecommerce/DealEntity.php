@@ -14,13 +14,13 @@ class DealEntity
     private ?int $id = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?ContactsEntity $Contacts = null;
+    private ?ContactsEntity $contacts = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?FieldEntity $Fields = null;
+    private ?FieldEntity $fields = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?OrderEntity $Orders = null;
+    private ?OrderEntity $orders = null;
 
     #[ORM\Column]
     private ?int $project = null;
@@ -32,36 +32,36 @@ class DealEntity
 
     public function getContacts(): ?ContactsEntity
     {
-        return $this->Contacts;
+        return $this->contacts;
     }
 
-    public function setContacts(?ContactsEntity $Contacts): static
+    public function setContacts(?ContactsEntity $contacts): static
     {
-        $this->Contacts = $Contacts;
+        $this->contacts = $contacts;
 
         return $this;
     }
 
     public function getFields(): ?FieldEntity
     {
-        return $this->Fields;
+        return $this->fields;
     }
 
-    public function setFields(?FieldEntity $Fields): static
+    public function setFields(?FieldEntity $fields): static
     {
-        $this->Fields = $Fields;
+        $this->fields = $fields;
 
         return $this;
     }
 
     public function getOrders(): ?OrderEntity
     {
-        return $this->Orders;
+        return $this->orders;
     }
 
-    public function setOrders(?OrderEntity $Orders): static
+    public function setOrders(?OrderEntity $orders): static
     {
-        $this->Orders = $Orders;
+        $this->orders = $orders;
 
         return $this;
     }
