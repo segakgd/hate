@@ -22,7 +22,9 @@ class GetAllDealController extends AbstractController
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->dealService->getDeals($project)
+                $this->dealService->getDeals($project),
+                null,
+                ['groups' => 'administrator']
             )
         );
     }

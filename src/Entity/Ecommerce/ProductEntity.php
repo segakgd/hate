@@ -4,21 +4,26 @@ namespace App\Entity\Ecommerce;
 
 use App\Repository\ProductEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductEntityRepository::class)]
 class ProductEntity
 {
+    #[Groups(['administrator'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column]
     private array $price = [];
 

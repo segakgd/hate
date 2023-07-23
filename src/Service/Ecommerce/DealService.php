@@ -39,12 +39,18 @@ class DealService implements DealServiceInterface
 
         $this->dealEntityRepository->saveAndFlush($dealEntity);
 
-        return new DealEntity;
+        return $dealEntity;
     }
 
-    public function updateDeal(DealDto $dealDto): DealEntity
+    public function updateDeal(DealDto $dealDto, int $dealId): DealEntity
     {
-        return new DealEntity;
+        $dealEntity = $this->getDeal($dealId);
+
+        $dealEntity = DealMapper::mapToExistEntity($dealDto, $dealEntity);
+
+        $this->dealEntityRepository->saveAndFlush($dealEntity);
+
+        return $dealEntity;
     }
 
     public function removeDeal(int $dealId): bool

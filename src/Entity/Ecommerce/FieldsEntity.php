@@ -6,15 +6,18 @@ use App\Repository\FieldsEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FieldsEntityRepository::class)]
 class FieldsEntity
 {
+    #[Groups(['administrator'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['administrator'])]
     #[ORM\OneToMany(mappedBy: 'fieldsEntity', targetEntity: FieldEntity::class)]
     private Collection $fields;
 

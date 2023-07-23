@@ -4,21 +4,26 @@ namespace App\Entity\Ecommerce;
 
 use App\Repository\DealEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DealEntityRepository::class)]
 class DealEntity
 {
+    #[Groups(['administrator'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['administrator'])]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?ContactsEntity $contacts = null;
 
+    #[Groups(['administrator'])]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?FieldEntity $fields = null;
 
+    #[Groups(['administrator'])]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?OrderEntity $orders = null;
 

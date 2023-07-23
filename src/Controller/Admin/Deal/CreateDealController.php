@@ -3,7 +3,6 @@
 namespace App\Controller\Admin\Deal;
 
 use App\Dto\Ecommerce\DealDto;
-use App\Mapper\Ecommerce\DealMapper;
 use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +27,6 @@ class CreateDealController extends AbstractController
         // todo нужно искать project
 
         $content = $request->getContent();
-
         $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');
 
         $errors = $this->validator->validate($dealDto);
@@ -37,8 +35,14 @@ class CreateDealController extends AbstractController
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $this->dealService->addDeal($project, $dealDto);
+        $dealEntity = $this->dealService->addDeal($project, $dealDto);
 
-        return new JsonResponse();
+        return new JsonResponse(
+            $this->serializer->normalize(
+                $dealEntity,
+                null,
+                ['groups' => 'administrator']
+            )
+        );
     }
 }

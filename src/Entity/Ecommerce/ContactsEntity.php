@@ -4,24 +4,30 @@ namespace App\Entity\Ecommerce;
 
 use App\Repository\ContactsEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContactsEntityRepository::class)]
 class ContactsEntity
 {
+    #[Groups(['administrator'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 50)]
     private ?string $firstName = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $lastName = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 25, nullable: true)]
     private ?string $phone = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $email = null;
 

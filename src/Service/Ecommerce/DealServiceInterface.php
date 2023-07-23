@@ -13,7 +13,7 @@ interface DealServiceInterface
 
     public function addDeal(int $projectId, DealDto $dealDto): DealEntity;
 
-    public function updateDeal(DealDto $dealDto): DealEntity;
+    public function updateDeal(DealDto $dealDto, int $dealId): DealEntity;
 
     public function removeDeal(int $dealId): bool;
 }

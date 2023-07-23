@@ -46,10 +46,34 @@ class DealMapper
 
     public static function mapToExistEntity(DealDto $dealDto, DealEntity $dealEntity): DealEntity
     {
-        return $dealEntity
-            ->setContacts($dealDto->getContacts())
-            ->setFields($dealDto->getFields())
-            ->setOrders($dealDto->getOrder())
-        ;
+        if ($contacts = $dealDto->getContacts()){
+            if ($dealEntity->getContacts()){
+                $dealEntity->setContacts(ContactsMapper::mapToExistEntity($contacts, $dealEntity->getContacts()));
+            } else {
+                $dealEntity->setContacts(ContactsMapper::mapToEntity($contacts));
+            }
+        }
+
+        if ($field = $dealDto->getField()){
+            $dealEntity->setFields(FieldMapper::mapToEntity($field));
+
+            if ($dealEntity->getFields()){
+                $dealEntity->setFields(FieldMapper::mapToExistEntity($field, $dealEntity->getFields()));
+            } else {
+                $dealEntity->setFields(FieldMapper::mapToEntity($field));
+            }
+        }
+
+        if ($order = $dealDto->getOrder()){
+            $dealEntity->setOrders(OrderMapper::mapToEntity($order));
+
+            if ($dealEntity->getOrders()){
+                $dealEntity->setOrders(OrderMapper::mapToExistEntity($order, $dealEntity->getOrders()));
+            } else {
+                $dealEntity->setOrders(OrderMapper::mapToEntity($order));
+            }
+        }
+
+        return $dealEntity;
     }
 }
