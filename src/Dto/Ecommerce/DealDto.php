@@ -6,7 +6,7 @@ class DealDto
 {
     private ?ContactsDto $contacts = null;
 
-    private ?FieldDto $field = null;
+    private ?array $fields = null;
 
     private ?OrderDto $order = null;
 
@@ -22,14 +22,24 @@ class DealDto
         return $this;
     }
 
-    public function getField(): ?FieldDto
+    /**
+     * @return array<FieldDto>
+     */
+    public function getFields(): array
     {
-        return $this->field;
+        return $this->fields;
     }
 
-    public function setField(?FieldDto $field): self
+    public function setFields(array $fields): self
     {
-        $this->field = $field;
+        $this->fields = $fields;
+
+        return $this;
+    }
+
+    public function addField(FieldDto $field): self
+    {
+        $this->fields[] = $field;
 
         return $this;
     }

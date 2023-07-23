@@ -16,7 +16,7 @@ class ContactsEntity
     private ?int $id = null;
 
     #[Groups(['administrator'])]
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $firstName = null;
 
     #[Groups(['administrator'])]

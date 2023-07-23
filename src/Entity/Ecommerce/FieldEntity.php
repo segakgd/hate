@@ -23,9 +23,12 @@ class FieldEntity
     #[ORM\Column(length: 50)]
     private ?string $value = null;
 
-    #[Groups(['administrator'])]
     #[ORM\ManyToOne(inversedBy: 'fields')]
-    private ?FieldsEntity $fieldsEntity = null;
+    private ?DealEntity $deal = null;
+
+//    #[Groups(['administrator'])]
+//    #[ORM\ManyToOne(inversedBy: 'fields')]
+//    private ?DealEntity $dealEntity = null;
 
     public function getId(): ?int
     {
@@ -56,15 +59,27 @@ class FieldEntity
         return $this;
     }
 
-    public function getFieldsEntity(): ?FieldsEntity
-    {
-        return $this->fieldsEntity;
-    }
+//    public function getDealEntity(): ?DealEntity
+//    {
+//        return $this->dealEntity;
+//    }
+//
+//    public function setDealEntity(?DealEntity $dealEntity): static
+//    {
+//        $this->dealEntity = $dealEntity;
+//
+//        return $this;
+//    }
 
-    public function setFieldsEntity(?FieldsEntity $fieldsEntity): static
-    {
-        $this->fieldsEntity = $fieldsEntity;
+public function getDeal(): ?DealEntity
+{
+    return $this->deal;
+}
 
-        return $this;
-    }
+public function setDeal(?DealEntity $deal): static
+{
+    $this->deal = $deal;
+
+    return $this;
+}
 }

@@ -17,6 +17,7 @@ class FieldMapper
 
     public static function mapToEntity(FieldDto $fieldDto): FieldEntity
     {
+
         return (new FieldEntity)
             ->setValue($fieldDto->getValue())
             ->setName($fieldDto->getName())
