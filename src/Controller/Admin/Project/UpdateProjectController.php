@@ -3,12 +3,14 @@
 namespace App\Controller\Admin\Project;
 
 use App\Dto\Project\ProjectDto;
+use App\Entity\ProjectEntity;
 use App\Service\Project\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -22,7 +24,8 @@ class UpdateProjectController extends AbstractController
     }
 
     #[Route('/api/admin/projects/{projectId}/', name: 'project_update', methods: ['PUT'])]
-    public function execute(Request $request, int $projectId): JsonResponse
+    #[IsGranted('existUser', 'project')]
+    public function execute(Request $request, ProjectEntity $project): JsonResponse
     {
         // todo нужно искать project
         $content = $request->getContent();
@@ -34,7 +37,7 @@ class UpdateProjectController extends AbstractController
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $projectEntity = $this->projectService->updateProject($projectDto, $projectId);
+        $projectEntity = $this->projectService->updateProject($projectDto, $project->getId());
 
         return new JsonResponse(
             $this->serializer->normalize(

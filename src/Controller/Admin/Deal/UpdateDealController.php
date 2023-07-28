@@ -3,12 +3,14 @@
 namespace App\Controller\Admin\Deal;
 
 use App\Dto\Ecommerce\DealDto;
+use App\Entity\ProjectEntity;
 use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -22,7 +24,8 @@ class UpdateDealController extends AbstractController
     }
 
     #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'deal_update', methods: ['PUT'])]
-    public function execute(Request $request, int $project, int $dealId): JsonResponse
+    #[IsGranted('existUser', 'project')]
+    public function execute(Request $request, ProjectEntity $project, int $dealId): JsonResponse
     {
         // todo нужно искать project
         $content = $request->getContent();
@@ -34,7 +37,7 @@ class UpdateDealController extends AbstractController
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $dealEntity = $this->dealService->updateDeal($dealDto, $dealId);
+        $dealEntity = $this->dealService->updateDeal($dealDto, $project->getId(), $dealId);
 
         return new JsonResponse(
             $this->serializer->normalize(

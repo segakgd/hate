@@ -9,11 +9,11 @@ interface DealServiceInterface
 {
     public function getDeals(int $projectId): array;
 
-    public function getDeal(int $dealId): ?DealEntity;
+    public function getDeal(int $projectId, int $dealId): ?DealEntity;
 
-    public function addDeal(int $projectId, DealDto $dealDto): DealEntity;
+    public function addDeal(DealDto $dealDto, int $projectId): DealEntity;
 
-    public function updateDeal(DealDto $dealDto, int $dealId): DealEntity;
+    public function updateDeal(DealDto $dealDto, int $projectId, int $dealId): DealEntity;
 
-    public function removeDeal(int $dealId): bool;
+    public function removeDeal( int $projectId, int $dealId): bool;
 }

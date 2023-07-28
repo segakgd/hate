@@ -2,10 +2,12 @@
 
 namespace App\Controller\Admin\Deal;
 
+use App\Entity\ProjectEntity;
 use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetAllDealController extends AbstractController
@@ -16,13 +18,12 @@ class GetAllDealController extends AbstractController
     ) {}
 
     #[Route('/api/admin/project/{project}/deal/', name: 'deal_get_all', methods: ['GET'])]
-    public function execute(int $project): JsonResponse
+    #[IsGranted('existUser', 'project')]
+    public function execute(ProjectEntity $project): JsonResponse
     {
-        // todo нужно искать project
-
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->dealService->getDeals($project),
+                $this->dealService->getDeals($project->getId()),
                 null,
                 ['groups' => 'administrator']
             )
