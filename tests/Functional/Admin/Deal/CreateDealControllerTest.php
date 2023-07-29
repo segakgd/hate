@@ -17,6 +17,9 @@ class CreateDealControllerTest extends ApiTestCase
     use UserTrait;
     use ProjectTrait;
 
+    /**
+     * @throws Exception
+     */
     public function testWithoutAuth(){
         $client = static::createClient();
         $entityManager = $this->getEntityManager();

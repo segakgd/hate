@@ -7,6 +7,7 @@ use App\Tests\Functional\ApiTestCase;
 use App\Tests\Functional\Trait\Deal\DealTrait;
 use App\Tests\Functional\Trait\Project\ProjectTrait;
 use App\Tests\Functional\Trait\User\UserTrait;
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetAllDealControllerTest extends ApiTestCase
@@ -15,6 +16,9 @@ class GetAllDealControllerTest extends ApiTestCase
     use ProjectTrait;
     use DealTrait;
 
+    /**
+     * @throws Exception
+     */
     public function testWithoutAuth(){
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
@@ -30,6 +34,9 @@ class GetAllDealControllerTest extends ApiTestCase
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testGetAllDeal(){
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
