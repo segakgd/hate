@@ -25,12 +25,12 @@ class DealDto
     /**
      * @return array<FieldDto>
      */
-    public function getFields(): array
+    public function getFields(): ?array
     {
         return $this->fields;
     }
 
-    public function setFields(array $fields): self
+    public function setFields(?array $fields): self
     {
         $this->fields = $fields;
 

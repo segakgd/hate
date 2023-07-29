@@ -7,6 +7,11 @@ class OrderDto
     /** @var array<ProductDto>|null */
     private ?array $products = null;
 
+    private ?ShippingDto $shipping = null;
+
+    /** @var array<PromotionDto>|null */
+    private ?array $promotions = null;
+
     public function getProducts(): ?array
     {
         return $this->products;
@@ -26,8 +31,6 @@ class OrderDto
         return $this;
     }
 
-    private ?ShippingDto $shipping = null;
-
     public function getShipping(): ?ShippingDto
     {
         return $this->shipping;
@@ -39,9 +42,6 @@ class OrderDto
 
         return $this;
     }
-
-    /** @var array<PromotionDto>|null */
-    private ?array $promotions = null;
 
     public function getPromotions(): ?array
     {

@@ -10,7 +10,7 @@ trait UserTrait
     public function createUser(ObjectManager $manager): User
     {
         $user = (new User())
-            ->setEmail('test@test.com') // todo должен быть уникальным
+            ->setEmail('test' . uniqid() . '@test.com')
             ->setPassword('123456')
         ;
 
