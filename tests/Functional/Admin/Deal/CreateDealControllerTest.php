@@ -9,6 +9,7 @@ use App\Entity\Ecommerce\OrderEntity;
 use App\Tests\Functional\ApiTestCase;
 use App\Tests\Functional\Trait\Project\ProjectTrait;
 use App\Tests\Functional\Trait\User\UserTrait;
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateDealControllerTest extends ApiTestCase
@@ -16,6 +17,24 @@ class CreateDealControllerTest extends ApiTestCase
     use UserTrait;
     use ProjectTrait;
 
+    public function testWithoutAuth(){
+        $client = static::createClient();
+        $entityManager = $this->getEntityManager();
+
+        $user = $this->createUser($entityManager);
+        $project = $this->createProject($entityManager, $user);
+
+        $client->request(
+            'POST',
+            '/api/admin/project/' . $project->getId() .'/deal/',
+        );
+
+        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @throws Exception
+     */
     public function testCreateDeal(){
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
@@ -48,6 +67,8 @@ class CreateDealControllerTest extends ApiTestCase
 
     /**
      * @dataProvider positiveVariantsContact
+     *
+     * @throws Exception
      */
     public function testCreateDealWithContacts(array $requestContent)
     {
@@ -89,6 +110,8 @@ class CreateDealControllerTest extends ApiTestCase
 
     /**
      * @dataProvider positiveVariantsField
+     *
+     * @throws Exception
      */
     public function testCreateDealWithFields(array $requestContent)
     {
@@ -132,6 +155,8 @@ class CreateDealControllerTest extends ApiTestCase
 
     /**
      * @dataProvider positiveVariantsOrder
+     *
+     * @throws Exception
      */
     public function testCreateDealWithOrder(array $requestContent)
     {
