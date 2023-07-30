@@ -7,7 +7,7 @@ use App\Entity\Ecommerce\ProductEntity;
 
 interface ProductServiceInterface
 {
-    public function getProducts(): array; // возвращаем список продуктов с пагинацией
+    public function getProducts(): array;
 
     public function getProduct(int $productId): ProductEntity;
 
