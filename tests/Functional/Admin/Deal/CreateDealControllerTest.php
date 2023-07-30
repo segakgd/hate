@@ -20,7 +20,8 @@ class CreateDealControllerTest extends ApiTestCase
     /**
      * @throws Exception
      */
-    public function testWithoutAuth(){
+    public function testWithoutAuth()
+    {
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
 
@@ -38,7 +39,8 @@ class CreateDealControllerTest extends ApiTestCase
     /**
      * @throws Exception
      */
-    public function testCreateDeal(){
+    public function testCreateDeal()
+    {
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
 
@@ -62,8 +64,7 @@ class CreateDealControllerTest extends ApiTestCase
 
         $this->assertTrue(isset($deal['id']));
 
-        $dealRepository = $this->getEntityManager()->getRepository(DealEntity::class);
-        $dealEntity = $dealRepository->find($deal['id']);
+        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
 
         $this->assertEquals($dealEntity->getId(), $deal['id']);
     }
@@ -98,15 +99,12 @@ class CreateDealControllerTest extends ApiTestCase
 
         $this->assertTrue(isset($deal['id']));
 
-        $dealRepository = $this->getEntityManager()->getRepository(DealEntity::class);
-        $dealEntity = $dealRepository->find($deal['id']);
+        $dealEntity = $entityManager->getRepository(DealEntity::class)->find($deal['id']);
 
         $this->assertEquals($dealEntity->getId(), $deal['id']);
-
         $this->assertTrue(isset($deal['contacts']['id']));
 
-        $contactsRepository = $this->getEntityManager()->getRepository(ContactsEntity::class);
-        $contact = $contactsRepository->find($deal['contacts']['id']);
+        $contact = $entityManager->getRepository(ContactsEntity::class)->find($deal['contacts']['id']);
 
         $this->assertEquals($contact->getId(), $deal['contacts']['id']);
     }
@@ -141,16 +139,14 @@ class CreateDealControllerTest extends ApiTestCase
 
         $this->assertTrue(isset($deal['id']));
 
-        $dealRepository = $this->getEntityManager()->getRepository(DealEntity::class);
-        $dealEntity = $dealRepository->find($deal['id']);
+        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
 
         $this->assertEquals($dealEntity->getId(), $deal['id']);
 
         foreach ($deal['fields'] as $field) {
             $this->assertTrue(isset($field['id']));
 
-            $fieldRepository = $this->getEntityManager()->getRepository(FieldEntity::class);
-            $fieldEntity = $fieldRepository->find($field['id']);
+            $fieldEntity = $this->getEntityManager()->getRepository(FieldEntity::class)->find($field['id']);
 
             $this->assertEquals($fieldEntity->getId(), $field['id']);
         }
@@ -186,15 +182,13 @@ class CreateDealControllerTest extends ApiTestCase
 
         $this->assertTrue(isset($deal['id']));
 
-        $dealRepository = $this->getEntityManager()->getRepository(DealEntity::class);
-        $dealEntity = $dealRepository->find($deal['id']);
+        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
 
         $this->assertEquals($dealEntity->getId(), $deal['id']);
 
         $this->assertTrue(isset($deal['orders']['id']));
 
-        $orderRepository = $this->getEntityManager()->getRepository(OrderEntity::class);
-        $order = $orderRepository->find($deal['orders']['id']);
+        $order = $this->getEntityManager()->getRepository(OrderEntity::class)->find($deal['orders']['id']);
 
         $this->assertEquals($order->getId(), $deal['orders']['id']);
     }

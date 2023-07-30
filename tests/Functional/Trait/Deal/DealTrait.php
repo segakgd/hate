@@ -10,13 +10,13 @@ trait DealTrait
 {
     public function createDeal(ObjectManager $manager, ProjectEntity $project): DealEntity
     {
-        $project = (new DealEntity())
+        $deal = (new DealEntity())
             ->setProject($project->getId())
         ;
 
-        $manager->persist($project);
-        $manager->flush();
+        $manager->persist($deal);
+        $manager->flush($deal);
 
-        return $project;
+        return $deal;
     }
 }
