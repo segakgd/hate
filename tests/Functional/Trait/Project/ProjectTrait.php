@@ -16,7 +16,7 @@ trait ProjectTrait
         ;
 
         $manager->persist($project);
-        $manager->flush();
+        $manager->flush($project);
 
         return $project;
     }

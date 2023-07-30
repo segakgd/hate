@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Tests\Functional\Admin\Deal;
+namespace App\Tests\Functional\Admin\Project;
 
 use App\Tests\Functional\ApiTestCase;
-use App\Tests\Functional\Trait\Deal\DealTrait;
 use App\Tests\Functional\Trait\Project\ProjectTrait;
 use App\Tests\Functional\Trait\User\UserTrait;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class GetDealControllerTest extends ApiTestCase
+class GetAllProjectControllerTest extends ApiTestCase
 {
     use UserTrait;
     use ProjectTrait;
-    use DealTrait;
 
     /**
      * @throws Exception
@@ -21,15 +19,10 @@ class GetDealControllerTest extends ApiTestCase
     public function testWithoutAuth()
     {
         $client = static::createClient();
-        $entityManager = $this->getEntityManager();
-
-        $user = $this->createUser($entityManager);
-        $project = $this->createProject($entityManager, $user);
-        $deal = $this->createDeal($entityManager, $project);
 
         $client->request(
             'GET',
-            '/api/admin/project/' . $project->getId() .'/deal/'. $deal->getId() . '/',
+            '/api/admin/projects/',
         );
 
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
@@ -38,26 +31,29 @@ class GetDealControllerTest extends ApiTestCase
     /**
      * @throws Exception
      */
-    public function testGetOneDeal()
+    public function testGetAll()
     {
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
 
         $user = $this->createUser($entityManager);
-        $project = $this->createProject($entityManager, $user);
-        $deal = $this->createDeal($entityManager, $project);
+        $project1 = $this->createProject($entityManager, $user);
+        $project2 = $this->createProject($entityManager, $user);
 
         $client->loginUser($user);
 
         $client->request(
             'GET',
-            '/api/admin/project/' . $project->getId() .'/deal/'. $deal->getId() . '/',
+            '/api/admin/projects/',
         );
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
-        $dealResponse = json_decode($client->getResponse()->getContent(), true);
+        $projects = json_decode($client->getResponse()->getContent(), true);
 
-        $this->assertTrue($dealResponse['id'] === $deal->getId());
+        $this->assertTrue(count($projects) === 2);
+
+        $this->assertTrue($projects[0]['id'] === $project1->getId());
+        $this->assertTrue($projects[1]['id'] === $project2->getId());
     }
 }

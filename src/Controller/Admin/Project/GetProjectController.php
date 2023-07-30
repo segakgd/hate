@@ -17,7 +17,7 @@ class GetProjectController extends AbstractController
         private readonly SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/projects/{projectId}/', name: 'project_get_one', methods: ['GET'])]
+    #[Route('/api/admin/projects/{project}/', name: 'project_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project): JsonResponse
     {

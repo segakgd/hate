@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Tests\Functional\Admin\Deal;
+namespace App\Tests\Functional\Admin\Project;
 
-use App\Entity\Ecommerce\DealEntity;
+use App\Entity\ProjectEntity;
 use App\Tests\Functional\ApiTestCase;
-use App\Tests\Functional\Trait\Deal\DealTrait;
 use App\Tests\Functional\Trait\Project\ProjectTrait;
 use App\Tests\Functional\Trait\User\UserTrait;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class RemoveDealControllerTest extends ApiTestCase
+class RemoveProjectControllerTest extends ApiTestCase
 {
     use UserTrait;
     use ProjectTrait;
-    use DealTrait;
 
     /**
      * @throws Exception
@@ -22,19 +20,15 @@ class RemoveDealControllerTest extends ApiTestCase
     public function testWithoutAuth()
     {
         $client = static::createClient();
-        $entityManager = $this->getEntityManager();
-
-        $user = $this->createUser($entityManager);
-        $project = $this->createProject($entityManager, $user);
-        $deal = $this->createDeal($entityManager, $project);
 
         $client->request(
             'DELETE',
-            '/api/admin/project/' . $project->getId() .'/deal/'. $deal->getId() . '/',
+            '/api/admin/projects/1/',
         );
 
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
+
 
     /**
      * @throws Exception
@@ -45,22 +39,21 @@ class RemoveDealControllerTest extends ApiTestCase
 
         $user = $this->createUser($entityManager);
         $project = $this->createProject($entityManager, $user);
-        $deal = $this->createDeal($entityManager, $project);
 
-        $dealId = $deal->getId();
+        $projectId = $project->getId();
 
-        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($dealId);
-        $this->assertTrue($dealEntity instanceof DealEntity);
+        $projectEntity = $entityManager->getRepository(ProjectEntity::class)->find($projectId);
+        $this->assertTrue($projectEntity instanceof ProjectEntity);
 
         $client->loginUser($user);
         $client->request(
             'DELETE',
-            '/api/admin/project/' . $project->getId() .'/deal/'. $deal->getId() . '/',
+            '/api/admin/projects/' . $projectId . '/',
         );
 
         $this->assertEquals(Response::HTTP_NO_CONTENT, $client->getResponse()->getStatusCode());
 
-        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($dealId);
-        $this->assertFalse($dealEntity instanceof DealEntity);
+        $projectEntity = $entityManager->getRepository(ProjectEntity::class)->find($projectId);
+        $this->assertFalse($projectEntity instanceof ProjectEntity);
     }
 }

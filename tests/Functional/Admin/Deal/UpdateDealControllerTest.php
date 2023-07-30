@@ -18,7 +18,8 @@ class UpdateDealControllerTest extends ApiTestCase
     /**
      * @throws Exception
      */
-    public function testWithoutAuth(){
+    public function testWithoutAuth()
+    {
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
 
@@ -39,7 +40,8 @@ class UpdateDealControllerTest extends ApiTestCase
      *
      * @throws Exception
      */
-    public function testUpdate($requestContent){
+    public function testUpdate($requestContent)
+    {
         $client = static::createClient();
         $entityManager = $this->getEntityManager();
 
