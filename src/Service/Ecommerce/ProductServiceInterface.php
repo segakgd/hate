@@ -7,13 +7,13 @@ use App\Entity\Ecommerce\ProductEntity;
 
 interface ProductServiceInterface
 {
-    public function getProducts(): array;
+    public function getProducts(int $projectId): array;
 
-    public function getProduct(int $productId): ProductEntity;
+    public function getProduct(int $projectId, int $productId): ?ProductEntity;
 
-    public function addProduct(ProductDto $productDto): ProductEntity;
+    public function addProduct(ProductDto $productDto, int $projectId): ProductEntity;
 
-    public function updateProduct(ProductDto $productDto): ProductEntity;
+    public function updateProduct(ProductDto $productDto, int $projectId, int $productId): ProductEntity;
 
-    public function removeProduct(int $productId): ProductEntity;
+    public function removeProduct(int $projectId, int $productId): bool;
 }

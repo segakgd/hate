@@ -58,7 +58,7 @@ class DealService implements DealServiceInterface
         return $dealEntity;
     }
 
-    public function removeDeal( int $projectId, int $dealId): bool
+    public function removeDeal(int $projectId, int $dealId): bool
     {
         $deal = $this->getDeal($projectId, $dealId);
 

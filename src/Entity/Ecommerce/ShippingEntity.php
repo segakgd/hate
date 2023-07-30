@@ -4,18 +4,22 @@ namespace App\Entity\Ecommerce;
 
 use App\Repository\Ecommerce\ShippingEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ShippingEntityRepository::class)]
 class ShippingEntity
 {
+    #[Groups(['administrator'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 20)]
     private ?string $type = null;
 

@@ -15,5 +15,5 @@ interface DealServiceInterface
 
     public function updateDeal(DealDto $dealDto, int $projectId, int $dealId): DealEntity;
 
-    public function removeDeal( int $projectId, int $dealId): bool;
+    public function removeDeal(int $projectId, int $dealId): bool;
 }

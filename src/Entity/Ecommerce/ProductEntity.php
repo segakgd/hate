@@ -27,6 +27,9 @@ class ProductEntity
     #[ORM\Column]
     private array $price = [];
 
+    #[ORM\Column]
+    private ?int $project = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,6 +67,18 @@ class ProductEntity
     public function setPrice(array $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getProject(): ?int
+    {
+        return $this->project;
+    }
+
+    public function setProject(int $project): static
+    {
+        $this->project = $project;
 
         return $this;
     }

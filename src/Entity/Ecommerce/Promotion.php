@@ -4,18 +4,22 @@ namespace App\Entity\Ecommerce; // todo мне кажется что ряд су
 
 use App\Repository\Ecommerce\PromotionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PromotionRepository::class)]
 class Promotion // todo PromotionEntity
 {
+    #[Groups(['administrator'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
+    #[Groups(['administrator'])]
     #[ORM\Column(length: 20)]
     private ?string $type = null;
 

@@ -4,31 +4,75 @@ namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\ProductDto;
 use App\Entity\Ecommerce\ProductEntity;
+use App\Mapper\Ecommerce\ProductMapper;
+use App\Repository\ProductEntityRepository;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 class ProductService implements ProductServiceInterface
 {
-    public function getProducts(): array
-    {
-        return [];
+    public function __construct(
+        private readonly ProductEntityRepository $productEntityRepository,
+        private readonly LoggerInterface $logger,
+    ) {
     }
 
-    public function getProduct(int $productId): ProductEntity
+    public function getProducts(int $projectId): array
     {
-        return new ProductEntity;
+        return $this->productEntityRepository->findBy(
+            [
+                'project' => $projectId
+            ]
+        );
     }
 
-    public function addProduct(ProductDto $productDto): ProductEntity
+    public function getProduct(int $projectId, int $productId): ?ProductEntity
     {
-        return new ProductEntity;
+        return $this->productEntityRepository->findOneBy(
+            [
+                'id' => $productId,
+                'project' => $projectId
+            ]
+        );
     }
 
-    public function updateProduct(ProductDto $productDto): ProductEntity
+    public function addProduct(ProductDto $productDto, int $projectId): ProductEntity
     {
-        return new ProductEntity;
+        $productEntity = ProductMapper::mapToEntity($productDto);
+
+        $productEntity->setProject($projectId);
+
+        $this->productEntityRepository->saveAndFlush($productEntity);
+
+        return $productEntity;
     }
 
-    public function removeProduct(int $productId): ProductEntity
+    public function updateProduct(ProductDto $productDto, int $projectId, int $productId): ProductEntity
     {
-        return new ProductEntity;
+        $productEntity = $this->getProduct($projectId, $productId);
+
+        $productEntity = ProductMapper::mapToExistEntity($productDto, $productEntity);
+
+        $this->productEntityRepository->saveAndFlush($productEntity);
+
+        return $productEntity;
+    }
+
+    public function removeProduct(int $projectId, int $productId): bool
+    {
+        $productEntity = $this->getProduct($projectId, $productId);
+
+        try {
+            if ($productEntity){
+                $this->productEntityRepository->removeAndFlush($productEntity);
+            }
+
+        } catch (Throwable $exception){
+            $this->logger->error($exception->getMessage());
+
+            return false;
+        }
+
+        return true;
     }
 }

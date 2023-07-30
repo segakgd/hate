@@ -7,13 +7,13 @@ use App\Entity\Ecommerce\Promotion;
 
 interface PromotionServiceInterface
 {
-    public function getPromotions(): array;
+    public function getPromotions(int $projectId): array;
 
-    public function getPromotion(int $promotionId): Promotion;
+    public function getPromotion(int $projectId, int $promotionId): Promotion;
 
-    public function addPromotion(PromotionDto $promotionDto): Promotion;
+    public function addPromotion(PromotionDto $promotionDto, int $projectId): Promotion;
 
-    public function updatePromotion(PromotionDto $promotionDto): Promotion;
+    public function updatePromotion(PromotionDto $promotionDto, int $projectId, int $promotionId): Promotion;
 
-    public function removePromotion(int $promotionId): Promotion;
+    public function removePromotion(int $projectId, int $promotionId): Promotion;
 }
