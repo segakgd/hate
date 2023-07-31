@@ -3,6 +3,7 @@
 namespace App\Entity\Ecommerce;
 
 use App\Repository\Ecommerce\ShippingEntityRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -25,6 +26,9 @@ class ShippingEntity
 
     #[ORM\Column]
     private ?int $project = null;
+
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private array $price = [];
 
     public function getId(): ?int
     {
@@ -63,6 +67,18 @@ class ShippingEntity
     public function setProject(int $project): static
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getPrice(): array
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?array $price): static
+    {
+        $this->price = $price;
 
         return $this;
     }

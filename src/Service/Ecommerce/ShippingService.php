@@ -4,31 +4,75 @@ namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\ShippingDto;
 use App\Entity\Ecommerce\ShippingEntity;
+use App\Mapper\Ecommerce\ShippingMapper;
+use App\Repository\Ecommerce\ShippingEntityRepository;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 class ShippingService implements ShippingServiceInterface
 {
-    public function getAllShipping(int $projectId): array
-    {
-        return [];
+    public function __construct(
+        private readonly ShippingEntityRepository $shippingEntityRepository,
+        private readonly LoggerInterface $logger,
+    ) {
     }
 
-    public function getShipping(int $projectId, int $shippingId): ShippingEntity
+    public function getAllShipping(int $projectId): array
     {
-        return new ShippingEntity;
+        return $this->shippingEntityRepository->findBy(
+            [
+                'project' => $projectId
+            ]
+        );
+    }
+
+    public function getShipping(int $projectId, int $shippingId): ?ShippingEntity
+    {
+        return $this->shippingEntityRepository->findOneBy(
+            [
+                'id' => $shippingId,
+                'project' => $projectId
+            ]
+        );
     }
 
     public function addShipping(ShippingDto $shippingDto, int $projectId): ShippingEntity
     {
-        return new ShippingEntity;
+        $shippingEntity = ShippingMapper::mapToEntity($shippingDto);
+
+        $shippingEntity->setProject($projectId);
+
+        $this->shippingEntityRepository->saveAndFlush($shippingEntity);
+
+        return $shippingEntity;
     }
 
     public function updateShipping(ShippingDto $shippingDto, int $projectId, int $shippingId): ShippingEntity
     {
-        return new ShippingEntity;
+        $shippingEntity = $this->getShipping($projectId, $shippingId);
+
+        $shippingEntity = ShippingMapper::mapToExistEntity($shippingDto, $shippingEntity);
+
+        $this->shippingEntityRepository->saveAndFlush($shippingEntity);
+
+        return $shippingEntity;
     }
 
-    public function removeShipping(int $projectId, int $shippingId): ShippingEntity
+    public function removeShipping(int $projectId, int $shippingId): bool
     {
-        return new ShippingEntity;
+        $shippingEntity = $this->getShipping($projectId, $shippingId);
+
+        try {
+            if ($shippingEntity){
+                $this->shippingEntityRepository->removeAndFlush($shippingEntity);
+            }
+
+        } catch (Throwable $exception){
+            $this->logger->error($exception->getMessage());
+
+            return false;
+        }
+
+        return true;
     }
 }

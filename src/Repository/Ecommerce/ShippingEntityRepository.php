@@ -21,46 +21,15 @@ class ShippingEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ShippingEntity::class);
     }
 
-    public function save(ShippingEntity $entity, bool $flush = false): void
+    public function saveAndFlush(ShippingEntity $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush($entity);
     }
 
-    public function remove(ShippingEntity $entity, bool $flush = false): void
+    public function removeAndFlush(ShippingEntity $entity): void
     {
         $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush($entity);
     }
-
-//    /**
-//     * @return ShippingEntity[] Returns an array of ShippingEntity objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?ShippingEntity
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
