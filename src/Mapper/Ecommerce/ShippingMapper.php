@@ -11,6 +11,7 @@ class ShippingMapper
     {
         return (new ShippingDto)
             ->setName($shippingEntity->getTitle())
+            ->setType($shippingEntity->getType())
             ->setPrice(PriceMapper::toDtoFromArr($shippingEntity->getPrice()))
             ;
     }
@@ -21,6 +22,10 @@ class ShippingMapper
 
         if ($name = $shippingDto->getName()){
             $shippingEntity->setTitle($name);
+        }
+
+        if ($type = $shippingDto->getType()){
+            $shippingEntity->setType($type);
         }
 
         if ($price = $shippingDto->getPrice()){
@@ -34,6 +39,7 @@ class ShippingMapper
     {
         return $shippingDto
             ->setName($shippingEntity->getTitle())
+            ->setType($shippingEntity->getType())
             ->setPrice(PriceMapper::toDtoFromArr($shippingEntity->getPrice()))
             ;
     }
@@ -42,6 +48,10 @@ class ShippingMapper
     {
         if ($name = $shippingDto->getName()){
             $shippingEntity->setTitle($name);
+        }
+
+        if ($type = $shippingDto->getType()){
+            $shippingEntity->setType($type);
         }
 
         if ($price = $shippingDto->getPrice()){

@@ -17,16 +17,7 @@ class ShippingService implements ShippingServiceInterface
     ) {
     }
 
-    public function getAllShipping(int $projectId): array
-    {
-        return $this->shippingEntityRepository->findBy(
-            [
-                'project' => $projectId
-            ]
-        );
-    }
-
-    public function getShipping(int $projectId, int $shippingId): ?ShippingEntity
+    public function get(int $projectId, int $shippingId): ?ShippingEntity
     {
         return $this->shippingEntityRepository->findOneBy(
             [
@@ -36,7 +27,16 @@ class ShippingService implements ShippingServiceInterface
         );
     }
 
-    public function addShipping(ShippingDto $shippingDto, int $projectId): ShippingEntity
+    public function getAll(int $projectId): array
+    {
+        return $this->shippingEntityRepository->findBy(
+            [
+                'project' => $projectId
+            ]
+        );
+    }
+
+    public function add(ShippingDto $shippingDto, int $projectId): ShippingEntity
     {
         $shippingEntity = ShippingMapper::mapToEntity($shippingDto);
 
@@ -47,9 +47,9 @@ class ShippingService implements ShippingServiceInterface
         return $shippingEntity;
     }
 
-    public function updateShipping(ShippingDto $shippingDto, int $projectId, int $shippingId): ShippingEntity
+    public function update(ShippingDto $shippingDto, int $projectId, int $shippingId): ShippingEntity
     {
-        $shippingEntity = $this->getShipping($projectId, $shippingId);
+        $shippingEntity = $this->get($projectId, $shippingId);
 
         $shippingEntity = ShippingMapper::mapToExistEntity($shippingDto, $shippingEntity);
 
@@ -58,9 +58,9 @@ class ShippingService implements ShippingServiceInterface
         return $shippingEntity;
     }
 
-    public function removeShipping(int $projectId, int $shippingId): bool
+    public function remove(int $projectId, int $shippingId): bool
     {
-        $shippingEntity = $this->getShipping($projectId, $shippingId);
+        $shippingEntity = $this->get($projectId, $shippingId);
 
         try {
             if ($shippingEntity){

@@ -8,6 +8,8 @@ class ShippingDto
 
     private ?PriceDto $price = null;
 
+    private ?string $type = null;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -28,6 +30,18 @@ class ShippingDto
     public function setPrice(?PriceDto $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

@@ -7,13 +7,13 @@ use App\Entity\Ecommerce\ShippingEntity;
 
 interface ShippingServiceInterface
 {
-    public function getAllShipping(int $projectId): array;
+    public function get(int $projectId, int $shippingId): ?ShippingEntity;
 
-    public function getShipping(int $projectId, int $shippingId): ?ShippingEntity;
+    public function getAll(int $projectId): array;
 
-    public function addShipping(ShippingDto $shippingDto, int $projectId): ShippingEntity;
+    public function add(ShippingDto $shippingDto, int $projectId): ShippingEntity;
 
-    public function updateShipping(ShippingDto $shippingDto, int $projectId, int $shippingId): ShippingEntity;
+    public function update(ShippingDto $shippingDto, int $projectId, int $shippingId): ShippingEntity;
 
-    public function removeShipping(int $projectId, int $shippingId): bool;
+    public function remove(int $projectId, int $shippingId): bool;
 }

@@ -27,7 +27,8 @@ class ShippingEntity
     #[ORM\Column]
     private ?int $project = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    #[Groups(['administrator'])]
+    #[ORM\Column(type: Types::JSON, nullable: true)]
     private array $price = [];
 
     public function getId(): ?int
