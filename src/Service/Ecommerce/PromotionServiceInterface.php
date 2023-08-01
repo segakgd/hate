@@ -3,17 +3,17 @@
 namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\PromotionDto;
-use App\Entity\Ecommerce\Promotion;
+use App\Entity\Ecommerce\PromotionEntity;
 
 interface PromotionServiceInterface
 {
-    public function getPromotions(int $projectId): array;
+    public function get(int $projectId, int $promotionId): ?PromotionEntity;
 
-    public function getPromotion(int $projectId, int $promotionId): Promotion;
+    public function getAll(int $projectId): array;
 
-    public function addPromotion(PromotionDto $promotionDto, int $projectId): Promotion;
+    public function add(PromotionDto $promotionDto, int $projectId): PromotionEntity;
 
-    public function updatePromotion(PromotionDto $promotionDto, int $projectId, int $promotionId): Promotion;
+    public function update(PromotionDto $promotionDto, int $projectId, int $promotionId): PromotionEntity;
 
-    public function removePromotion(int $projectId, int $promotionId): Promotion;
+    public function remove(int $projectId, int $promotionId): bool;
 }

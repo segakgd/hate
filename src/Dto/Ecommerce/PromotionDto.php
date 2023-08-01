@@ -6,6 +6,8 @@ class PromotionDto
 {
     private ?string $name = null;
 
+    private ?string $type = null;
+
     private ?PriceDto $price = null;
 
     public function getName(): ?string
@@ -16,6 +18,18 @@ class PromotionDto
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

@@ -3,32 +3,76 @@
 namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\PromotionDto;
-use App\Entity\Ecommerce\Promotion;
+use App\Entity\Ecommerce\PromotionEntity;
+use App\Mapper\Ecommerce\PromotionMapper;
+use App\Repository\Ecommerce\PromotionEntityRepository;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 class PromotionService implements PromotionServiceInterface
 {
-    public function getPromotions(int $projectId): array
-    {
-        return [];
+    public function __construct(
+        private readonly PromotionEntityRepository $promotionEntityRepository,
+        private readonly LoggerInterface $logger,
+    ) {
     }
 
-    public function getPromotion(int $projectId, int $promotionId): Promotion
+    public function get(int $projectId, int $promotionId): ?PromotionEntity
     {
-        return new Promotion;
+        return $this->promotionEntityRepository->findOneBy(
+            [
+                'id' => $promotionId,
+                'project' => $projectId
+            ]
+        );
     }
 
-    public function addPromotion(PromotionDto $promotionDto, int $projectId): Promotion
+    public function getAll(int $projectId): array
     {
-        return new Promotion;
+        return $this->promotionEntityRepository->findBy(
+            [
+                'project' => $projectId
+            ]
+        );
     }
 
-    public function updatePromotion(PromotionDto $promotionDto, int $projectId, int $promotionId): Promotion
+    public function add(PromotionDto $promotionDto, int $projectId): PromotionEntity
     {
-        return new Promotion;
+        $promotionEntity = PromotionMapper::mapToEntity($promotionDto);
+
+        $promotionEntity->setProject($projectId);
+
+        $this->promotionEntityRepository->saveAndFlush($promotionEntity);
+
+        return $promotionEntity;
     }
 
-    public function removePromotion(int $projectId, int $promotionId): Promotion
+    public function update(PromotionDto $promotionDto, int $projectId, int $promotionId): PromotionEntity
     {
-        return new Promotion;
+        $promotionEntity = $this->get($projectId, $promotionId);
+
+        $promotionEntity = PromotionMapper::mapToExistEntity($promotionDto, $promotionEntity);
+
+        $this->promotionEntityRepository->saveAndFlush($promotionEntity);
+
+        return $promotionEntity;
+    }
+
+    public function remove(int $projectId, int $promotionId): bool
+    {
+        $promotionEntity = $this->get($projectId, $promotionId);
+
+        try {
+            if ($promotionEntity){
+                $this->promotionEntityRepository->removeAndFlush($promotionEntity);
+            }
+
+        } catch (Throwable $exception){
+            $this->logger->error($exception->getMessage());
+
+            return false;
+        }
+
+        return true;
     }
 }
