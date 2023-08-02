@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Visitor\Security;
+namespace App\Controller\Security;
 
 use App\Dto\Security\UserDto;
 use App\Exception\Security\UserExistException;
