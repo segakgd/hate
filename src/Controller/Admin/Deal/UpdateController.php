@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Admin\Project;
+namespace App\Controller\Admin\Deal;
 
-use App\Dto\Project\ProjectDto;
+use App\Dto\Ecommerce\DealDto;
 use App\Entity\ProjectEntity;
-use App\Service\Project\ProjectService;
+use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,34 +14,33 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateProjectController extends AbstractController
+class UpdateController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectService $projectService,
+        private readonly DealServiceInterface $dealService,
         private readonly ValidatorInterface $validator,
         private readonly SerializerInterface $serializer
     ) {
     }
 
-    #[Route('/api/admin/projects/{project}/', name: 'project_update', methods: ['PUT'])]
+    #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'deal_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project): JsonResponse
+    public function execute(Request $request, ProjectEntity $project, int $dealId): JsonResponse
     {
-        // todo нужно искать project
         $content = $request->getContent();
-        $projectDto = $this->serializer->deserialize($content, ProjectDto::class, 'json');
+        $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');
 
-        $errors = $this->validator->validate($projectDto);
+        $errors = $this->validator->validate($dealDto);
 
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $projectEntity = $this->projectService->updateProject($projectDto, $project->getId());
+        $dealEntity = $this->dealService->update($dealDto, $project->getId(), $dealId);
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $projectEntity,
+                $dealEntity,
                 null,
                 ['groups' => 'administrator']
             )

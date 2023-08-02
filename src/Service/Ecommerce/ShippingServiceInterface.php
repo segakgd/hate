@@ -7,7 +7,7 @@ use App\Entity\Ecommerce\ShippingEntity;
 
 interface ShippingServiceInterface
 {
-    public function get(int $projectId, int $shippingId): ?ShippingEntity; // todo getOne
+    public function getOne(int $projectId, int $shippingId): ?ShippingEntity;
 
     public function getAll(int $projectId): array;
 

@@ -17,7 +17,7 @@ class PromotionService implements PromotionServiceInterface
     ) {
     }
 
-    public function get(int $projectId, int $promotionId): ?PromotionEntity
+    public function getOne(int $projectId, int $promotionId): ?PromotionEntity
     {
         return $this->promotionEntityRepository->findOneBy(
             [
@@ -49,7 +49,7 @@ class PromotionService implements PromotionServiceInterface
 
     public function update(PromotionDto $promotionDto, int $projectId, int $promotionId): PromotionEntity
     {
-        $promotionEntity = $this->get($projectId, $promotionId);
+        $promotionEntity = $this->getOne($projectId, $promotionId);
 
         $promotionEntity = PromotionMapper::mapToExistEntity($promotionDto, $promotionEntity);
 
@@ -60,7 +60,7 @@ class PromotionService implements PromotionServiceInterface
 
     public function remove(int $projectId, int $promotionId): bool
     {
-        $promotionEntity = $this->get($projectId, $promotionId);
+        $promotionEntity = $this->getOne($projectId, $promotionId);
 
         try {
             if ($promotionEntity){

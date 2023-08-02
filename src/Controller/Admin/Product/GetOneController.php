@@ -10,20 +10,20 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class GetAllProductController extends AbstractController
+class GetOneController extends AbstractController
 {
     public function __construct(
         private readonly ProductServiceInterface $productService,
         private readonly SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/project/{project}/product/', name: 'product_get_all', methods: ['GET'])]
+    #[Route('/api/admin/project/{project}/product/{productId}/', name: 'product_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project): JsonResponse
+    public function execute(ProjectEntity $project, int $productId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->productService->getAll($project->getId()),
+                $this->productService->getOne($project->getId(), $productId),
                 null,
                 ['groups' => 'administrator']
             )

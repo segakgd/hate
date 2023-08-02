@@ -17,7 +17,7 @@ class DealService implements DealServiceInterface
     ) {
     }
 
-    public function getDeals(int $projectId): array // с пагинацией
+    public function getAll(int $projectId): array
     {
         return $this->dealEntityRepository->findBy(
             [
@@ -26,7 +26,7 @@ class DealService implements DealServiceInterface
         );
     }
 
-    public function getDeal(int $projectId, int $dealId): ?DealEntity
+    public function getOne(int $projectId, int $dealId): ?DealEntity
     {
         return $this->dealEntityRepository->findOneBy(
             [
@@ -36,7 +36,7 @@ class DealService implements DealServiceInterface
         );
     }
 
-    public function addDeal(DealDto $dealDto, int $projectId): DealEntity
+    public function add(DealDto $dealDto, int $projectId): DealEntity
     {
         $dealEntity = DealMapper::mapToEntity($dealDto);
 
@@ -47,9 +47,9 @@ class DealService implements DealServiceInterface
         return $dealEntity;
     }
 
-    public function updateDeal(DealDto $dealDto, int $projectId, int $dealId): DealEntity
+    public function update(DealDto $dealDto, int $projectId, int $dealId): DealEntity
     {
-        $dealEntity = $this->getDeal($projectId, $dealId);
+        $dealEntity = $this->getOne($projectId, $dealId);
 
         $dealEntity = DealMapper::mapToExistEntity($dealDto, $dealEntity);
 
@@ -58,9 +58,9 @@ class DealService implements DealServiceInterface
         return $dealEntity;
     }
 
-    public function removeDeal(int $projectId, int $dealId): bool
+    public function remove(int $projectId, int $dealId): bool
     {
-        $deal = $this->getDeal($projectId, $dealId);
+        $deal = $this->getOne($projectId, $dealId);
 
         try {
             if ($deal){

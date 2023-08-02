@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class GetAllProjectController extends AbstractController
+class GetAllController extends AbstractController
 {
     public function __construct(
         private readonly ProjectService $projectService,

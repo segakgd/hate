@@ -1,46 +1,46 @@
 <?php
 
-namespace App\Controller\Admin\Project;
+namespace App\Controller\Admin\Product;
 
-use App\Dto\Project\ProjectDto;
-use App\Entity\User\User;
-use App\Service\Project\ProjectService;
+use App\Dto\Ecommerce\ProductDto;
+use App\Entity\ProjectEntity;
+use App\Service\Ecommerce\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateProjectController extends AbstractController
+class CreateController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectService $projectService,
+        private readonly ProductServiceInterface $productService,
         private readonly ValidatorInterface $validator,
         private readonly SerializerInterface $serializer
     ) {
     }
 
-    #[Route('/api/admin/projects/', name: 'project_create', methods: ['POST'])]
-    public function execute(Request $request): JsonResponse
+    #[Route('/api/admin/project/{project}/product/', name: 'product_create', methods: ['POST'])]
+    #[IsGranted('existUser', 'project')]
+    public function execute(Request $request, ProjectEntity $project): JsonResponse
     {
         $content = $request->getContent();
-        $projectDto = $this->serializer->deserialize($content, ProjectDto::class, 'json');
+        $productDto = $this->serializer->deserialize($content, ProductDto::class, 'json');
 
-        $errors = $this->validator->validate($projectDto);
+        $errors = $this->validator->validate($productDto);
 
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        /** @var User $user */
-        $user = $this->getUser();
-        $projectEntity = $this->projectService->addProject($projectDto, $user);
+        $productEntity = $this->productService->add($productDto, $project->getId());
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $projectEntity,
+                $productEntity,
                 null,
                 ['groups' => 'administrator']
             )

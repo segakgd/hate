@@ -7,7 +7,7 @@ use App\Entity\Ecommerce\PromotionEntity;
 
 interface PromotionServiceInterface
 {
-    public function get(int $projectId, int $promotionId): ?PromotionEntity; // todo getOne
+    public function getOne(int $projectId, int $promotionId): ?PromotionEntity;
 
     public function getAll(int $projectId): array;
 

@@ -23,7 +23,7 @@ class GetOneController extends AbstractController
     {
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->shippingService->get($project->getId(), $shippingId),
+                $this->shippingService->getOne($project->getId(), $shippingId),
                 null,
                 ['groups' => 'administrator']
             )

@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateProductController extends AbstractController
+class UpdateController extends AbstractController
 {
     public function __construct(
         private readonly ProductServiceInterface $productService,
@@ -27,7 +27,6 @@ class UpdateProductController extends AbstractController
     #[IsGranted('existUser', 'project')]
     public function execute(Request $request, ProjectEntity $project, int $productId): JsonResponse
     {
-        // todo нужно искать project
         $content = $request->getContent();
         $productDto = $this->serializer->deserialize($content, ProductDto::class, 'json');
 

@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Controller\Admin\Project;
+namespace App\Controller\Admin\Deal;
 
 use App\Entity\ProjectEntity;
-use App\Service\Project\ProjectService;
+use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class RemoveProjectController extends AbstractController
+class RemoveController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectService $projectService,
+        private readonly DealServiceInterface $dealService,
     ) {}
 
-    #[Route('/api/admin/projects/{project}/', name: 'project_remove', methods: ['DELETE'])]
+    #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'deal_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project): JsonResponse
+    public function execute(ProjectEntity $project, int $dealId): JsonResponse
     {
-        $this->projectService->removeProject($project->getId());
+        $this->dealService->remove($project->getId(),  $dealId);
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

@@ -17,7 +17,7 @@ class ShippingService implements ShippingServiceInterface
     ) {
     }
 
-    public function get(int $projectId, int $shippingId): ?ShippingEntity
+    public function getOne(int $projectId, int $shippingId): ?ShippingEntity
     {
         return $this->shippingEntityRepository->findOneBy(
             [
@@ -49,7 +49,7 @@ class ShippingService implements ShippingServiceInterface
 
     public function update(ShippingDto $shippingDto, int $projectId, int $shippingId): ShippingEntity
     {
-        $shippingEntity = $this->get($projectId, $shippingId);
+        $shippingEntity = $this->getOne($projectId, $shippingId);
 
         $shippingEntity = ShippingMapper::mapToExistEntity($shippingDto, $shippingEntity);
 
@@ -60,7 +60,7 @@ class ShippingService implements ShippingServiceInterface
 
     public function remove(int $projectId, int $shippingId): bool
     {
-        $shippingEntity = $this->get($projectId, $shippingId);
+        $shippingEntity = $this->getOne($projectId, $shippingId);
 
         try {
             if ($shippingEntity){
