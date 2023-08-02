@@ -1,29 +1,30 @@
 <?php
 
-namespace App\Controller\Admin\Promotion;
+namespace App\Controller\Admin\_deprecated\Shipping;
 
 use App\Entity\ProjectEntity;
-use App\Service\Ecommerce\PromotionServiceInterface;
+use App\Service\Ecommerce\_deprecated\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class GetAllController extends AbstractController
+/** @deprecated временно не смотрим на этот код */
+class GetOneController extends AbstractController
 {
     public function __construct(
-        private readonly PromotionServiceInterface $promotionService,
+        private readonly ShippingServiceInterface $shippingService,
         private readonly SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/project/{project}/promotion/', name: 'admin_promotion_get_all', methods: ['GET'])]
+    #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project): JsonResponse
+    public function execute(ProjectEntity $project, int $shippingId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->promotionService->getAll($project->getId()),
+                $this->shippingService->getOne($project->getId(), $shippingId),
                 null,
                 ['groups' => 'administrator']
             )

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\_deprecated;
 
-use App\Dto\Ecommerce\PromotionDto;
+use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\Ecommerce\PromotionEntity;
 
+/** @deprecated временно не смотрим на этот код */
 interface PromotionServiceInterface
 {
     public function getOne(int $projectId, int $promotionId): ?PromotionEntity;

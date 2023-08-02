@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\_deprecated;
 
-use App\Dto\Ecommerce\ShippingDto;
+use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\Ecommerce\ShippingEntity;
 use App\Mapper\Ecommerce\ShippingMapper;
 use App\Repository\Ecommerce\ShippingEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+/** @deprecated временно не смотрим на этот код */
 class ShippingService implements ShippingServiceInterface
 {
     public function __construct(

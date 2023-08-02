@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\_deprecated;
 
-use App\Dto\Ecommerce\ProductCategoryDto;
+use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategoryEntity;
 
+/** @deprecated временно не смотрим на этот код */
 interface ProductCategoryServiceInterface
 {
     public function getAll(int $projectId): array;

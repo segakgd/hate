@@ -1,29 +1,30 @@
 <?php
 
-namespace App\Controller\Admin\Shipping;
+namespace App\Controller\Admin\deprecated\ProductCategory;
 
 use App\Entity\ProjectEntity;
-use App\Service\Ecommerce\ShippingServiceInterface;
+use App\Service\Ecommerce\_deprecated\ProductCategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class GetOneController extends AbstractController
+/** @deprecated временно не смотрим на этот код */
+class GetAllController extends AbstractController
 {
     public function __construct(
-        private readonly ShippingServiceInterface $shippingService,
+        private readonly ProductCategoryServiceInterface $productCategoryService,
         private readonly SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_get_one', methods: ['GET'])]
+    #[Route('/api/admin/project/{project}/productCategory/', name: 'admin_product_category_get_all', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $shippingId): JsonResponse
+    public function execute(ProjectEntity $project): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->shippingService->getOne($project->getId(), $shippingId),
+                $this->productCategoryService->getAll($project->getId()),
                 null,
                 ['groups' => 'administrator']
             )

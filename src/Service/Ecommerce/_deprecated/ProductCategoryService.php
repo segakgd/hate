@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\_deprecated;
 
-use App\Dto\Ecommerce\ProductCategoryDto;
+use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategoryEntity;
 use App\Mapper\Ecommerce\ProductCategoryMapper;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+/** @deprecated временно не смотрим на этот код */
 class ProductCategoryService implements ProductCategoryServiceInterface
 {
     public function __construct(

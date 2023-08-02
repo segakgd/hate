@@ -2,7 +2,7 @@
 
 namespace App\Mapper\Ecommerce;
 
-use App\Dto\Ecommerce\ShippingDto;
+use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\Ecommerce\ShippingEntity;
 
 class ShippingMapper

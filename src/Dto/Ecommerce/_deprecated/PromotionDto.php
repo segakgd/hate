@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Dto\Ecommerce;
+namespace App\Dto\Ecommerce\_deprecated;
 
+use App\Dto\Ecommerce\PriceDto;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/** @deprecated временно не смотрим на этот код */
 class PromotionDto
 {
     private ?string $name = null;

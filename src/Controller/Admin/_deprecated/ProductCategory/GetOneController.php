@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Controller\Admin\ProductCategory;
+namespace App\Controller\Admin\deprecated\ProductCategory;
 
 use App\Entity\ProjectEntity;
-use App\Service\Ecommerce\ProductCategoryServiceInterface;
+use App\Service\Ecommerce\_deprecated\ProductCategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/** @deprecated временно не смотрим на этот код */
 class GetOneController extends AbstractController
 {
     public function __construct(

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Dto\Ecommerce;
+namespace App\Dto\Ecommerce\_deprecated;
 
+/** @deprecated временно не смотрим на этот код */
 class ProductCategoryDto
 {
     private ?string $name = null;

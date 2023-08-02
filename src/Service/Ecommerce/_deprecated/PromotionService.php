@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\_deprecated;
 
-use App\Dto\Ecommerce\PromotionDto;
+use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\Ecommerce\PromotionEntity;
 use App\Mapper\Ecommerce\PromotionMapper;
 use App\Repository\Ecommerce\PromotionEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+/** @deprecated временно не смотрим на этот код */
 class PromotionService implements PromotionServiceInterface
 {
     public function __construct(

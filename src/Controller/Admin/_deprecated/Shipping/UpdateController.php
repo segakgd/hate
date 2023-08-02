@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Admin\Promotion;
+namespace App\Controller\Admin\_deprecated\Shipping;
 
-use App\Dto\Ecommerce\PromotionDto;
+use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\ProjectEntity;
-use App\Service\Ecommerce\PromotionServiceInterface;
+use App\Service\Ecommerce\_deprecated\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,33 +14,34 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/** @deprecated временно не смотрим на этот код */
 class UpdateController extends AbstractController
 {
     public function __construct(
-        private readonly PromotionServiceInterface $promotionService,
+        private readonly ShippingServiceInterface $shippingService,
         private readonly ValidatorInterface $validator,
         private readonly SerializerInterface $serializer
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'admin_promotion_update', methods: ['PUT'])]
+    #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project, int $promotionId): JsonResponse
+    public function execute(Request $request, ProjectEntity $project, int $shippingId): JsonResponse
     {
         $content = $request->getContent();
-        $promotionDto = $this->serializer->deserialize($content, PromotionDto::class, 'json');
+        $shippingDto = $this->serializer->deserialize($content, ShippingDto::class, 'json');
 
-        $errors = $this->validator->validate($promotionDto);
+        $errors = $this->validator->validate($shippingDto);
 
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $promotionEntity = $this->promotionService->update($promotionDto, $project->getId(), $promotionId);
+        $shippingEntity = $this->shippingService->update($shippingDto, $project->getId(), $shippingId);
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $promotionEntity,
+                $shippingEntity,
                 null,
                 ['groups' => 'administrator']
             )

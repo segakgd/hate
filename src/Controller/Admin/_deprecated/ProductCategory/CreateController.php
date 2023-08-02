@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Admin\Promotion;
+namespace App\Controller\Admin\deprecated\ProductCategory;
 
-use App\Dto\Ecommerce\PromotionDto;
+use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\ProjectEntity;
-use App\Service\Ecommerce\PromotionServiceInterface;
+use App\Service\Ecommerce\_deprecated\ProductCategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,33 +14,34 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/** @deprecated временно не смотрим на этот код */
 class CreateController extends AbstractController
 {
     public function __construct(
-        private readonly PromotionServiceInterface $promotionService,
+        private readonly ProductCategoryServiceInterface $productCategoryService,
         private readonly ValidatorInterface $validator,
         private readonly SerializerInterface $serializer
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/promotion/', name: 'admin_promotion_create', methods: ['POST'])]
+    #[Route('/api/admin/project/{project}/productCategory/', name: 'admin_product_category_create', methods: ['POST'])]
     #[IsGranted('existUser', 'project')]
     public function execute(Request $request, ProjectEntity $project): JsonResponse
     {
         $content = $request->getContent();
-        $promotionDto = $this->serializer->deserialize($content, PromotionDto::class, 'json');
+        $productCategoryDto = $this->serializer->deserialize($content, ProductCategoryDto::class, 'json');
 
-        $errors = $this->validator->validate($promotionDto);
+        $errors = $this->validator->validate($productCategoryDto);
 
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $promotionEntity = $this->promotionService->add($promotionDto, $project->getId());
+        $productCategoryEntity = $this->productCategoryService->add($productCategoryDto, $project->getId());
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $promotionEntity,
+                $productCategoryEntity,
                 null,
                 ['groups' => 'administrator']
             )

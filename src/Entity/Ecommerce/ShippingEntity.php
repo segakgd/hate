@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+/** @deprecated временно не смотрим на этот код */
 #[ORM\Entity(repositoryClass: ShippingEntityRepository::class)]
 class ShippingEntity
 {

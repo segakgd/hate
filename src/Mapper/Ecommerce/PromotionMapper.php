@@ -2,7 +2,7 @@
 
 namespace App\Mapper\Ecommerce;
 
-use App\Dto\Ecommerce\PromotionDto;
+use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\Ecommerce\PromotionEntity;
 
 class PromotionMapper

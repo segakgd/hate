@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\_deprecated;
 
-use App\Dto\Ecommerce\ShippingDto;
+use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\Ecommerce\ShippingEntity;
 
+/** @deprecated временно не смотрим на этот код */
 interface ShippingServiceInterface
 {
     public function getOne(int $projectId, int $shippingId): ?ShippingEntity;

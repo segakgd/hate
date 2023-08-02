@@ -2,7 +2,7 @@
 
 namespace App\Mapper\Ecommerce;
 
-use App\Dto\Ecommerce\ProductCategoryDto;
+use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategoryEntity;
 
 class ProductCategoryMapper
