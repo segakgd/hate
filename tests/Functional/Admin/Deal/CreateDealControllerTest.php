@@ -17,57 +17,57 @@ class CreateDealControllerTest extends ApiTestCase
     use UserTrait;
     use ProjectTrait;
 
-//    /**
-//     * @throws Exception
-//     */
-//    public function testWithoutAuth()
-//    {
-//        $client = static::createClient();
-//        $entityManager = $this->getEntityManager();
-//
-//        $user = $this->createUser($entityManager);
-//        $project = $this->createProject($entityManager, $user);
-//
-//        $client->request(
-//            'POST',
-//            '/api/admin/project/' . $project->getId() .'/deal/',
-//        );
-//
-//        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
-//    }
-//
-//    /**
-//     * @throws Exception
-//     */
-//    public function testCreateEmptyDeal()
-//    {
-//        $client = static::createClient();
-//        $entityManager = $this->getEntityManager();
-//
-//        $user = $this->createUser($entityManager);
-//        $project = $this->createProject($entityManager, $user);
-//
-//        $client->loginUser($user);
-//
-//        $client->request(
-//            'POST',
-//            '/api/admin/project/' . $project->getId() .'/deal/',
-//            [],
-//            [],
-//            [],
-//            json_encode([])
-//        );
-//
-//        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-//
-//        $deal = json_decode($client->getResponse()->getContent(), true);
-//
-//        $this->assertTrue(isset($deal['id']));
-//
-//        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
-//
-//        $this->assertEquals($dealEntity->getId(), $deal['id']);
-//    }
+    /**
+     * @throws Exception
+     */
+    public function testWithoutAuth()
+    {
+        $client = static::createClient();
+        $entityManager = $this->getEntityManager();
+
+        $user = $this->createUser($entityManager);
+        $project = $this->createProject($entityManager, $user);
+
+        $client->request(
+            'POST',
+            '/api/admin/project/' . $project->getId() .'/deal/',
+        );
+
+        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCreateEmptyDeal()
+    {
+        $client = static::createClient();
+        $entityManager = $this->getEntityManager();
+
+        $user = $this->createUser($entityManager);
+        $project = $this->createProject($entityManager, $user);
+
+        $client->loginUser($user);
+
+        $client->request(
+            'POST',
+            '/api/admin/project/' . $project->getId() .'/deal/',
+            [],
+            [],
+            [],
+            json_encode([])
+        );
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $deal = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertTrue(isset($deal['id']));
+
+        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
+
+        $this->assertEquals($dealEntity->getId(), $deal['id']);
+    }
 
     /**
      * @dataProvider positiveVariantsWithAllData
@@ -94,135 +94,131 @@ class CreateDealControllerTest extends ApiTestCase
         );
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @dataProvider positiveVariantsContact
+     *
+     * @throws Exception
+     */
+    public function testCreateDealWithContacts(array $requestContent)
+    {
+        $client = static::createClient();
+        $entityManager = $this->getEntityManager();
+
+        $user = $this->createUser($entityManager);
+        $project = $this->createProject($entityManager, $user);
+
+        $client->loginUser($user);
+
+        $client->request(
+            'POST',
+            '/api/admin/project/' . $project->getId() .'/deal/',
+            [],
+            [],
+            [],
+            json_encode($requestContent)
+        );
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
         $deal = json_decode($client->getResponse()->getContent(), true);
 
-        dd($deal);
+        $this->assertTrue(isset($deal['id']));
+
+        $dealEntity = $entityManager->getRepository(DealEntity::class)->find($deal['id']);
+
+        $this->assertEquals($dealEntity->getId(), $deal['id']);
+        $this->assertTrue(isset($deal['contacts']['id']));
+
+        $contact = $entityManager->getRepository(ContactsEntity::class)->find($deal['contacts']['id']);
+
+        $this->assertEquals($contact->getId(), $deal['contacts']['id']);
     }
 
-//    /**
-//     * @dataProvider positiveVariantsContact
-//     *
-//     * @throws Exception
-//     */
-//    public function testCreateDealWithContacts(array $requestContent)
-//    {
-//        $client = static::createClient();
-//        $entityManager = $this->getEntityManager();
-//
-//        $user = $this->createUser($entityManager);
-//        $project = $this->createProject($entityManager, $user);
-//
-//        $client->loginUser($user);
-//
-//        $client->request(
-//            'POST',
-//            '/api/admin/project/' . $project->getId() .'/deal/',
-//            [],
-//            [],
-//            [],
-//            json_encode($requestContent)
-//        );
-//
-//        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-//
-//        $deal = json_decode($client->getResponse()->getContent(), true);
-//
-//        $this->assertTrue(isset($deal['id']));
-//
-//        $dealEntity = $entityManager->getRepository(DealEntity::class)->find($deal['id']);
-//
-//        $this->assertEquals($dealEntity->getId(), $deal['id']);
-//        $this->assertTrue(isset($deal['contacts']['id']));
-//
-//        $contact = $entityManager->getRepository(ContactsEntity::class)->find($deal['contacts']['id']);
-//
-//        $this->assertEquals($contact->getId(), $deal['contacts']['id']);
-//    }
-//
-//    /**
-//     * @dataProvider positiveVariantsField
-//     *
-//     * @throws Exception
-//     */
-//    public function testCreateDealWithFields(array $requestContent)
-//    {
-//        $client = static::createClient();
-//        $entityManager = $this->getEntityManager();
-//
-//        $user = $this->createUser($entityManager);
-//        $project = $this->createProject($entityManager, $user);
-//
-//        $client->loginUser($user);
-//
-//        $client->request(
-//            'POST',
-//            '/api/admin/project/' . $project->getId() .'/deal/',
-//            [],
-//            [],
-//            [],
-//            json_encode($requestContent)
-//        );
-//
-//        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-//
-//        $deal = json_decode($client->getResponse()->getContent(), true);
-//
-//        $this->assertTrue(isset($deal['id']));
-//
-//        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
-//
-//        $this->assertEquals($dealEntity->getId(), $deal['id']);
-//
-//        foreach ($deal['fields'] as $field) {
-//            $this->assertTrue(isset($field['id']));
-//
-//            $fieldEntity = $this->getEntityManager()->getRepository(FieldEntity::class)->find($field['id']);
-//
-//            $this->assertEquals($fieldEntity->getId(), $field['id']);
-//        }
-//    }
-//
-//    /**
-//     * @dataProvider positiveVariantsOrder
-//     *
-//     * @throws Exception
-//     */
-//    public function testCreateDealWithOrder(array $requestContent)
-//    {
-//        $client = static::createClient();
-//        $entityManager = $this->getEntityManager();
-//
-//        $user = $this->createUser($entityManager);
-//        $project = $this->createProject($entityManager, $user);
-//
-//        $client->loginUser($user);
-//
-//        $client->request(
-//            'POST',
-//            '/api/admin/project/' . $project->getId() .'/deal/',
-//            [],
-//            [],
-//            [],
-//            json_encode($requestContent)
-//        );
-//
-//        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-//
-//        $deal = json_decode($client->getResponse()->getContent(), true);
-//
-//        $this->assertTrue(isset($deal['id']));
-//
-//        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
-//
-//        $this->assertEquals($dealEntity->getId(), $deal['id']);
-//
-//        $this->assertTrue(isset($deal['orders']['id']));
-//
-//        $order = $this->getEntityManager()->getRepository(OrderEntity::class)->find($deal['orders']['id']);
-//
-//        $this->assertEquals($order->getId(), $deal['orders']['id']);
-//    }
+    /**
+     * @dataProvider positiveVariantsField
+     *
+     * @throws Exception
+     */
+    public function testCreateDealWithFields(array $requestContent)
+    {
+        $client = static::createClient();
+        $entityManager = $this->getEntityManager();
+
+        $user = $this->createUser($entityManager);
+        $project = $this->createProject($entityManager, $user);
+
+        $client->loginUser($user);
+
+        $client->request(
+            'POST',
+            '/api/admin/project/' . $project->getId() .'/deal/',
+            [],
+            [],
+            [],
+            json_encode($requestContent)
+        );
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $deal = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertTrue(isset($deal['id']));
+
+        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
+
+        $this->assertEquals($dealEntity->getId(), $deal['id']);
+
+        foreach ($deal['fields'] as $field) {
+            $this->assertTrue(isset($field['id']));
+
+            $fieldEntity = $this->getEntityManager()->getRepository(FieldEntity::class)->find($field['id']);
+
+            $this->assertEquals($fieldEntity->getId(), $field['id']);
+        }
+    }
+
+    /**
+     * @dataProvider positiveVariantsOrder
+     *
+     * @throws Exception
+     */
+    public function testCreateDealWithOrder(array $requestContent)
+    {
+        $client = static::createClient();
+        $entityManager = $this->getEntityManager();
+
+        $user = $this->createUser($entityManager);
+        $project = $this->createProject($entityManager, $user);
+
+        $client->loginUser($user);
+
+        $client->request(
+            'POST',
+            '/api/admin/project/' . $project->getId() .'/deal/',
+            [],
+            [],
+            [],
+            json_encode($requestContent)
+        );
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $deal = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertTrue(isset($deal['id']));
+
+        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($deal['id']);
+
+        $this->assertEquals($dealEntity->getId(), $deal['id']);
+
+        $this->assertTrue(isset($deal['orders']['id']));
+
+        $order = $this->getEntityManager()->getRepository(OrderEntity::class)->find($deal['orders']['id']);
+
+        $this->assertEquals($order->getId(), $deal['orders']['id']);
+    }
 
     private function positiveVariantsWithAllData(): iterable
     {

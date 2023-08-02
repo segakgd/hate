@@ -30,8 +30,6 @@ class CreateController extends AbstractController
         $content = $request->getContent();
         $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');
 
-        dd($dealDto);
-
         $errors = $this->validator->validate($dealDto);
 
         if (count($errors) > 0) {
@@ -39,8 +37,6 @@ class CreateController extends AbstractController
         }
 
         $dealEntity = $this->dealService->add($dealDto, $project->getId());
-
-        dd($dealEntity);
 
         return new JsonResponse(
             $this->serializer->normalize(
