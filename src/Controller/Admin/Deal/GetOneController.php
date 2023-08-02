@@ -17,7 +17,7 @@ class GetOneController extends AbstractController
         private readonly SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'deal_get_one', methods: ['GET'])]
+    #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'admin_deal_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project, int $dealId): JsonResponse
     {

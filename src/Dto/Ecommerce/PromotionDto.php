@@ -2,13 +2,18 @@
 
 namespace App\Dto\Ecommerce;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class PromotionDto
 {
     private ?string $name = null;
 
+    #[Assert\Choice(['code', 'discount'])]
     private ?string $type = null;
 
     private ?PriceDto $price = null;
+
+    // todo from, to code, active, cratedAt
 
     public function getName(): ?string
     {

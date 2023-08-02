@@ -10,6 +10,10 @@ class ProductDto
 
     private ?PriceDto $price = null;
 
+    //
+    // todo count, article, from, to, active, cratedAt
+
+
     public function getName(): ?string
     {
         return $this->name;

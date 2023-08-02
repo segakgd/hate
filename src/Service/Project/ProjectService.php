@@ -10,7 +10,7 @@ use App\Repository\ProjectEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class ProjectService
+class ProjectService implements ProjectServiceInterface
 {
     public function __construct(
         private readonly ProjectEntityRepository $projectEntityRepository,
@@ -18,17 +18,17 @@ class ProjectService
     ) {
     }
 
-    public function getProjects(User $user): array
+    public function getAll(User $user): array
     {
         return $user->getProjects()->toArray(); // todo жёсткий костыль
     }
 
-    public function getProject(int $projectId): ?ProjectEntity
+    public function getOne(int $projectId): ?ProjectEntity
     {
         return $this->projectEntityRepository->find($projectId);
     }
 
-    public function addProject(ProjectDto $projectDto, User $user): ProjectEntity
+    public function add(ProjectDto $projectDto, User $user): ProjectEntity
     {
         $projectEntity = ProjectMapper::mapToEntity($projectDto);
         $projectEntity->addUser($user);
@@ -38,9 +38,9 @@ class ProjectService
         return $projectEntity;
     }
 
-    public function updateProject(ProjectDto $projectDto, int $projectId): ProjectEntity
+    public function update(ProjectDto $projectDto, int $projectId): ProjectEntity
     {
-        $projectEntity = $this->getProject($projectId);
+        $projectEntity = $this->getOne($projectId);
         $projectEntity = ProjectMapper::mapToExistEntity($projectDto, $projectEntity);
 
         $this->projectEntityRepository->saveAndFlush($projectEntity);
@@ -48,9 +48,9 @@ class ProjectService
         return $projectEntity;
     }
 
-    public function removeProject(int $projectId): bool
+    public function remove(int $projectId): bool
     {
-        $project = $this->getProject($projectId);
+        $project = $this->getOne($projectId);
 
         try {
             if ($project){

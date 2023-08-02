@@ -23,7 +23,7 @@ class CreateController extends AbstractController
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/promotion/', name: 'promotion_create', methods: ['POST'])]
+    #[Route('/api/admin/project/{project}/promotion/', name: 'admin_promotion_create', methods: ['POST'])]
     #[IsGranted('existUser', 'project')]
     public function execute(Request $request, ProjectEntity $project): JsonResponse
     {

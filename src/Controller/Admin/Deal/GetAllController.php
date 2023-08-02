@@ -17,7 +17,7 @@ class GetAllController extends AbstractController
         private readonly SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/project/{project}/deal/', name: 'deal_get_all', methods: ['GET'])]
+    #[Route('/api/admin/project/{project}/deal/', name: 'admin_deal_get_all', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project): JsonResponse
     {

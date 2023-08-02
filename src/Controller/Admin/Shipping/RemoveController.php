@@ -16,7 +16,7 @@ class RemoveController extends AbstractController
         private readonly ShippingServiceInterface $shippingService,
     ) {}
 
-    #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'shipping_remove', methods: ['DELETE'])]
+    #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project, int $shippingId): JsonResponse
     {

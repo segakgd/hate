@@ -21,7 +21,7 @@ class AddController extends AbstractController
 
     #[Route(
         '/api/admin/project/{project}/product/{product}/category/{productCategory}/',
-        name: 'product_add_in_category',
+        name: 'admin_product_add_in_category',
         methods: ['POST'])
     ]
     #[IsGranted('existUser', 'project')]

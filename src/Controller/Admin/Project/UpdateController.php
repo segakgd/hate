@@ -4,7 +4,7 @@ namespace App\Controller\Admin\Project;
 
 use App\Dto\Project\ProjectDto;
 use App\Entity\ProjectEntity;
-use App\Service\Project\ProjectService;
+use App\Service\Project\ProjectServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,13 +17,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UpdateController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectService $projectService,
+        private readonly ProjectServiceInterface $projectService,
         private readonly ValidatorInterface $validator,
         private readonly SerializerInterface $serializer
     ) {
     }
 
-    #[Route('/api/admin/projects/{project}/', name: 'project_update', methods: ['PUT'])]
+    #[Route('/api/admin/projects/{project}/', name: 'admin_project_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
     public function execute(Request $request, ProjectEntity $project): JsonResponse
     {
@@ -36,7 +36,7 @@ class UpdateController extends AbstractController
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $projectEntity = $this->projectService->updateProject($projectDto, $project->getId());
+        $projectEntity = $this->projectService->update($projectDto, $project->getId());
 
         return new JsonResponse(
             $this->serializer->normalize(

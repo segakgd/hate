@@ -16,7 +16,7 @@ class RemoveController extends AbstractController
         private readonly DealServiceInterface $dealService,
     ) {}
 
-    #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'deal_remove', methods: ['DELETE'])]
+    #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'admin_deal_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project, int $dealId): JsonResponse
     {

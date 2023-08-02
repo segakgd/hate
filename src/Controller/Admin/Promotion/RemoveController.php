@@ -16,7 +16,7 @@ class RemoveController extends AbstractController
         private readonly PromotionServiceInterface $promotionService,
     ) {}
 
-    #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'promotion_remove', methods: ['DELETE'])]
+    #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'admin_promotion_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project, int $promotionId): JsonResponse
     {

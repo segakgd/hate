@@ -16,7 +16,7 @@ class RemoveController extends AbstractController
         private readonly ProductServiceInterface $productService,
     ) {}
 
-    #[Route('/api/admin/project/{project}/product/{productId}/', name: 'product_remove', methods: ['DELETE'])]
+    #[Route('/api/admin/project/{project}/product/{productId}/', name: 'admin_product_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project, int $productId): JsonResponse
     {

@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Controller\Admin\Project;
+namespace App\Controller\Visitor\Deal;
 
-use App\Dto\Project\ProjectDto;
-use App\Entity\User\User;
-use App\Service\Project\ProjectServiceInterface;
+use App\Dto\Ecommerce\DealDto;
+use App\Dto\Ecommerce\PromotionDto;
+use App\Entity\ProjectEntity;
+use App\Service\Ecommerce\DealServiceInterface;
+use App\Service\Ecommerce\PromotionServiceInterface;
+use App\Service\Project\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,31 +19,29 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class CreateController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectServiceInterface $projectService,
         private readonly ValidatorInterface $validator,
-        private readonly SerializerInterface $serializer
+        private readonly SerializerInterface $serializer,
+        private readonly DealServiceInterface $dealService,
     ) {
     }
 
-    #[Route('/api/admin/projects/', name: 'admin_project_create', methods: ['POST'])]
-    public function execute(Request $request): JsonResponse
+    #[Route('/visitor/project/{project}/deal/', name: 'visitor_deal_create', methods: ['POST'])]
+    public function execute(Request $request, ProjectEntity $project): JsonResponse
     {
         $content = $request->getContent();
-        $projectDto = $this->serializer->deserialize($content, ProjectDto::class, 'json');
+        $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');
 
-        $errors = $this->validator->validate($projectDto);
+        $errors = $this->validator->validate($dealDto);
 
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        /** @var User $user */
-        $user = $this->getUser();
-        $projectEntity = $this->projectService->add($projectDto, $user);
+        $dealEntity = $this->dealService->add($dealDto, $project->getId());
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $projectEntity,
+                $dealEntity,
                 null,
                 ['groups' => 'administrator']
             )

@@ -2,13 +2,18 @@
 
 namespace App\Dto\Ecommerce;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class ShippingDto
 {
     private ?string $name = null;
 
     private ?PriceDto $price = null;
 
+    #[Assert\Choice(['courier', 'pickup'])]
     private ?string $type = null;
+
+    // todo count, article, from, to, active, cratedAt
 
     public function getName(): ?string
     {

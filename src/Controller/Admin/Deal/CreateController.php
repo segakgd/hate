@@ -23,12 +23,14 @@ class CreateController extends AbstractController
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/deal/', name: 'deal_create', methods: ['POST'])]
+    #[Route('/api/admin/project/{project}/deal/', name: 'admin_deal_create', methods: ['POST'])]
     #[IsGranted('existUser', 'project')]
     public function execute(Request $request, ProjectEntity $project): JsonResponse
     {
         $content = $request->getContent();
         $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');
+
+        dd($dealDto);
 
         $errors = $this->validator->validate($dealDto);
 
@@ -37,6 +39,8 @@ class CreateController extends AbstractController
         }
 
         $dealEntity = $this->dealService->add($dealDto, $project->getId());
+
+        dd($dealEntity);
 
         return new JsonResponse(
             $this->serializer->normalize(
