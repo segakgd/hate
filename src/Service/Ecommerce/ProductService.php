@@ -17,7 +17,7 @@ class ProductService implements ProductServiceInterface
     ) {
     }
 
-    public function getProducts(int $projectId): array
+    public function getAll(int $projectId): array
     {
         return $this->productEntityRepository->findBy(
             [
@@ -26,7 +26,7 @@ class ProductService implements ProductServiceInterface
         );
     }
 
-    public function getProduct(int $projectId, int $productId): ?ProductEntity
+    public function getOne(int $projectId, int $productId): ?ProductEntity
     {
         return $this->productEntityRepository->findOneBy(
             [
@@ -36,7 +36,7 @@ class ProductService implements ProductServiceInterface
         );
     }
 
-    public function addProduct(ProductDto $productDto, int $projectId): ProductEntity
+    public function add(ProductDto $productDto, int $projectId): ProductEntity
     {
         $productEntity = ProductMapper::mapToEntity($productDto);
 
@@ -47,9 +47,9 @@ class ProductService implements ProductServiceInterface
         return $productEntity;
     }
 
-    public function updateProduct(ProductDto $productDto, int $projectId, int $productId): ProductEntity
+    public function update(ProductDto $productDto, int $projectId, int $productId): ProductEntity
     {
-        $productEntity = $this->getProduct($projectId, $productId);
+        $productEntity = $this->getOne($projectId, $productId);
 
         $productEntity = ProductMapper::mapToExistEntity($productDto, $productEntity);
 
@@ -58,9 +58,9 @@ class ProductService implements ProductServiceInterface
         return $productEntity;
     }
 
-    public function removeProduct(int $projectId, int $productId): bool
+    public function remove(int $projectId, int $productId): bool
     {
-        $productEntity = $this->getProduct($projectId, $productId);
+        $productEntity = $this->getOne($projectId, $productId);
 
         try {
             if ($productEntity){

@@ -37,7 +37,7 @@ class UpdateProductController extends AbstractController
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $productEntity = $this->productService->updateProduct($productDto, $project->getId(), $productId);
+        $productEntity = $this->productService->update($productDto, $project->getId(), $productId);
 
         return new JsonResponse(
             $this->serializer->normalize(

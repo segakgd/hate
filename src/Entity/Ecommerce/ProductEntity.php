@@ -3,6 +3,8 @@
 namespace App\Entity\Ecommerce;
 
 use App\Repository\ProductEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -29,6 +31,14 @@ class ProductEntity
 
     #[ORM\Column]
     private ?int $project = null;
+
+    #[ORM\ManyToMany(targetEntity: ProductCategoryEntity::class, mappedBy: 'products')]
+    private Collection $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -79,6 +89,33 @@ class ProductEntity
     public function setProject(int $project): static
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductCategoryEntity>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(ProductCategoryEntity $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(ProductCategoryEntity $category): static
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeProduct($this);
+        }
 
         return $this;
     }

@@ -2,15 +2,18 @@
 
 namespace App\Service\Ecommerce;
 
+use App\Dto\Ecommerce\ProductCategoryDto;
+use App\Entity\Ecommerce\ProductCategoryEntity;
+
 interface ProductCategoryServiceInterface
 {
-    public function getCategories(): array;
+    public function getAll(int $projectId): array;
 
-    public function getCategory(int $categoryId); //: CategoryEntity;
+    public function getOne(int $projectId, int $productCategoryId): ?ProductCategoryEntity;
 
-    public function addCategory( $categoryDto); //: CategoryEntity;
+    public function add(ProductCategoryDto $productCategoryDto, int $projectId): ProductCategoryEntity;
 
-    public function updateCategory($categoryDto); //: CategoryEntity;
+    public function update(ProductCategoryDto $productCategoryDto, int $projectId, int $productCategoryId): ProductCategoryEntity;
 
-    public function removeCategory(int $categoryId);//: CategoryEntity;
+    public function remove(int $projectId, int $productCategoryId): bool;
 }

@@ -7,7 +7,7 @@ use App\Entity\Ecommerce\OrderEntity;
 
 interface EcommerceServiceInterface
 {
-    public function getOrders(): array;
+    public function getOrders(): array; // todo убрать наименование Order из всех методов
 
     public function getOrder(OrderDto $orderId): OrderEntity;
 

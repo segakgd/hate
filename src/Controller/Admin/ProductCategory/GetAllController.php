@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Controller\Admin\Product;
+namespace App\Controller\Admin\ProductCategory;
 
 use App\Entity\ProjectEntity;
-use App\Service\Ecommerce\ProductServiceInterface;
+use App\Service\Ecommerce\ProductCategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class GetProductController extends AbstractController
+class GetAllController extends AbstractController
 {
     public function __construct(
-        private readonly ProductServiceInterface $productService,
+        private readonly ProductCategoryServiceInterface $productCategoryService,
         private readonly SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/project/{project}/product/{productId}/', name: 'product_get_one', methods: ['GET'])]
+    #[Route('/api/admin/project/{project}/productCategory/', name: 'product_category_get_all', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $productId): JsonResponse
+    public function execute(ProjectEntity $project): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->productService->getOne($project->getId(), $productId),
+                $this->productCategoryService->getAll($project->getId()),
                 null,
                 ['groups' => 'administrator']
             )

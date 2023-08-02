@@ -23,7 +23,7 @@ class GetAllProductController extends AbstractController
     {
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->productService->getProducts($project->getId()),
+                $this->productService->getAll($project->getId()),
                 null,
                 ['groups' => 'administrator']
             )

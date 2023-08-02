@@ -20,7 +20,7 @@ class RemoveProductController extends AbstractController
     #[IsGranted('existUser', 'project')]
     public function execute(ProjectEntity $project, int $productId): JsonResponse
     {
-        $this->productService->removeProduct($project->getId(),  $productId);
+        $this->productService->remove($project->getId(),  $productId);
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

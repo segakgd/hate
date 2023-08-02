@@ -7,7 +7,7 @@ use App\Entity\Ecommerce\DealEntity;
 
 interface DealServiceInterface
 {
-    public function getDeals(int $projectId): array;
+    public function getDeals(int $projectId): array; // todo убрать наименование Deals из всех методов
 
     public function getDeal(int $projectId, int $dealId): ?DealEntity;
 
