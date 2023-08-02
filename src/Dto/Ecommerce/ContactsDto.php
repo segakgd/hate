@@ -3,7 +3,6 @@
 namespace App\Dto\Ecommerce;
 
 class ContactsDto
-
 {
     private ?int $id = null;
 
