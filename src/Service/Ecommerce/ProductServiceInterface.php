@@ -3,6 +3,7 @@
 namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\ProductDto;
+use App\Entity\Ecommerce\ProductCategoryEntity;
 use App\Entity\Ecommerce\ProductEntity;
 
 interface ProductServiceInterface
@@ -16,4 +17,6 @@ interface ProductServiceInterface
     public function update(ProductDto $productDto, int $projectId, int $productId): ProductEntity;
 
     public function remove(int $projectId, int $productId): bool;
+
+    public function addInCategory(ProductEntity $product, ProductCategoryEntity $productCategory): ProductCategoryEntity;
 }
