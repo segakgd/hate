@@ -87,4 +87,9 @@ class ProductService implements ProductServiceInterface
 
         return $productCategory;
     }
+
+    public function isExist(int $id): bool
+    {
+        return (bool) $this->productEntityRepository->find($id);
+    }
 }

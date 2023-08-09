@@ -19,4 +19,6 @@ interface ProductServiceInterface
     public function remove(int $projectId, int $productId): bool;
 
     public function addInCategory(ProductEntity $product, ProductCategoryEntity $productCategory): ProductCategoryEntity;
+
+    public function isExist(int $id): bool;
 }

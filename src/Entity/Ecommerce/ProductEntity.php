@@ -17,18 +17,6 @@ class ProductEntity
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['administrator'])]
-    #[ORM\Column(length: 50)]
-    private ?string $name = null;
-
-    #[Groups(['administrator'])]
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
-    #[Groups(['administrator'])]
-    #[ORM\Column]
-    private array $price = [];
-
     #[ORM\Column]
     private ?int $project = null;
 
@@ -44,42 +32,6 @@ class ProductEntity
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getPrice(): array
-    {
-        return $this->price;
-    }
-
-    public function setPrice(array $price): static
-    {
-        $this->price = $price;
-
-        return $this;
     }
 
     public function getProject(): ?int

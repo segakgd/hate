@@ -4,6 +4,8 @@ namespace App\Dto\Ecommerce;
 
 class ProductDto
 {
+    private ?int $id = null;
+
     private ?string $name = null;
 
     private ?string $image = null; // todo ImageCollection
@@ -13,6 +15,21 @@ class ProductDto
     //
     // todo count, article, from, to, active, cratedAt
 
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int|null $id
+     */
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getName(): ?string
     {

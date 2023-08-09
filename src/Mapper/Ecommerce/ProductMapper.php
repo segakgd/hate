@@ -7,6 +7,15 @@ use App\Entity\Ecommerce\ProductEntity;
 
 class ProductMapper
 {
+    public static function mapToArray(ProductEntity $productEntity): array
+    {
+        return [
+            'id' => $productEntity->getId(),
+            'name' => $productEntity->getName(),
+            'price' => $productEntity->getPrice(),
+        ];
+    }
+
     public static function mapToDto(ProductEntity $productEntity): ProductDto
     {
         return (new ProductDto)

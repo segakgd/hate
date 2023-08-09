@@ -1,37 +1,52 @@
 <?php
 
-namespace App\Entity;
+namespace App\Dto;
 
-use App\Repository\CartRepository;
+use App\Dto\Ecommerce\ProductDto;
 use DateTimeImmutable;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CartRepository::class)]
-class Cart
+class CartDto
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    private array $products = [];
+
     private ?int $totalAmount = null;
 
-    #[ORM\Column(nullable: true)]
     private ?int $visitorId = null;
 
-    #[ORM\Column(length: 20)]
     private ?string $status = null;
 
-    #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private array $products = [];
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    public function setProducts(array $products): self
+    {
+        $this->products = $products;
+
+        return $this;
+    }
+    public function addProduct(ProductDto $product): self
+    {
+        $this->products[] = $product;
+
+        return $this;
     }
 
     public function getTotalAmount(): ?int
@@ -39,7 +54,7 @@ class Cart
         return $this->totalAmount;
     }
 
-    public function setTotalAmount(int $totalAmount): static
+    public function setTotalAmount(?int $totalAmount): self
     {
         $this->totalAmount = $totalAmount;
 
@@ -51,7 +66,7 @@ class Cart
         return $this->visitorId;
     }
 
-    public function setVisitorId(?int $visitorId): static
+    public function setVisitorId(?int $visitorId): self
     {
         $this->visitorId = $visitorId;
 
@@ -63,7 +78,7 @@ class Cart
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
 
@@ -75,21 +90,9 @@ class Cart
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): static
+    public function setCreatedAt(?DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getProducts(): array
-    {
-        return $this->products;
-    }
-
-    public function setProducts(array $products): static
-    {
-        $this->products = $products;
 
         return $this;
     }

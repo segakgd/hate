@@ -17,4 +17,6 @@ interface ProjectServiceInterface
     public function update(ProjectDto $projectDto, int $projectId): ProjectEntity;
 
     public function remove(int $projectId): bool;
+
+    public function isExist(int $id): bool;
 }

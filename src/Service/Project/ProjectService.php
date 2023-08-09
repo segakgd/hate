@@ -65,4 +65,9 @@ class ProjectService implements ProjectServiceInterface
 
         return true;
     }
+
+    public function isExist(int $id): bool
+    {
+        return (bool) $this->projectEntityRepository->find($id);
+    }
 }
