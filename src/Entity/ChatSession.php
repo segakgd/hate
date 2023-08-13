@@ -6,7 +6,7 @@ use App\Repository\ChatSessionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ChatSessionRepository::class)]
-class ChatSession
+class ChatSession // todo по сути это visitor
 {
     // todo требуется добавить userId
 

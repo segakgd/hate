@@ -19,7 +19,7 @@ use Throwable;
 class TgGoCommand extends Command
 {
     public function __construct(
-        private readonly ChatEventRepository $chatEventRepository,
+        private readonly ChatEventRepository $chatEventRepository, // todo использовать сервис
         private readonly ActionHandler $actionHandler,
         string $name = null
     ) {
@@ -30,30 +30,30 @@ class TgGoCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $action = $this->chatEventRepository->findOneBy(
+        $chatEvent = $this->chatEventRepository->findOneBy(
             [
                 'status' => ChatEvent::STATUS_NEW,
             ]
         );
 
-        if (!$action){
+        if (!$chatEvent){
             return Command::SUCCESS;
         }
 
         try {
-//            $this->updateChatEventStatus($action, ChatEvent::STATUS_IN_PROCESS);
+//            $this->updateChatEventStatus($chatEvent, ChatEvent::STATUS_IN_PROCESS);
 
-            $this->actionHandler->handle($action);
+            $this->actionHandler->handle($chatEvent);
 
-//            if ($action->issetActions()){
-//                $this->updateChatEventStatus($action, ChatEvent::WAITING_ACTION);
+//            if ($chatEvent->issetActions()){
+//                $this->updateChatEventStatus($chatEvent, ChatEvent::WAITING_ACTION);
 //            } else {
-//                $this->updateChatEventStatus($action, ChatEvent::STATUS_DONE);
+//                $this->updateChatEventStatus($chatEvent, ChatEvent::STATUS_DONE);
 //            }
 
         } catch (Throwable $throwable){
 
-            $this->updateChatEventStatus($action, ChatEvent::STATUS_FAIL);
+            $this->updateChatEventStatus($chatEvent, ChatEvent::STATUS_FAIL);
 
             $io->error($throwable->getMessage());
 

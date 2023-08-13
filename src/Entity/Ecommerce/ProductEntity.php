@@ -24,9 +24,13 @@ class ProductEntity
     #[ORM\ManyToMany(targetEntity: ProductCategoryEntity::class, mappedBy: 'products')]
     private Collection $categories;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductVariant::class)]
+    private Collection $variants;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->variants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,6 +75,36 @@ class ProductEntity
     {
         if ($this->categories->removeElement($category)) {
             $category->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductVariant>
+     */
+    public function getVariants(): Collection
+    {
+        return $this->variants;
+    }
+
+    public function addVariant(ProductVariant $variant): static
+    {
+        if (!$this->variants->contains($variant)) {
+            $this->variants->add($variant);
+            $variant->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariant(ProductVariant $variant): static
+    {
+        if ($this->variants->removeElement($variant)) {
+            // set the owning side to null (unless already changed)
+            if ($variant->getProduct() === $this) {
+                $variant->setProduct(null);
+            }
         }
 
         return $this;

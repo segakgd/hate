@@ -21,7 +21,7 @@ class ChatSessionRepository extends ServiceEntityRepository
         parent::__construct($registry, ChatSession::class);
     }
 
-    public function getSessionByChatMessage(int $chatId, string $channel): ?ChatSession
+    public function getSessionByChatIdAndChannel(int $chatId, string $channel): ?ChatSession
     {
         return $this->findOneBy(
             [

@@ -14,10 +14,7 @@ class ChatSessionService
 
     public function getOrCreateChatSession(int $chatId, string $channel): ?ChatSession
     {
-        $chatSession = $this->chatSessionRepository->getSessionByChatMessage(
-            $chatId,
-            $channel
-        );
+        $chatSession = $this->chatSessionRepository->getSessionByChatIdAndChannel($chatId, $channel);
 
         if (!$chatSession){
             $chatSession = $this->createChatService($chatId, $channel);

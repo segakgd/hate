@@ -8,7 +8,7 @@ use App\Repository\BehaviorScenarioRepository;
 class SettingConverter
 {
     public function __construct(
-        private readonly BehaviorScenarioRepository $behaviorScenarioRepository,
+        private readonly BehaviorScenarioRepository $behaviorScenarioRepository, // todo использовать сервис
     ) {
     }
 

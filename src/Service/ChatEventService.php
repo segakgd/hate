@@ -34,15 +34,15 @@ class ChatEventService
             $chatEvent = $this->chatEventRepository->find($chatEventId);
 
             if (null !== $chatEvent && $chatEvent->issetActions()){
-                if ($chatEvent->getActionAfter()){
+                if ($chatEvent->getActionAfter()){ // todo это внутренние события. их нужно обрабатывать паралельно?
                     $this->actionAfterHandler->handle();
                 }
 
-                if ($chatEvent->getActionAfter()){
+                if ($chatEvent->getActionBefore()){ // todo это внутренние события. их нужно обрабатывать паралельно?
                     $this->actionBeforeHandler->handle();
                 }
 
-                $chatEvent->setStatus(ChatEvent::STATUS_DONE);
+                $chatEvent->setStatus(ChatEvent::STATUS_DONE); // todo почему done?
 
                 $this->chatEventRepository->saveAndFlush($chatEvent);
             }

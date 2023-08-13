@@ -52,6 +52,9 @@ class ProductVariant
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'variants')]
+    private ?ProductEntity $product = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -197,6 +200,18 @@ class ProductVariant
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getProduct(): ?ProductEntity
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?ProductEntity $product): static
+    {
+        $this->product = $product;
 
         return $this;
     }
