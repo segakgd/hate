@@ -3,11 +3,11 @@
 namespace App\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\Ecommerce\ProductEntity;
+use App\Entity\Ecommerce\Product;
 
 class ProductMapper
 {
-    public static function mapToArray(ProductEntity $productEntity): array
+    public static function mapToArray(Product $productEntity): array
     {
         return [
             'id' => $productEntity->getId(),
@@ -16,7 +16,7 @@ class ProductMapper
         ];
     }
 
-    public static function mapToDto(ProductEntity $productEntity): ProductDto
+    public static function mapToDto(Product $productEntity): ProductDto
     {
         return (new ProductDto)
             ->setName($productEntity->getName())
@@ -25,9 +25,9 @@ class ProductMapper
         ;
     }
 
-    public static function mapToEntity(ProductDto $productDto): ProductEntity
+    public static function mapToEntity(ProductDto $productDto): Product
     {
-        $productEntity = new ProductEntity();
+        $productEntity = new Product();
 
         if ($name = $productDto->getName()){
             $productEntity->setName($name);
@@ -44,7 +44,7 @@ class ProductMapper
         return $productEntity;
     }
 
-    public static function mapToExistDto(ProductEntity $productEntity, ProductDto $productDto): ProductDto
+    public static function mapToExistDto(Product $productEntity, ProductDto $productDto): ProductDto
     {
         return $productDto
             ->setName($productEntity->getName())
@@ -53,7 +53,7 @@ class ProductMapper
             ;
     }
 
-    public static function mapToExistEntity(ProductDto $productDto, ProductEntity $productEntity): ProductEntity
+    public static function mapToExistEntity(ProductDto $productDto, Product $productEntity): Product
     {
         if ($name = $productDto->getName()){
             $productEntity->setName($name);

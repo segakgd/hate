@@ -3,11 +3,11 @@
 namespace App\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\DealDto;
-use App\Entity\Ecommerce\DealEntity;
+use App\Entity\Lead\Deal;
 
 class DealMapper
 {
-    public static function mapToDto(DealEntity $dealEntity): DealDto
+    public static function mapToDto(Deal $dealEntity): DealDto
     {
         $dealDto = (new DealDto)
             ->setContacts($dealEntity->getContacts())
@@ -23,9 +23,9 @@ class DealMapper
         return $dealDto;
     }
 
-    public static function mapToEntity(DealDto $dealDto): DealEntity
+    public static function mapToEntity(DealDto $dealDto): Deal
     {
-        $dealEntity = (new DealEntity);
+        $dealEntity = (new Deal);
 
         if ($contacts = $dealDto->getContacts()){
             $dealEntity->setContacts(ContactsMapper::mapToEntity($contacts));
@@ -44,7 +44,7 @@ class DealMapper
         return $dealEntity;
     }
 
-    public static function mapToExistDto(DealEntity $dealEntity, DealDto $dealDto): DealDto
+    public static function mapToExistDto(Deal $dealEntity, DealDto $dealDto): DealDto
     {
         if ($fields = $dealEntity->getFields()){
             foreach ($fields as $field){
@@ -58,7 +58,7 @@ class DealMapper
         ;
     }
 
-    public static function mapToExistEntity(DealDto $dealDto, DealEntity $dealEntity): DealEntity
+    public static function mapToExistEntity(DealDto $dealDto, Deal $dealEntity): Deal
     {
         if ($contacts = $dealDto->getContacts()){
             if ($dealEntity->getContacts()){

@@ -2,7 +2,7 @@
 
 namespace App\Tests\Functional\Admin\Project;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Tests\Functional\ApiTestCase;
 use App\Tests\Functional\Trait\Project\ProjectTrait;
 use App\Tests\Functional\Trait\User\UserTrait;
@@ -42,8 +42,8 @@ class RemoveProjectControllerTest extends ApiTestCase
 
         $projectId = $project->getId();
 
-        $projectEntity = $entityManager->getRepository(ProjectEntity::class)->find($projectId);
-        $this->assertTrue($projectEntity instanceof ProjectEntity);
+        $projectEntity = $entityManager->getRepository(Project::class)->find($projectId);
+        $this->assertTrue($projectEntity instanceof Project);
 
         $client->loginUser($user);
         $client->request(
@@ -53,7 +53,7 @@ class RemoveProjectControllerTest extends ApiTestCase
 
         $this->assertEquals(Response::HTTP_NO_CONTENT, $client->getResponse()->getStatusCode());
 
-        $projectEntity = $entityManager->getRepository(ProjectEntity::class)->find($projectId);
-        $this->assertFalse($projectEntity instanceof ProjectEntity);
+        $projectEntity = $entityManager->getRepository(Project::class)->find($projectId);
+        $this->assertFalse($projectEntity instanceof Project);
     }
 }

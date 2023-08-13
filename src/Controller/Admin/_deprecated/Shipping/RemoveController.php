@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\_deprecated\Shipping;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\_deprecated\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +19,7 @@ class RemoveController extends AbstractController
 
     #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $shippingId): JsonResponse
+    public function execute(Project $project, int $shippingId): JsonResponse
     {
         $this->shippingService->remove($project->getId(),  $shippingId);
 

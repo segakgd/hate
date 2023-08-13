@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Deal;
 
 use App\Dto\Ecommerce\DealDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +25,7 @@ class UpdateController extends AbstractController
 
     #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'admin_deal_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project, int $dealId): JsonResponse
+    public function execute(Request $request, Project $project, int $dealId): JsonResponse
     {
         $content = $request->getContent();
         $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');

@@ -3,7 +3,7 @@
 namespace App\Service\Ecommerce\_deprecated;
 
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
-use App\Entity\Ecommerce\ProductCategoryEntity;
+use App\Entity\Ecommerce\ProductCategory;
 use App\Mapper\Ecommerce\ProductCategoryMapper;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
 use Psr\Log\LoggerInterface;
@@ -27,7 +27,7 @@ class ProductCategoryService implements ProductCategoryServiceInterface
         );
     }
 
-    public function getOne(int $projectId, int $productCategoryId): ?ProductCategoryEntity
+    public function getOne(int $projectId, int $productCategoryId): ?ProductCategory
     {
         return $this->productCategoryEntityRepository->findOneBy(
             [
@@ -37,7 +37,7 @@ class ProductCategoryService implements ProductCategoryServiceInterface
         );
     }
 
-    public function add(ProductCategoryDto $productCategoryDto, int $projectId): ProductCategoryEntity
+    public function add(ProductCategoryDto $productCategoryDto, int $projectId): ProductCategory
     {
         $productCategory = ProductCategoryMapper::mapToEntity($productCategoryDto);
 
@@ -48,7 +48,7 @@ class ProductCategoryService implements ProductCategoryServiceInterface
         return $productCategory;
     }
 
-    public function update(ProductCategoryDto $productCategoryDto, int $projectId, int $productCategoryId): ProductCategoryEntity
+    public function update(ProductCategoryDto $productCategoryDto, int $projectId, int $productCategoryId): ProductCategory
     {
         $productCategory = $this->getOne($projectId, $productCategoryId);
 

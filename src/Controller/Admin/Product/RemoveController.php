@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Product;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,7 +18,7 @@ class RemoveController extends AbstractController
 
     #[Route('/api/admin/project/{project}/product/{productId}/', name: 'admin_product_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $productId): JsonResponse
+    public function execute(Project $project, int $productId): JsonResponse
     {
         $this->productService->remove($project->getId(),  $productId);
 

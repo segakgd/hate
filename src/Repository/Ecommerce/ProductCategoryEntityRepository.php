@@ -2,32 +2,32 @@
 
 namespace App\Repository\Ecommerce;
 
-use App\Entity\Ecommerce\ProductCategoryEntity;
+use App\Entity\Ecommerce\ProductCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ProductCategoryEntity>
+ * @extends ServiceEntityRepository<ProductCategory>
  *
- * @method ProductCategoryEntity|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProductCategoryEntity|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProductCategoryEntity[]    findAll()
- * @method ProductCategoryEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ProductCategory|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ProductCategory|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ProductCategory[]    findAll()
+ * @method ProductCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ProductCategoryEntityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ProductCategoryEntity::class);
+        parent::__construct($registry, ProductCategory::class);
     }
 
-    public function saveAndFlush(ProductCategoryEntity $entity): void
+    public function saveAndFlush(ProductCategory $entity): void
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
     }
 
-    public function removeAndFlush(ProductCategoryEntity $entity): void
+    public function removeAndFlush(ProductCategory $entity): void
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush($entity);

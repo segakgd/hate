@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Deal;
 
 use App\Dto\Ecommerce\DealDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +25,7 @@ class CreateController extends AbstractController
 
     #[Route('/api/admin/project/{project}/deal/', name: 'admin_deal_create', methods: ['POST'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project): JsonResponse
+    public function execute(Request $request, Project $project): JsonResponse
     {
         $content = $request->getContent();
         $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');

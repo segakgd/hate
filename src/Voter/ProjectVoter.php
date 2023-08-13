@@ -2,7 +2,7 @@
 
 namespace App\Voter;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Entity\User\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -17,7 +17,7 @@ class ProjectVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof ProjectEntity) {
+        if (!$subject instanceof Project) {
             return false;
         }
 
@@ -32,7 +32,7 @@ class ProjectVoter extends Voter
             return false;
         }
 
-        /** @var ProjectEntity $project */
+        /** @var Project $project */
         $project = $subject;
 
         return match($attribute) {
@@ -44,7 +44,7 @@ class ProjectVoter extends Voter
     /**
      * У пользователя есть права к проекту
      */
-    private function isUserExistInProject(ProjectEntity $project, User $user): bool
+    private function isUserExistInProject(Project $project, User $user): bool
     {
         return $project->getUsers()->exists(
             function ($key, $projectUser) use ($user) {

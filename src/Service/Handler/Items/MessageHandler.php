@@ -3,21 +3,21 @@
 namespace App\Service\Handler\Items;
 
 use App\Dto\Core\Telegram\Message\MessageDto;
-use App\Entity\ChatEvent;
-use App\Repository\BehaviorScenarioRepository;
-use App\Repository\ChatSessionRepository;
+use App\Entity\Visitor\VisitorEvent;
+use App\Repository\Scenario\ScenarioRepository;
+use App\Repository\Visitor\VisitorSessionRepository;
 use App\Service\Client\Telegram\TelegramService;
 
 class MessageHandler
 {
     public function __construct(
         private readonly TelegramService $telegramService,
-        private readonly BehaviorScenarioRepository $behaviorScenarioRepository,
-        private readonly ChatSessionRepository $chatSessionRepository,
+        private readonly ScenarioRepository $behaviorScenarioRepository,
+        private readonly VisitorSessionRepository $chatSessionRepository,
     ) {
     }
 
-    public function handle(ChatEvent $chatEvent): void
+    public function handle(VisitorEvent $chatEvent): void
     {
         $behaviorScenarioId = $chatEvent->getBehaviorScenario();
 

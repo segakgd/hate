@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\Entity\ChatEvent;
-use App\Repository\ChatEventRepository;
+use App\Entity\Visitor\VisitorEvent;
+use App\Repository\Visitor\VisitorEventRepository;
 use App\Service\Handler\ActionHandler;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -19,7 +19,7 @@ use Throwable;
 class TgGoCommand extends Command
 {
     public function __construct(
-        private readonly ChatEventRepository $chatEventRepository, // todo использовать сервис
+        private readonly VisitorEventRepository $chatEventRepository, // todo использовать сервис
         private readonly ActionHandler $actionHandler,
         string $name = null
     ) {
@@ -32,7 +32,7 @@ class TgGoCommand extends Command
 
         $chatEvent = $this->chatEventRepository->findOneBy(
             [
-                'status' => ChatEvent::STATUS_NEW,
+                'status' => VisitorEvent::STATUS_NEW,
             ]
         );
 
@@ -53,7 +53,7 @@ class TgGoCommand extends Command
 
         } catch (Throwable $throwable){
 
-            $this->updateChatEventStatus($chatEvent, ChatEvent::STATUS_FAIL);
+            $this->updateChatEventStatus($chatEvent, VisitorEvent::STATUS_FAIL);
 
             $io->error($throwable->getMessage());
 
@@ -63,7 +63,7 @@ class TgGoCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function updateChatEventStatus(ChatEvent $chatEvent, string $status): void
+    protected function updateChatEventStatus(VisitorEvent $chatEvent, string $status): void
     {
         $chatEvent->setStatus($status);
 

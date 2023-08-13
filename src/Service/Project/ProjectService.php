@@ -3,10 +3,10 @@
 namespace App\Service\Project;
 
 use App\Dto\Project\ProjectDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Entity\User\User;
 use App\Mapper\Project\ProjectMapper;
-use App\Repository\ProjectEntityRepository;
+use App\Repository\User\ProjectEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -23,12 +23,12 @@ class ProjectService implements ProjectServiceInterface
         return $user->getProjects()->toArray(); // todo жёсткий костыль
     }
 
-    public function getOne(int $projectId): ?ProjectEntity
+    public function getOne(int $projectId): ?Project
     {
         return $this->projectEntityRepository->find($projectId);
     }
 
-    public function add(ProjectDto $projectDto, User $user): ProjectEntity
+    public function add(ProjectDto $projectDto, User $user): Project
     {
         $projectEntity = ProjectMapper::mapToEntity($projectDto);
         $projectEntity->addUser($user);
@@ -38,7 +38,7 @@ class ProjectService implements ProjectServiceInterface
         return $projectEntity;
     }
 
-    public function update(ProjectDto $projectDto, int $projectId): ProjectEntity
+    public function update(ProjectDto $projectDto, int $projectId): Project
     {
         $projectEntity = $this->getOne($projectId);
         $projectEntity = ProjectMapper::mapToExistEntity($projectDto, $projectEntity);

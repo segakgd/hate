@@ -3,11 +3,11 @@
 namespace App\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\FieldDto;
-use App\Entity\Ecommerce\FieldEntity;
+use App\Entity\Lead\Field;
 
 class FieldMapper
 {
-    public static function mapToDto(FieldEntity $fieldEntity): FieldDto
+    public static function mapToDto(Field $fieldEntity): FieldDto
     {
         return (new FieldDto)
             ->setValue($fieldEntity->getValue())
@@ -15,16 +15,16 @@ class FieldMapper
             ;
     }
 
-    public static function mapToEntity(FieldDto $fieldDto): FieldEntity
+    public static function mapToEntity(FieldDto $fieldDto): Field
     {
 
-        return (new FieldEntity)
+        return (new Field)
             ->setValue($fieldDto->getValue())
             ->setName($fieldDto->getName())
             ;
     }
 
-    public static function mapToExistDto(FieldEntity $fieldEntity, FieldDto $fieldDto): FieldDto
+    public static function mapToExistDto(Field $fieldEntity, FieldDto $fieldDto): FieldDto
     {
         return $fieldDto
             ->setValue($fieldEntity->getValue())
@@ -32,7 +32,7 @@ class FieldMapper
             ;
     }
 
-    public static function mapToExistEntity(FieldDto $fieldDto, FieldEntity $fieldEntity): FieldEntity
+    public static function mapToExistEntity(FieldDto $fieldDto, Field $fieldEntity): Field
     {
         return $fieldEntity
             ->setValue($fieldDto->getValue())

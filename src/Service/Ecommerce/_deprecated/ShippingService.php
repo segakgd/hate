@@ -3,7 +3,7 @@
 namespace App\Service\Ecommerce\_deprecated;
 
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
-use App\Entity\Ecommerce\ShippingEntity;
+use App\Entity\Ecommerce\Shipping;
 use App\Mapper\Ecommerce\ShippingMapper;
 use App\Repository\Ecommerce\ShippingEntityRepository;
 use Psr\Log\LoggerInterface;
@@ -18,7 +18,7 @@ class ShippingService implements ShippingServiceInterface
     ) {
     }
 
-    public function getOne(int $projectId, int $shippingId): ?ShippingEntity
+    public function getOne(int $projectId, int $shippingId): ?Shipping
     {
         return $this->shippingEntityRepository->findOneBy(
             [
@@ -37,7 +37,7 @@ class ShippingService implements ShippingServiceInterface
         );
     }
 
-    public function add(ShippingDto $shippingDto, int $projectId): ShippingEntity
+    public function add(ShippingDto $shippingDto, int $projectId): Shipping
     {
         $shippingEntity = ShippingMapper::mapToEntity($shippingDto);
 
@@ -48,7 +48,7 @@ class ShippingService implements ShippingServiceInterface
         return $shippingEntity;
     }
 
-    public function update(ShippingDto $shippingDto, int $projectId, int $shippingId): ShippingEntity
+    public function update(ShippingDto $shippingDto, int $projectId, int $shippingId): Shipping
     {
         $shippingEntity = $this->getOne($projectId, $shippingId);
 

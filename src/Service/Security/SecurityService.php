@@ -5,7 +5,7 @@ namespace App\Service\Security;
 use App\Dto\Security\UserDto;
 use App\Entity\User\User;
 use App\Exception\Security\UserExistException;
-use App\Repository\UserRepository;
+use App\Repository\User\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

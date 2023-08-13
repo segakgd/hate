@@ -2,7 +2,7 @@
 
 namespace App\Tests\Functional\Admin\Project;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Tests\Functional\ApiTestCase;
 use App\Tests\Functional\Trait\User\UserTrait;
 use Exception;
@@ -54,7 +54,7 @@ class CreateProjectControllerTest extends ApiTestCase
 
         $project = json_decode($client->getResponse()->getContent(), true);
 
-        $contactEntity = $entityManager->getRepository(ProjectEntity::class)->find($project['id']);
+        $contactEntity = $entityManager->getRepository(Project::class)->find($project['id']);
         $this->assertEquals($contactEntity->getId(), $project['id']);
         $this->assertEquals($contactEntity->getName(), $project['name']);
     }

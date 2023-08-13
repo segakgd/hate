@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\_deprecated\ProductCategory;
 
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\_deprecated\ProductCategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +26,7 @@ class UpdateController extends AbstractController
 
     #[Route('/api/admin/project/{project}/productCategory/{productCategoryId}/', name: 'admin_product_category_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project, int $productCategoryId): JsonResponse
+    public function execute(Request $request, Project $project, int $productCategoryId): JsonResponse
     {
         $content = $request->getContent();
         $productCategoryDto = $this->serializer->deserialize($content, ProductCategoryDto::class, 'json');

@@ -3,11 +3,11 @@
 namespace App\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
-use App\Entity\Ecommerce\PromotionEntity;
+use App\Entity\Ecommerce\Promotion;
 
 class PromotionMapper
 {
-    public static function mapToDto(PromotionEntity $promotionEntity): PromotionDto
+    public static function mapToDto(Promotion $promotionEntity): PromotionDto
     {
         return (new PromotionDto)
             ->setName($promotionEntity->getName())
@@ -16,9 +16,9 @@ class PromotionMapper
             ;
     }
 
-    public static function mapToEntity(PromotionDto $promotionDto): PromotionEntity
+    public static function mapToEntity(PromotionDto $promotionDto): Promotion
     {
-        $promotionEntity = new PromotionEntity();
+        $promotionEntity = new Promotion();
 
         if ($name = $promotionDto->getName()){
             $promotionEntity->setName($name);
@@ -35,7 +35,7 @@ class PromotionMapper
         return $promotionEntity;
     }
 
-    public static function mapToExistDto(PromotionEntity $promotionEntity, PromotionDto $promotionDto): PromotionDto
+    public static function mapToExistDto(Promotion $promotionEntity, PromotionDto $promotionDto): PromotionDto
     {
         return $promotionDto
             ->setName($promotionEntity->getName())
@@ -44,7 +44,7 @@ class PromotionMapper
             ;
     }
 
-    public static function mapToExistEntity(PromotionDto $promotionDto, PromotionEntity $promotionEntity): PromotionEntity
+    public static function mapToExistEntity(PromotionDto $promotionDto, Promotion $promotionEntity): Promotion
     {
         if ($name = $promotionDto->getName()){
             $promotionEntity->setName($name);

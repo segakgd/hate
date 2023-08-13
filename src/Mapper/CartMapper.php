@@ -3,7 +3,7 @@
 namespace App\Mapper;
 
 use App\Dto\CartDto;
-use App\Entity\Cart;
+use App\Entity\Visitor\Cart;
 
 class CartMapper
 {

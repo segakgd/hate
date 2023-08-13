@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Product;
 
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +25,7 @@ class CreateController extends AbstractController
 
     #[Route('/api/admin/project/{project}/product/', name: 'admin_product_create', methods: ['POST'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project): JsonResponse
+    public function execute(Request $request, Project $project): JsonResponse
     {
         $content = $request->getContent();
         $productDto = $this->serializer->deserialize($content, ProductDto::class, 'json');

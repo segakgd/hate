@@ -3,11 +3,11 @@
 namespace App\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\ContactsDto;
-use App\Entity\Ecommerce\ContactsEntity;
+use App\Entity\Lead\Contacts;
 
 class ContactsMapper
 {
-    public static function mapToDto(ContactsEntity $contactsEntity): ContactsDto
+    public static function mapToDto(Contacts $contactsEntity): ContactsDto
     {
         return (new ContactsDto)
             ->setFirstName($contactsEntity->getFirstName())
@@ -17,9 +17,9 @@ class ContactsMapper
         ;
     }
 
-    public static function mapToEntity(ContactsDto $contactsDto): ContactsEntity
+    public static function mapToEntity(ContactsDto $contactsDto): Contacts
     {
-        return (new ContactsEntity)
+        return (new Contacts)
             ->setFirstName($contactsDto->getFirstName())
             ->setLastName($contactsDto->getLastName())
             ->setPhone($contactsDto->getPhone())
@@ -27,7 +27,7 @@ class ContactsMapper
         ;
     }
 
-    public static function mapToExistDto(ContactsEntity $contactsEntity, ContactsDto $contactsDto): ContactsDto
+    public static function mapToExistDto(Contacts $contactsEntity, ContactsDto $contactsDto): ContactsDto
     {
         return $contactsDto
             ->setFirstName($contactsEntity->getFirstName())
@@ -37,7 +37,7 @@ class ContactsMapper
         ;
     }
 
-    public static function mapToExistEntity(ContactsDto $contactsDto, ContactsEntity $contactsEntity): ContactsEntity
+    public static function mapToExistEntity(ContactsDto $contactsDto, Contacts $contactsEntity): Contacts
     {
         return $contactsEntity
             ->setFirstName($contactsDto->getFirstName())

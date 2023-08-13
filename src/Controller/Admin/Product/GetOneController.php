@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Product;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +19,7 @@ class GetOneController extends AbstractController
 
     #[Route('/api/admin/project/{project}/product/{productId}/', name: 'admin_product_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $productId): JsonResponse
+    public function execute(Project $project, int $productId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(

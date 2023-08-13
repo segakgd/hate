@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin\Product;
 
-use App\Entity\Ecommerce\ProductCategoryEntity;
-use App\Entity\Ecommerce\ProductEntity;
+use App\Entity\Ecommerce\ProductCategory;
+use App\Entity\Ecommerce\Product;
 use App\Service\Ecommerce\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,8 +26,8 @@ class AddController extends AbstractController
     ]
     #[IsGranted('existUser', 'project')]
     public function execute(
-        ProductEntity $product,
-        ProductCategoryEntity $productCategory
+        Product $product,
+        ProductCategory $productCategory
     ): JsonResponse {
         $productEntity = $this->productService->addInCategory($product, $productCategory);
 

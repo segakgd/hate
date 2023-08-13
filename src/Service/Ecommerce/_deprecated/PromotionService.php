@@ -3,7 +3,7 @@
 namespace App\Service\Ecommerce\_deprecated;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
-use App\Entity\Ecommerce\PromotionEntity;
+use App\Entity\Ecommerce\Promotion;
 use App\Mapper\Ecommerce\PromotionMapper;
 use App\Repository\Ecommerce\PromotionEntityRepository;
 use Psr\Log\LoggerInterface;
@@ -18,7 +18,7 @@ class PromotionService implements PromotionServiceInterface
     ) {
     }
 
-    public function getOne(int $projectId, int $promotionId): ?PromotionEntity
+    public function getOne(int $projectId, int $promotionId): ?Promotion
     {
         return $this->promotionEntityRepository->findOneBy(
             [
@@ -37,7 +37,7 @@ class PromotionService implements PromotionServiceInterface
         );
     }
 
-    public function add(PromotionDto $promotionDto, int $projectId): PromotionEntity
+    public function add(PromotionDto $promotionDto, int $projectId): Promotion
     {
         $promotionEntity = PromotionMapper::mapToEntity($promotionDto);
 
@@ -48,7 +48,7 @@ class PromotionService implements PromotionServiceInterface
         return $promotionEntity;
     }
 
-    public function update(PromotionDto $promotionDto, int $projectId, int $promotionId): PromotionEntity
+    public function update(PromotionDto $promotionDto, int $projectId, int $promotionId): Promotion
     {
         $promotionEntity = $this->getOne($projectId, $promotionId);
 

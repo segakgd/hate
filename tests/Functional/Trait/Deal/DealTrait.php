@@ -2,15 +2,15 @@
 
 namespace App\Tests\Functional\Trait\Deal;
 
-use App\Entity\Ecommerce\DealEntity;
-use App\Entity\ProjectEntity;
+use App\Entity\Lead\Deal;
+use App\Entity\User\Project;
 use Doctrine\Persistence\ObjectManager;
 
 trait DealTrait
 {
-    public function createDeal(ObjectManager $manager, ProjectEntity $project): DealEntity
+    public function createDeal(ObjectManager $manager, Project $project): Deal
     {
-        $deal = (new DealEntity())
+        $deal = (new Deal())
             ->setProject($project->getId())
         ;
 

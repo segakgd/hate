@@ -2,7 +2,7 @@
 
 namespace App\Tests\Functional\Trait;
 
-use App\Entity\Cart;
+use App\Entity\Visitor\Cart;
 use DateTimeImmutable;
 use Doctrine\Persistence\ObjectManager;
 

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\_deprecated\ProductCategory;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\_deprecated\ProductCategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +20,7 @@ class GetOneController extends AbstractController
 
     #[Route('/api/admin/project/{project}/productCategory/{productCategoryId}/', name: 'admin_product_category_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $productCategoryId): JsonResponse
+    public function execute(Project $project, int $productCategoryId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(

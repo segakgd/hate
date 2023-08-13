@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Product;
 
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +25,7 @@ class UpdateController extends AbstractController
 
     #[Route('/api/admin/project/{project}/product/{productId}/', name: 'admin_product_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project, int $productId): JsonResponse
+    public function execute(Request $request, Project $project, int $productId): JsonResponse
     {
         $content = $request->getContent();
         $productDto = $this->serializer->deserialize($content, ProductDto::class, 'json');

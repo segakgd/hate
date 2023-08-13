@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\_deprecated\Shipping;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\_deprecated\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +20,7 @@ class GetOneController extends AbstractController
 
     #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $shippingId): JsonResponse
+    public function execute(Project $project, int $shippingId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(

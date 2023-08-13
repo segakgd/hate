@@ -4,10 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Dto\CartDto;
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Exception\EcommerceException;
-use App\Repository\CartRepository;
 use App\Repository\Ecommerce\PromotionRepository;
+use App\Repository\Visitor\CartRepository;
 use App\Service\Ecommerce\DealServiceInterface;
 use App\Service\Ecommerce\ProductServiceInterface;
 use App\Service\Project\ProjectServiceInterface;
@@ -34,7 +34,7 @@ class CartController extends AbstractController
 
     // пытаемся купить.
     #[Route('/visitor/project/{project}/cart/', name: 'visitor_cart', methods: ['POST'])]
-    public function execute(Request $request, ProjectEntity $project): JsonResponse
+    public function execute(Request $request, Project $project): JsonResponse
     {
         $content = $request->getContent();
         $cartDto = $this->serializer->deserialize($content, CartDto::class, 'json');

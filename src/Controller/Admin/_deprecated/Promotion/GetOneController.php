@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\_deprecated\Promotion;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\_deprecated\PromotionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +20,7 @@ class GetOneController extends AbstractController
 
     #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'admin_promotion_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $promotionId): JsonResponse
+    public function execute(Project $project, int $promotionId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(

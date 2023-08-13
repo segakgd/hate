@@ -3,11 +3,11 @@
 namespace App\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
-use App\Entity\Ecommerce\ShippingEntity;
+use App\Entity\Ecommerce\Shipping;
 
 class ShippingMapper
 {
-    public static function mapToDto(ShippingEntity $shippingEntity): ShippingDto
+    public static function mapToDto(Shipping $shippingEntity): ShippingDto
     {
         return (new ShippingDto)
             ->setName($shippingEntity->getTitle())
@@ -16,9 +16,9 @@ class ShippingMapper
             ;
     }
 
-    public static function mapToEntity(ShippingDto $shippingDto): ShippingEntity
+    public static function mapToEntity(ShippingDto $shippingDto): Shipping
     {
-        $shippingEntity = new ShippingEntity();
+        $shippingEntity = new Shipping();
 
         if ($name = $shippingDto->getName()){
             $shippingEntity->setTitle($name);
@@ -35,7 +35,7 @@ class ShippingMapper
         return $shippingEntity;
     }
 
-    public static function mapToExistDto(ShippingEntity $shippingEntity, ShippingDto $shippingDto): ShippingDto
+    public static function mapToExistDto(Shipping $shippingEntity, ShippingDto $shippingDto): ShippingDto
     {
         return $shippingDto
             ->setName($shippingEntity->getTitle())
@@ -44,7 +44,7 @@ class ShippingMapper
             ;
     }
 
-    public static function mapToExistEntity(ShippingDto $shippingDto, ShippingEntity $shippingEntity): ShippingEntity
+    public static function mapToExistEntity(ShippingDto $shippingDto, Shipping $shippingEntity): Shipping
     {
         if ($name = $shippingDto->getName()){
             $shippingEntity->setTitle($name);

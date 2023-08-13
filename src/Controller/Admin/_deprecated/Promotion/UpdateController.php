@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\_deprecated\Promotion;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\_deprecated\PromotionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +26,7 @@ class UpdateController extends AbstractController
 
     #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'admin_promotion_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project, int $promotionId): JsonResponse
+    public function execute(Request $request, Project $project, int $promotionId): JsonResponse
     {
         $content = $request->getContent();
         $promotionDto = $this->serializer->deserialize($content, PromotionDto::class, 'json');

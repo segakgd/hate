@@ -2,8 +2,7 @@
 
 namespace App\Entity\User;
 
-use App\Entity\ProjectEntity;
-use App\Repository\UserRepository;
+use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\ManyToMany(targetEntity: ProjectEntity::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'users')]
     private Collection $projects;
 
     public function __construct()
@@ -109,14 +108,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, ProjectEntity>
+     * @return Collection<int, Project>
      */
     public function getProjects(): Collection
     {
         return $this->projects;
     }
 
-    public function addProject(ProjectEntity $project): static
+    public function addProject(Project $project): static
     {
         if (!$this->projects->contains($project)) {
             $this->projects->add($project);
@@ -125,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeProject(ProjectEntity $project): static
+    public function removeProject(Project $project): static
     {
         $this->projects->removeElement($project);
 

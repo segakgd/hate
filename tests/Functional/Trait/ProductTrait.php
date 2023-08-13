@@ -2,18 +2,18 @@
 
 namespace App\Tests\Functional\Trait;
 
-use App\Entity\Ecommerce\ProductEntity;
-use App\Entity\ProjectEntity;
+use App\Entity\Ecommerce\Product;
+use App\Entity\User\Project;
 use Doctrine\Persistence\ObjectManager;
 
 trait ProductTrait
 {
     public function createProduct(
         ObjectManager $manager,
-        ProjectEntity $project,
+        Project $project,
         array $price,
-    ): ProductEntity {
-        $entity = (new ProductEntity())
+    ): Product {
+        $entity = (new Product())
             ->setProject($project->getId())
             ->setName('Name ' . uniqid())
             ->setPrice($price)

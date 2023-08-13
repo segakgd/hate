@@ -3,23 +3,22 @@
 namespace App\Controller\Webhook;
 
 use App\Dto\Webhook\Telegram\TelegramWebhookDto;
-use App\Entity\ProjectEntity;
-use App\Service\ChatEventService;
-use App\Service\ChatSessionService;
+use App\Entity\User\Project;
+use App\Service\VisitorEventService;
+use App\Service\VisitorSessionService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class MainWebhookController extends AbstractController
 {
     public function __construct(
         private readonly SerializerInterface $serializer,
-        private readonly ChatSessionService $chatSessionService,
-        private readonly ChatEventService $chatEventService,
+        private readonly VisitorSessionService $chatSessionService,
+        private readonly VisitorEventService $chatEventService,
     ) {
     }
 
@@ -35,7 +34,7 @@ class MainWebhookController extends AbstractController
      * @throws Exception
      */
     #[Route('/webhook/{project}/{channel}/', name: 'app_webhook', methods: ['POST'])]
-    public function addWebhookAction(Request $request, ProjectEntity $project, string $channel): JsonResponse
+    public function addWebhookAction(Request $request, Project $project, string $channel): JsonResponse
     {
 
         // todo учитывать $project

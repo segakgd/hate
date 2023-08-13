@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Project;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Project\ProjectServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,7 +18,7 @@ class RemoveController extends AbstractController
 
     #[Route('/api/admin/projects/{project}/', name: 'admin_project_remove', methods: ['DELETE'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project): JsonResponse
+    public function execute(Project $project): JsonResponse
     {
         $this->projectService->remove($project->getId());
 

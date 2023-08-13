@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Project;
 
 use App\Dto\Project\ProjectDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Project\ProjectServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +25,7 @@ class UpdateController extends AbstractController
 
     #[Route('/api/admin/projects/{project}/', name: 'admin_project_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project): JsonResponse
+    public function execute(Request $request, Project $project): JsonResponse
     {
         $content = $request->getContent();
         $projectDto = $this->serializer->deserialize($content, ProjectDto::class, 'json');

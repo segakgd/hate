@@ -3,11 +3,11 @@
 namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\Ecommerce\ProductCategoryEntity;
-use App\Entity\Ecommerce\ProductEntity;
+use App\Entity\Ecommerce\ProductCategory;
+use App\Entity\Ecommerce\Product;
 use App\Mapper\Ecommerce\ProductMapper;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
-use App\Repository\ProductEntityRepository;
+use App\Repository\Ecommerce\ProductEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -29,7 +29,7 @@ class ProductService implements ProductServiceInterface
         );
     }
 
-    public function getOne(int $projectId, int $productId): ?ProductEntity
+    public function getOne(int $projectId, int $productId): ?Product
     {
         return $this->productEntityRepository->findOneBy(
             [
@@ -39,7 +39,7 @@ class ProductService implements ProductServiceInterface
         );
     }
 
-    public function add(ProductDto $productDto, int $projectId): ProductEntity
+    public function add(ProductDto $productDto, int $projectId): Product
     {
         $productEntity = ProductMapper::mapToEntity($productDto);
 
@@ -50,7 +50,7 @@ class ProductService implements ProductServiceInterface
         return $productEntity;
     }
 
-    public function update(ProductDto $productDto, int $projectId, int $productId): ProductEntity
+    public function update(ProductDto $productDto, int $projectId, int $productId): Product
     {
         $productEntity = $this->getOne($projectId, $productId);
 
@@ -79,7 +79,7 @@ class ProductService implements ProductServiceInterface
         return true;
     }
 
-    public function addInCategory(ProductEntity $product, ProductCategoryEntity $productCategory): ProductCategoryEntity
+    public function addInCategory(Product $product, ProductCategory $productCategory): ProductCategory
     {
         $productCategory->addProduct($product);
 

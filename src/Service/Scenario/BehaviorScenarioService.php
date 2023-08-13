@@ -2,17 +2,17 @@
 
 namespace App\Service\Scenario;
 
-use App\Entity\BehaviorScenario;
-use App\Repository\BehaviorScenarioRepository;
+use App\Entity\Scenario\Scenario;
+use App\Repository\Scenario\ScenarioRepository;
 
 class BehaviorScenarioService
 {
     public function __construct(
-        private readonly BehaviorScenarioRepository $behaviorScenarioRepository,
+        private readonly ScenarioRepository $behaviorScenarioRepository,
     ) {
     }
 
-    public function getScenarioByNameAndType(string $type, string $name): ?BehaviorScenario
+    public function getScenarioByNameAndType(string $type, string $name): ?Scenario
     {
         return $this->behaviorScenarioRepository->findOneBy(
             [
@@ -22,7 +22,7 @@ class BehaviorScenarioService
         );
     }
 
-    public function getScenarioByOwnerId(int $ownerBehaviorScenarioId): ?BehaviorScenario
+    public function getScenarioByOwnerId(int $ownerBehaviorScenarioId): ?Scenario
     {
         return $this->behaviorScenarioRepository->findOneBy(
             [
@@ -31,9 +31,9 @@ class BehaviorScenarioService
         );
     }
 
-    public function generateDefaultScenario(): BehaviorScenario
+    public function generateDefaultScenario(): Scenario
     {
-        $behaviorScenario = (new BehaviorScenario)
+        $behaviorScenario = (new Scenario)
             ->setName('default')
             ->setType('message')
             ->setContent(

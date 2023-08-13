@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\_deprecated\Shipping;
 
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\_deprecated\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +26,7 @@ class UpdateController extends AbstractController
 
     #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, ProjectEntity $project, int $shippingId): JsonResponse
+    public function execute(Request $request, Project $project, int $shippingId): JsonResponse
     {
         $content = $request->getContent();
         $shippingDto = $this->serializer->deserialize($content, ShippingDto::class, 'json');

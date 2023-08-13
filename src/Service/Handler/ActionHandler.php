@@ -2,7 +2,7 @@
 
 namespace App\Service\Handler;
 
-use App\Entity\ChatEvent;
+use App\Entity\Visitor\VisitorEvent;
 use App\Service\Handler\Items\CommandHandler;
 use App\Service\Handler\Items\MessageHandler;
 
@@ -14,7 +14,7 @@ class ActionHandler
     ) {
     }
 
-    public function handle(ChatEvent $chatEvent): bool
+    public function handle(VisitorEvent $chatEvent): bool
     {
         return match ($chatEvent->getType()) {
             'command' => $this->commandHandler->handle($chatEvent) ?? true, // ?? true todo временное решение

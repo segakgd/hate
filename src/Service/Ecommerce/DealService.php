@@ -3,9 +3,9 @@
 namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\DealDto;
-use App\Entity\Ecommerce\DealEntity;
+use App\Entity\Lead\Deal;
 use App\Mapper\Ecommerce\DealMapper;
-use App\Repository\DealEntityRepository;
+use App\Repository\Lead\DealEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -26,7 +26,7 @@ class DealService implements DealServiceInterface
         );
     }
 
-    public function getOne(int $projectId, int $dealId): ?DealEntity
+    public function getOne(int $projectId, int $dealId): ?Deal
     {
         return $this->dealEntityRepository->findOneBy(
             [
@@ -36,7 +36,7 @@ class DealService implements DealServiceInterface
         );
     }
 
-    public function add(DealDto $dealDto, int $projectId): DealEntity
+    public function add(DealDto $dealDto, int $projectId): Deal
     {
         $dealEntity = DealMapper::mapToEntity($dealDto);
 
@@ -47,7 +47,7 @@ class DealService implements DealServiceInterface
         return $dealEntity;
     }
 
-    public function update(DealDto $dealDto, int $projectId, int $dealId): DealEntity
+    public function update(DealDto $dealDto, int $projectId, int $dealId): Deal
     {
         $dealEntity = $this->getOne($projectId, $dealId);
 

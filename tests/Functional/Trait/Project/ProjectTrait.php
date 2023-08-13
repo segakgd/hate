@@ -2,15 +2,15 @@
 
 namespace App\Tests\Functional\Trait\Project;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Entity\User\User;
 use Doctrine\Persistence\ObjectManager;
 
 trait ProjectTrait
 {
-    public function createProject(ObjectManager $manager, User $user): ProjectEntity
+    public function createProject(ObjectManager $manager, User $user): Project
     {
-        $project = (new ProjectEntity())
+        $project = (new Project())
             ->setName('TestName')
             ->addUser($user)
         ;

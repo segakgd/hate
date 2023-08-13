@@ -17,10 +17,10 @@ class ProductVariant
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $article = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $name = null;
+    private ?string $article = null;
 
     #[ORM\Column(nullable: true)]
     private array $image = [];
@@ -30,6 +30,9 @@ class ProductVariant
 
     #[ORM\Column]
     private ?int $count = null;
+
+    #[ORM\ManyToOne(inversedBy: 'variants')]
+    private ?Product $product = null;
 
     #[ORM\Column]
     private ?bool $promotionDistributed = null;
@@ -51,9 +54,6 @@ class ProductVariant
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\ManyToOne(inversedBy: 'variants')]
-    private ?ProductEntity $product = null;
 
     public function getId(): ?int
     {
@@ -204,12 +204,12 @@ class ProductVariant
         return $this;
     }
 
-    public function getProduct(): ?ProductEntity
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function setProduct(?ProductEntity $product): static
+    public function setProduct(?Product $product): static
     {
         $this->product = $product;
 

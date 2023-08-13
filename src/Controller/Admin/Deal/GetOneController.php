@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Deal;
 
-use App\Entity\ProjectEntity;
+use App\Entity\User\Project;
 use App\Service\Ecommerce\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +19,7 @@ class GetOneController extends AbstractController
 
     #[Route('/api/admin/project/{project}/deal/{dealId}/', name: 'admin_deal_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(ProjectEntity $project, int $dealId): JsonResponse
+    public function execute(Project $project, int $dealId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(

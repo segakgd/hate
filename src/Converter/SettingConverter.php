@@ -2,13 +2,13 @@
 
 namespace App\Converter;
 
-use App\Entity\BehaviorScenario;
-use App\Repository\BehaviorScenarioRepository;
+use App\Entity\Scenario\Scenario;
+use App\Repository\Scenario\ScenarioRepository;
 
 class SettingConverter
 {
     public function __construct(
-        private readonly BehaviorScenarioRepository $behaviorScenarioRepository, // todo использовать сервис
+        private readonly ScenarioRepository $behaviorScenarioRepository, // todo использовать сервис
     ) {
     }
 
@@ -18,7 +18,7 @@ class SettingConverter
 
         foreach ($settings as $key => $settingItem) {
 
-            $step = (new BehaviorScenario())
+            $step = (new Scenario())
                 ->setType($settingItem['type'])
                 ->setName($key)
                 ->setContent($settingItem['content'])

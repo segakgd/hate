@@ -2,7 +2,7 @@
 
 namespace App\Tests\Functional\Admin\Deal;
 
-use App\Entity\Ecommerce\DealEntity;
+use App\Entity\Lead\Deal;
 use App\Tests\Functional\ApiTestCase;
 use App\Tests\Functional\Trait\Deal\DealTrait;
 use App\Tests\Functional\Trait\Project\ProjectTrait;
@@ -49,8 +49,8 @@ class RemoveDealControllerTest extends ApiTestCase
 
         $dealId = $deal->getId();
 
-        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($dealId);
-        $this->assertTrue($dealEntity instanceof DealEntity);
+        $dealEntity = $this->getEntityManager()->getRepository(Deal::class)->find($dealId);
+        $this->assertTrue($dealEntity instanceof Deal);
 
         $client->loginUser($user);
         $client->request(
@@ -60,7 +60,7 @@ class RemoveDealControllerTest extends ApiTestCase
 
         $this->assertEquals(Response::HTTP_NO_CONTENT, $client->getResponse()->getStatusCode());
 
-        $dealEntity = $this->getEntityManager()->getRepository(DealEntity::class)->find($dealId);
-        $this->assertFalse($dealEntity instanceof DealEntity);
+        $dealEntity = $this->getEntityManager()->getRepository(Deal::class)->find($dealId);
+        $this->assertFalse($dealEntity instanceof Deal);
     }
 }
