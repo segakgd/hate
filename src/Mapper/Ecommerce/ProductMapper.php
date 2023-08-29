@@ -7,66 +7,93 @@ use App\Entity\Ecommerce\Product;
 
 class ProductMapper
 {
-    public static function mapToArray(Product $productEntity): array
+    public static function mapToDto(Product $entity): ProductDto
     {
-        return [
-            'id' => $productEntity->getId(),
-            'name' => $productEntity->getName(),
-            'price' => $productEntity->getPrice(),
-        ];
+        return self::mapToExistDto($entity, (new ProductDto));
     }
 
-    public static function mapToDto(Product $productEntity): ProductDto
+    public static function mapToEntity(ProductDto $dto): Product
     {
-        return (new ProductDto)
-            ->setName($productEntity->getName())
-            ->setImage($productEntity->getImage())
-            ->setPrice(PriceMapper::toDtoFromArr($productEntity->getPrice()))
+        return self::mapToExistEntity($dto, (new Product));
+    }
+
+    public static function mapToExistDto(Product $entity, ProductDto $dto): ProductDto
+    {
+        if ($categories = $entity->getCategories()){
+            foreach ($categories as $category){
+                $dto->addCategory(ProductCategoryMapper::mapToDto($category));
+            }
+        }
+
+        if ($variants = $entity->getVariants()){
+            foreach ($variants as $variant){
+                $dto->addVariant(ProductVariantMapper::mapToDto($variant));
+            }
+        }
+
+        return $dto
+            ->setId($entity->getId())
+            ->setProjectId($entity->getProjectId())
+            ->setCreatedAt($entity->getCreatedAt())
+            ->setUpdatedAt($entity->getUpdatedAt())
         ;
     }
 
-    public static function mapToEntity(ProductDto $productDto): Product
+    public static function mapToExistEntity(ProductDto $dto, Product $entity): Product
     {
-        $productEntity = new Product();
-
-        if ($name = $productDto->getName()){
-            $productEntity->setName($name);
+        if ($projectId = $dto->getProjectId()){
+            $entity->setProjectId($projectId);
         }
 
-        if ($image = $productDto->getImage()){
-            $productEntity->setImage($image);
+        if ($categoriesDto = $dto->getCategories()){
+            if ($categoriesEntity = $entity->getCategories()){
+                foreach ($categoriesDto as $categoryDto){
+                    $isUpdated = false;
+
+                    foreach ($categoriesEntity as $categoryEntity){
+                        if ($categoryDto->getId() === $categoryEntity->getId()){
+                            $entity->addCategory(ProductCategoryMapper::mapToExistEntity($categoryDto, $categoryEntity));
+
+                            $isUpdated = true;
+                        }
+                    }
+
+                    if (!$isUpdated){
+                        $entity->addCategory(ProductCategoryMapper::mapToEntity($categoryDto));
+                    }
+                }
+
+            } else {
+                foreach ($categoriesDto as $categoryDto){
+                    $entity->addCategory(ProductCategoryMapper::mapToEntity($categoryDto));
+                }
+            }
         }
 
-        if ($price = $productDto->getPrice()){
-            $productEntity->setPrice(PriceMapper::toArrFromDto($price));
+        if ($variantsDto = $dto->getVariants()){
+            if ($variantsEntity = $entity->getVariants()){
+                foreach ($variantsDto as $variantDto){
+                    $isUpdated = false;
+
+                    foreach ($variantsEntity as $variantEntity){
+                        if ($variantDto->getId() === $variantEntity->getId()){
+                            $entity->addVariant(ProductVariantMapper::mapToExistEntity($variantDto, $variantEntity));
+
+                            $isUpdated = true;
+                        }
+                    }
+
+                    if (!$isUpdated){
+                        $entity->addVariant(ProductVariantMapper::mapToEntity($variantDto));
+                    }
+                }
+            } else {
+                foreach ($variantsDto as $variantDto){
+                    $entity->addVariant(ProductVariantMapper::mapToEntity($variantDto));
+                }
+            }
         }
 
-        return $productEntity;
-    }
-
-    public static function mapToExistDto(Product $productEntity, ProductDto $productDto): ProductDto
-    {
-        return $productDto
-            ->setName($productEntity->getName())
-            ->setPrice(PriceMapper::toDtoFromArr($productEntity->getPrice()))
-            ->setImage($productEntity->getImage())
-            ;
-    }
-
-    public static function mapToExistEntity(ProductDto $productDto, Product $productEntity): Product
-    {
-        if ($name = $productDto->getName()){
-            $productEntity->setName($name);
-        }
-
-        if ($image = $productDto->getImage()){
-            $productEntity->setImage($image);
-        }
-
-        if ($price = $productDto->getPrice()){
-            $productEntity->setPrice(PriceMapper::toArrFromDto($price));
-        }
-
-        return $productEntity;
+        return $entity;
     }
 }

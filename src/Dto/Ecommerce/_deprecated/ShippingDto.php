@@ -8,23 +8,37 @@ use Symfony\Component\Validator\Constraints as Assert;
 /** @deprecated временно не смотрим на этот код */
 class ShippingDto
 {
-    private ?string $name = null;
+    private ?int $id = null;
+
+    private ?string $title = null;
 
     private ?PriceDto $price = null;
 
     #[Assert\Choice(['courier', 'pickup'])]
     private ?string $type = null;
 
-    // todo count, article, from, to, active, cratedAt
+    private ?int $projectId = null;
 
-    public function getName(): ?string
+    public function getId(): ?int
     {
-        return $this->name;
+        return $this->id;
     }
 
-    public function setName(?string $name): self
+    public function setId(?int $id): self
     {
-        $this->name = $name;
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }
@@ -49,6 +63,18 @@ class ShippingDto
     public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getProjectId(): ?int
+    {
+        return $this->projectId;
+    }
+
+    public function setProjectId(?int $projectId): self
+    {
+        $this->projectId = $projectId;
 
         return $this;
     }

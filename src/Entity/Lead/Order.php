@@ -4,6 +4,7 @@ namespace App\Entity\Lead;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
+use App\Dto\Ecommerce\ProductDto;
 use App\Repository\Lead\OrderEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -57,7 +58,7 @@ class Order
         return $this;
     }
 
-    public function addProducts(?PromotionDto $products): static
+    public function addProduct(?ProductDto $products): static
     {
         $this->products[] = $products;
 
@@ -74,14 +75,6 @@ class Order
     public function setShipping(?array $shipping): static
     {
         $this->shipping = $shipping;
-
-        return $this;
-    }
-
-    /** @deprecated временно не смотрим на этот код */
-    public function addShipping(?ShippingDto $shipping): static
-    {
-        $this->shipping[] = $shipping;
 
         return $this;
     }

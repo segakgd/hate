@@ -2,18 +2,24 @@
 
 namespace App\Dto\Ecommerce;
 
+use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
+use DateTimeImmutable;
+
 class ProductDto
 {
     private ?int $id = null;
 
-    private ?string $name = null;
+    private ?int $projectId = null;
 
-    private ?string $image = null; // todo ImageCollection
+    /** @var array<ProductCategoryDto> */
+    private array $categories;
 
-    private ?PriceDto $price = null;
+    /** @var array<ProductVariantDto> */
+    private array $variants;
 
-    //
-    // todo count, article, from, to, active, cratedAt
+    private ?DateTimeImmutable $createdAt = null;
+
+    private ?DateTimeImmutable $updatedAt = null;
 
     /**
      * @return int|null
@@ -23,46 +29,69 @@ class ProductDto
         return $this->id;
     }
 
-    /**
-     * @param int|null $id
-     */
-    public function setId(?int $id): void
+    public function setId(?int $id): self
     {
         $this->id = $id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getProjectId(): ?int
     {
-        return $this->image;
+        return $this->projectId;
     }
 
-    public function setImage(?string $image): self
+    public function setProjectId(?int $projectId): self
     {
-        $this->image = $image;
+        $this->projectId = $projectId;
 
         return $this;
     }
 
-    public function getPrice(): ?PriceDto
+    public function getCategories(): array
     {
-        return $this->price;
+        return $this->categories;
     }
 
-    public function setPrice(?PriceDto $price): self
+    public function addCategory(ProductCategoryDto $category): self
     {
-        $this->price = $price;
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    public function getVariants(): array
+    {
+        return $this->variants;
+    }
+
+    public function addVariant(ProductVariantDto $variants): self
+    {
+        $this->variants[] = $variants;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

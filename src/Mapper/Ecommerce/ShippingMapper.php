@@ -7,10 +7,28 @@ use App\Entity\Ecommerce\Shipping;
 
 class ShippingMapper
 {
+    public static function mapToDtoFromArray(array $shipping): ShippingDto
+    {
+        return (new ShippingDto)
+            ->setTitle($shipping['title'])
+            ->setType($shipping['type'])
+            ->setPrice(PriceMapper::toDtoFromArr($shipping['price']))
+            ;
+    }
+
+    public static function mapToArrayFromDto(ShippingDto $shipping): array
+    {
+        return [
+            'title' => $shipping->getTitle(),
+            'type' => $shipping->getType(),
+            'price' => $shipping->getPrice(),
+        ];
+    }
+
     public static function mapToDto(Shipping $shippingEntity): ShippingDto
     {
         return (new ShippingDto)
-            ->setName($shippingEntity->getTitle())
+            ->setTitle($shippingEntity->getTitle())
             ->setType($shippingEntity->getType())
             ->setPrice(PriceMapper::toDtoFromArr($shippingEntity->getPrice()))
             ;
@@ -20,7 +38,7 @@ class ShippingMapper
     {
         $shippingEntity = new Shipping();
 
-        if ($name = $shippingDto->getName()){
+        if ($name = $shippingDto->getTitle()){
             $shippingEntity->setTitle($name);
         }
 
@@ -38,7 +56,7 @@ class ShippingMapper
     public static function mapToExistDto(Shipping $shippingEntity, ShippingDto $shippingDto): ShippingDto
     {
         return $shippingDto
-            ->setName($shippingEntity->getTitle())
+            ->setTitle($shippingEntity->getTitle())
             ->setType($shippingEntity->getType())
             ->setPrice(PriceMapper::toDtoFromArr($shippingEntity->getPrice()))
             ;
@@ -46,7 +64,7 @@ class ShippingMapper
 
     public static function mapToExistEntity(ShippingDto $shippingDto, Shipping $shippingEntity): Shipping
     {
-        if ($name = $shippingDto->getName()){
+        if ($name = $shippingDto->getTitle()){
             $shippingEntity->setTitle($name);
         }
 

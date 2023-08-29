@@ -5,11 +5,13 @@ namespace App\Mapper\Ecommerce;
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategory;
 
+/** @deprecated пока что не используем */
 class ProductCategoryMapper
 {
     public static function mapToDto(ProductCategory $productCategoryEntity): ProductCategoryDto
     {
         return (new ProductCategoryDto)
+            ->setId($productCategoryEntity->getId())
             ->setName($productCategoryEntity->getName())
             ;
     }
@@ -28,6 +30,7 @@ class ProductCategoryMapper
     public static function mapToExistDto(ProductCategory $productCategoryEntity, ProductCategoryDto $productCategoryDto): ProductCategoryDto
     {
         return $productCategoryDto
+            ->setId($productCategoryEntity->getId())
             ->setName($productCategoryEntity->getName())
             ;
     }
