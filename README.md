@@ -57,3 +57,13 @@
 Команда для генерации ключей jwt в системе:
 bin/console lexik:jwt:generate-keypair
 ~~~
+
+~~~
+Запуск Unti тестов:
+bin/phpunit tests/Unit/
+~~~
+
+~~~
+Запуск Functionsl тестов:
+bin/phpunit tests/Functionsl/
+~~~
