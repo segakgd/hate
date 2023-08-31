@@ -13,8 +13,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetOneController extends AbstractController
 {
     public function __construct(
-        private readonly ProjectServiceInterface $projectService,
-        private readonly SerializerInterface $serializer,
+        private ProjectServiceInterface $projectService,
+        private SerializerInterface $serializer,
     ) {}
 
     #[Route('/api/admin/projects/{project}/', name: 'admin_project_get_one', methods: ['GET'])]

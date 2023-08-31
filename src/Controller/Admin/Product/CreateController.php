@@ -17,9 +17,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class CreateController extends AbstractController
 {
     public function __construct(
-        private readonly ProductServiceInterface $productService,
-        private readonly ValidatorInterface $validator,
-        private readonly SerializerInterface $serializer
+        private ProductServiceInterface $productService,
+        private ValidatorInterface $validator,
+        private SerializerInterface $serializer
     ) {
     }
 

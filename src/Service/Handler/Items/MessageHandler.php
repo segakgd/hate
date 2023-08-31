@@ -11,9 +11,9 @@ use App\Service\Client\Telegram\TelegramService;
 class MessageHandler
 {
     public function __construct(
-        private readonly TelegramService $telegramService,
-        private readonly ScenarioRepository $behaviorScenarioRepository,
-        private readonly VisitorSessionRepository $chatSessionRepository,
+        private TelegramService $telegramService,
+        private ScenarioRepository $behaviorScenarioRepository,
+        private VisitorSessionRepository $chatSessionRepository,
     ) {
     }
 

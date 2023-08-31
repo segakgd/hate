@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class RemoveController extends AbstractController
 {
     public function __construct(
-        private readonly ProductCategoryServiceInterface $productCategoryService,
+        private ProductCategoryServiceInterface $productCategoryService,
     ) {}
 
     #[Route('/api/admin/project/{project}/productCategory/{productCategoryId}/', name: 'admin_product_category_remove', methods: ['DELETE'])]

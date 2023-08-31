@@ -9,8 +9,8 @@ use App\Service\Handler\Items\MessageHandler;
 class ActionHandler
 {
     public function __construct(
-        private readonly CommandHandler $commandHandler,
-        private readonly MessageHandler $messageHandler,
+        private CommandHandler $commandHandler,
+        private MessageHandler $messageHandler,
     ) {
     }
 

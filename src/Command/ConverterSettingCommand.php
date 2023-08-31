@@ -171,7 +171,7 @@ class ConverterSettingCommand extends Command
     ];
 
     public function __construct(
-        private readonly SettingConverter $settingConverter,
+        private SettingConverter $settingConverter,
         string $name = null
     ) {
         parent::__construct($name);

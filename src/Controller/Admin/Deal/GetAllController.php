@@ -13,8 +13,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetAllController extends AbstractController
 {
     public function __construct(
-        private readonly DealServiceInterface $dealService,
-        private readonly SerializerInterface $serializer,
+        private DealServiceInterface $dealService,
+        private SerializerInterface $serializer,
     ) {}
 
     #[Route('/api/admin/project/{project}/deal/', name: 'admin_deal_get_all', methods: ['GET'])]

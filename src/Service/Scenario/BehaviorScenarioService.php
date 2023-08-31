@@ -8,7 +8,7 @@ use App\Repository\Scenario\ScenarioRepository;
 class BehaviorScenarioService
 {
     public function __construct(
-        private readonly ScenarioRepository $behaviorScenarioRepository,
+        private ScenarioRepository $behaviorScenarioRepository,
     ) {
     }
 

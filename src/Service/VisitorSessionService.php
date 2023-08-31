@@ -8,7 +8,7 @@ use App\Repository\Visitor\VisitorSessionRepository;
 class VisitorSessionService
 {
     public function __construct(
-        private readonly VisitorSessionRepository $chatSessionRepository,
+        private VisitorSessionRepository $chatSessionRepository,
     ) {
     }
 

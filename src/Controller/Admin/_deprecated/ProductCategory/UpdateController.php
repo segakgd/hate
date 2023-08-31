@@ -18,9 +18,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UpdateController extends AbstractController
 {
     public function __construct(
-        private readonly ProductCategoryServiceInterface $productCategoryService,
-        private readonly ValidatorInterface $validator,
-        private readonly SerializerInterface $serializer
+        private ProductCategoryServiceInterface $productCategoryService,
+        private ValidatorInterface $validator,
+        private SerializerInterface $serializer
     ) {
     }
 
