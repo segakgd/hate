@@ -6,9 +6,9 @@ use App\Dto\Project\ProjectDto;
 use App\Entity\User\Project;
 use App\Entity\User\User;
 use App\Mapper\Project\ProjectMapper;
-use PHPUnit\Framework\TestCase;
+use App\Tests\Unit\UnitTestCase;
 
-class ProjectMapperTest extends TestCase
+class ProjectMapperTest extends UnitTestCase
 {
     public function testMapToDto(): void
     {
