@@ -45,6 +45,7 @@ class MainWebhookController extends AbstractController
             'json'
         );
 
+        // это сессия пользователя из определённого канала
         $chatSession = $this->chatSessionService->getOrCreateChatSession($webhookData->getWebhookChatId(), $channel);
 
         $this->chatEventService->createChatEventForSession(
