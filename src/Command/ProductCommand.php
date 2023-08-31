@@ -4,8 +4,8 @@ namespace App\Command;
 
 use App\Dto\Core\Telegram\Invoice\InvoiceDto;
 use App\Dto\Ecommerce\ProductDto;
+use App\Entity\Ecommerce\Product;
 use App\Service\Client\Telegram\TelegramService;
-use App\Service\Ecommerce\EcommerceService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,8 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ProductCommand extends Command
 {
     public function __construct(
-        private readonly TelegramService $telegramService,
-        private readonly EcommerceService $ecommerceService,
+        private TelegramService $telegramService,
         string $name = null
     ) {
         parent::__construct($name);
@@ -64,9 +63,10 @@ class ProductCommand extends Command
 
         $chatId = 873817360;
 
-        $products = $this->ecommerceService->getProducts();
+        $products = [new ProductDto()];
         $product = null;
 
+        /** @var ProductDto $product */
         if ($products[0] instanceof ProductDto){
             $product = $products[0];
         }

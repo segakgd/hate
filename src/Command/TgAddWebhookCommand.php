@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class TgAddWebhookCommand extends Command
 {
     public function __construct(
-        private readonly TelegramService $telegramService,
+        private TelegramService $telegramService,
         string $name = null
     ) {
         parent::__construct($name);

@@ -19,8 +19,8 @@ use Throwable;
 class TgGoCommand extends Command
 {
     public function __construct(
-        private readonly VisitorEventRepository $chatEventRepository, // todo использовать сервис
-        private readonly ActionHandler $actionHandler,
+        private VisitorEventRepository $chatEventRepository, // todo использовать сервис
+        private ActionHandler $actionHandler,
         string $name = null
     ) {
         parent::__construct($name);
