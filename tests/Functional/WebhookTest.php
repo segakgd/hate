@@ -116,7 +116,6 @@ class WebhookTest extends WebTestCase
 //               "id": 873817360,
 //              "is_bot": false,
 //              "first_name": "Sega",
-//              "username": "sega_kgd",
 //              "language_code": "ru"
 //            },
 //            "chat": {
