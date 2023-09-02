@@ -76,10 +76,7 @@ class Deal
 
     public function addField(Field $field): static
     {
-        if (!$this->fields->contains($field)) {
-            $this->fields->add($field);
-            $field->setDeal($this);
-        }
+        $this->fields[] = $field;
 
         return $this;
     }

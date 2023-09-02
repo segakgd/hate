@@ -42,7 +42,8 @@ class DealMapper
         }
 
         if ($fieldsDto = $dealDto->getFields()){
-            if ($fieldsEntity = $dealEntity->getFields()){
+            if ($dealEntity->getFields()->count()){
+                $fieldsEntity = $dealEntity->getFields();
 
                 foreach ($fieldsDto as $fieldDto){
                     $isUpdated = false;

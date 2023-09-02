@@ -2,6 +2,7 @@
 
 namespace App\Tests\Unit;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use ReflectionObject;
@@ -30,7 +31,13 @@ class UnitTestCase extends TestCase
 
         foreach ($properties as $propertyName => $propertyValue){
             if (is_array($propertyValue)){
-                $this->assertObjectProperties($reflectionObject->getProperty($propertyName)->getValue($object), $propertyValue);
+                $arrayCollection = $reflectionObject->getProperty($propertyName)->getValue($object);
+
+                if ($arrayCollection instanceof ArrayCollection){
+                    $arrayCollection = $arrayCollection->toArray();
+                }
+
+                $this->assertObjectProperties($arrayCollection, $propertyValue);
 
                 continue;
             }
