@@ -7,9 +7,13 @@ use App\Entity\User\Project;
 use App\Entity\User\User;
 use App\Mapper\Project\ProjectMapper;
 use App\Tests\Unit\UnitTestCase;
+use ReflectionException;
 
 class ProjectMapperTest extends UnitTestCase
 {
+    /**
+     * @throws ReflectionException
+     */
     public function testMapToDto(): void
     {
         $user = (new User())
@@ -24,9 +28,17 @@ class ProjectMapperTest extends UnitTestCase
 
         $dto = ProjectMapper::mapToDto($project);
 
-        $this->assertEquals('Проект 1', $dto->getName());
+        $this->assertObjectVars(
+            $dto,
+            [
+                'name' => 'Проект 1'
+            ]
+        );
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testMapToEntity(): void
     {
         $projectDto = (new ProjectDto())
@@ -35,6 +47,11 @@ class ProjectMapperTest extends UnitTestCase
 
         $entity = ProjectMapper::mapToEntity($projectDto);
 
-        $this->assertEquals('Проект 1', $entity->getName());
+        $this->assertObjectVars(
+            $entity,
+            [
+                'name' => 'Проект 1'
+            ]
+        );
     }
 }
