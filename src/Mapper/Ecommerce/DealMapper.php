@@ -9,39 +9,12 @@ class DealMapper
 {
     public static function mapToDto(Deal $dealEntity): DealDto
     {
-        $dealDto = (new DealDto)
-            ->setContacts($dealEntity->getContacts())
-            ->setOrder($dealEntity->getOrders())
-        ;
-
-        if ($fields = $dealEntity->getFields()){
-            foreach ($fields as $field){
-                $dealDto->addField(FieldMapper::mapToDto($field));
-            }
-        }
-
-        return $dealDto;
+        return self::mapToExistDto($dealEntity, (new DealDto));
     }
 
     public static function mapToEntity(DealDto $dealDto): Deal
     {
-        $dealEntity = (new Deal);
-
-        if ($contacts = $dealDto->getContacts()){
-            $dealEntity->setContacts(ContactsMapper::mapToEntity($contacts));
-        }
-
-        if ($fields = $dealDto->getFields()){
-            foreach ($fields as $field){
-                $dealEntity->addField(FieldMapper::mapToEntity($field));
-            }
-        }
-
-        if ($order = $dealDto->getOrder()){
-            $dealEntity->setOrders(OrderMapper::mapToEntity($order));
-        }
-
-        return $dealEntity;
+         return self::mapToExistEntity($dealDto, (new Deal()));
     }
 
     public static function mapToExistDto(Deal $dealEntity, DealDto $dealDto): DealDto
@@ -53,8 +26,8 @@ class DealMapper
         }
 
         return $dealDto
-            ->setContacts($dealEntity->getContacts())
-            ->setOrder($dealEntity->getOrders())
+            ->setContacts(ContactsMapper::mapToDto($dealEntity->getContacts())) // todo надо мапть в существующие dto
+            ->setOrder(OrderMapper::mapToDto($dealEntity->getOrders())) // todo надо мапть в существующие dto
         ;
     }
 

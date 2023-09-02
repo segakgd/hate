@@ -21,14 +21,14 @@ class ProjectMapperTest extends UnitTestCase
             ->setPassword('pass')
         ;
 
-        $project = (new Project())
+        $entity = (new Project())
             ->setName('Проект 1')
             ->addUser($user)
         ;
 
-        $dto = ProjectMapper::mapToDto($project);
+        $dto = ProjectMapper::mapToDto($entity);
 
-        $this->assertObjectVars(
+        $this->assertObjectProperties(
             $dto,
             [
                 'name' => 'Проект 1'
@@ -41,13 +41,13 @@ class ProjectMapperTest extends UnitTestCase
      */
     public function testMapToEntity(): void
     {
-        $projectDto = (new ProjectDto())
+        $dto = (new ProjectDto())
             ->setName('Проект 1')
         ;
 
-        $entity = ProjectMapper::mapToEntity($projectDto);
+        $entity = ProjectMapper::mapToEntity($dto);
 
-        $this->assertObjectVars(
+        $this->assertObjectProperties(
             $entity,
             [
                 'name' => 'Проект 1'
