@@ -5,7 +5,6 @@ namespace App\Dto\Ecommerce\_deprecated;
 use App\Dto\Ecommerce\PriceDto;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/** @deprecated временно не смотрим на этот код */
 class ShippingDto
 {
     private ?int $id = null;

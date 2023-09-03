@@ -6,7 +6,6 @@ use App\Dto\Ecommerce\PriceDto;
 use DateTimeInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/** @deprecated временно не смотрим на этот код */
 class PromotionDto
 {
     private ?int $id = null;
@@ -39,9 +38,11 @@ class PromotionDto
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id): self
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getProjectId(): ?int
@@ -49,9 +50,11 @@ class PromotionDto
         return $this->projectId;
     }
 
-    public function setProjectId(?int $projectId): void
+    public function setProjectId(?int $projectId): self
     {
         $this->projectId = $projectId;
+
+        return $this;
     }
 
     public function getName(): ?string

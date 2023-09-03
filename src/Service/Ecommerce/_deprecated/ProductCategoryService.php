@@ -9,12 +9,11 @@ use App\Repository\Ecommerce\ProductCategoryEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-/** @deprecated временно не смотрим на этот код */
 class ProductCategoryService implements ProductCategoryServiceInterface
 {
     public function __construct(
-        private readonly ProductCategoryEntityRepository $productCategoryEntityRepository,
-        private readonly LoggerInterface $logger,
+        private ProductCategoryEntityRepository $productCategoryEntityRepository,
+        private LoggerInterface $logger,
     ) {
     }
 

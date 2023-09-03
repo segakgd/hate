@@ -53,43 +53,6 @@ class Deal
 
         return $this;
     }
-//
-//    /**
-//     * @return Collection<int, FieldEntity>
-//     */
-//    public function getFields(): Collection
-//    {
-//        return $this->fields;
-//    }
-//
-//    public function setFields(Collection $fields): self
-//    {
-//        $this->fields = $fields;
-//
-//        return $this;
-//    }
-//
-//    public function addField(FieldEntity $field): static
-//    {
-//        if (!$this->fields->contains($field)) {
-//            $this->fields->add($field);
-//            $field->setDealEntity($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeField(FieldEntity $field): static
-//    {
-//        if ($this->fields->removeElement($field)) {
-//            // set the owning side to null (unless already changed)
-//            if ($field->getDealEntity() === $this) {
-//                $field->setDealEntity(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
 
     public function getOrders(): ?Order
     {
@@ -99,18 +62,6 @@ class Deal
     public function setOrders(?Order $orders): static
     {
         $this->orders = $orders;
-
-        return $this;
-    }
-
-    public function getProject(): ?int
-    {
-        return $this->project;
-    }
-
-    public function setProject(int $project): static
-    {
-        $this->project = $project;
 
         return $this;
     }
@@ -125,10 +76,7 @@ class Deal
 
     public function addField(Field $field): static
     {
-        if (!$this->fields->contains($field)) {
-            $this->fields->add($field);
-            $field->setDeal($this);
-        }
+        $this->fields[] = $field;
 
         return $this;
     }

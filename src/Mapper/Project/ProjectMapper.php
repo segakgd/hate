@@ -9,16 +9,12 @@ class ProjectMapper
 {
     public static function mapToDto(Project $projectEntity): ProjectDto
     {
-        return (new ProjectDto)
-            ->setName($projectEntity->getName())
-        ;
+        return self::mapToExistDto($projectEntity, (new ProjectDto));
     }
 
     public static function mapToEntity(ProjectDto $projectDto): Project
     {
-        return (new Project)
-            ->setName($projectDto->getName())
-        ;
+        return self::mapToExistEntity($projectDto, (new Project));
     }
 
     public static function mapToExistDto(Project $projectEntity, ProjectDto $projectDto): ProjectDto

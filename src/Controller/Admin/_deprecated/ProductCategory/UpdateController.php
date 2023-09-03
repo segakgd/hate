@@ -14,7 +14,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/** @deprecated временно не смотрим на этот код */
 class UpdateController extends AbstractController
 {
     public function __construct(

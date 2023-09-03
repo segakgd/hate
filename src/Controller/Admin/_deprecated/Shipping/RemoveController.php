@@ -10,11 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/** @deprecated временно не смотрим на этот код */
 class RemoveController extends AbstractController
 {
     public function __construct(
-        private readonly ShippingServiceInterface $shippingService,
+        private ShippingServiceInterface $shippingService,
     ) {}
 
     #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_remove', methods: ['DELETE'])]

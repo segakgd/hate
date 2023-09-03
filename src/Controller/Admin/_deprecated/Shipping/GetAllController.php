@@ -10,12 +10,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/** @deprecated временно не смотрим на этот код */
 class GetAllController extends AbstractController
 {
     public function __construct(
-        private readonly ShippingServiceInterface $shippingService,
-        private readonly SerializerInterface $serializer,
+        private ShippingServiceInterface $shippingService,
+        private SerializerInterface $serializer,
     ) {}
 
     #[Route('/api/admin/project/{project}/shipping/', name: 'admin_shipping_get_all', methods: ['GET'])]

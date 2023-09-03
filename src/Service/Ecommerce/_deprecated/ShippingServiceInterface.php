@@ -5,7 +5,6 @@ namespace App\Service\Ecommerce\_deprecated;
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\Ecommerce\Shipping;
 
-/** @deprecated временно не смотрим на этот код */
 interface ShippingServiceInterface
 {
     public function getOne(int $projectId, int $shippingId): ?Shipping;

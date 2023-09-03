@@ -20,7 +20,6 @@ class Product
     #[ORM\Column]
     private ?int $projectId = null;
 
-    /** @deprecated временно не смотрим на этот код */
     #[ORM\ManyToMany(targetEntity: ProductCategory::class, mappedBy: 'products')]
     private Collection $categories;
 
@@ -56,7 +55,6 @@ class Product
         return $this;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     /**
      * @return Collection<int, ProductCategory>
      */
@@ -65,7 +63,6 @@ class Product
         return $this->categories;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     public function addCategory(ProductCategory $category): static
     {
         if (!$this->categories->contains($category)) {
@@ -76,7 +73,6 @@ class Product
         return $this;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     public function removeCategory(ProductCategory $category): static
     {
         if ($this->categories->removeElement($category)) {

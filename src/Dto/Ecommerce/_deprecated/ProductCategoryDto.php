@@ -2,7 +2,6 @@
 
 namespace App\Dto\Ecommerce\_deprecated;
 
-/** @deprecated временно не смотрим на этот код */
 class ProductCategoryDto
 {
     private ?int $id = null;

@@ -3,16 +3,26 @@
 namespace App\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
+use App\Dto\Ecommerce\PriceDto;
 use App\Entity\Ecommerce\Shipping;
 
 class ShippingMapper
 {
     public static function mapToDtoFromArray(array $shipping): ShippingDto
     {
+        if (is_array($shipping['price'])){
+            $price = PriceMapper::toDtoFromArr($shipping['price']);
+        } else {
+            $price = (new PriceDto())
+                ->setValue($shipping['price'])
+                ->setValueFraction($shipping['price'] * 0.01)
+            ;
+        }
+
         return (new ShippingDto)
             ->setTitle($shipping['title'])
             ->setType($shipping['type'])
-            ->setPrice(PriceMapper::toDtoFromArr($shipping['price']))
+            ->setPrice($price)
             ;
     }
 

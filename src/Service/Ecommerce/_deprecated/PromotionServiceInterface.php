@@ -5,7 +5,6 @@ namespace App\Service\Ecommerce\_deprecated;
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\Ecommerce\Promotion;
 
-/** @deprecated временно не смотрим на этот код */
 interface PromotionServiceInterface
 {
     public function getOne(int $projectId, int $promotionId): ?Promotion;

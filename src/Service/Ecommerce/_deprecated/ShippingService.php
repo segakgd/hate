@@ -9,12 +9,11 @@ use App\Repository\Ecommerce\ShippingEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-/** @deprecated временно не смотрим на этот код */
 class ShippingService implements ShippingServiceInterface
 {
     public function __construct(
-        private readonly ShippingEntityRepository $shippingEntityRepository,
-        private readonly LoggerInterface $logger,
+        private ShippingEntityRepository $shippingEntityRepository,
+        private LoggerInterface $logger,
     ) {
     }
 

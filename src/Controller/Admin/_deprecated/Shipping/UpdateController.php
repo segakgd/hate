@@ -14,13 +14,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/** @deprecated временно не смотрим на этот код */
 class UpdateController extends AbstractController
 {
     public function __construct(
-        private readonly ShippingServiceInterface $shippingService,
-        private readonly ValidatorInterface $validator,
-        private readonly SerializerInterface $serializer
+        private ShippingServiceInterface $shippingService,
+        private ValidatorInterface $validator,
+        private SerializerInterface $serializer
     ) {
     }
 

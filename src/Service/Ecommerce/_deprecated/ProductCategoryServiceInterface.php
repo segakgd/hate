@@ -5,7 +5,6 @@ namespace App\Service\Ecommerce\_deprecated;
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategory;
 
-/** @deprecated временно не смотрим на этот код */
 interface ProductCategoryServiceInterface
 {
     public function getAll(int $projectId): array;
