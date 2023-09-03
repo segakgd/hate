@@ -7,36 +7,33 @@ use App\Entity\Lead\Field;
 
 class FieldMapper
 {
-    public static function mapToDto(Field $fieldEntity): FieldDto
+    public static function mapToDto(Field $entity): FieldDto
     {
-        return (new FieldDto)
-            ->setValue($fieldEntity->getValue())
-            ->setName($fieldEntity->getName())
-            ;
+        return self::mapToExistDto($entity, (new FieldDto));
     }
 
-    public static function mapToEntity(FieldDto $fieldDto): Field
+    public static function mapToEntity(FieldDto $dto): Field
     {
 
         return (new Field)
-            ->setValue($fieldDto->getValue())
-            ->setName($fieldDto->getName())
+            ->setValue($dto->getValue())
+            ->setName($dto->getName())
             ;
     }
 
-    public static function mapToExistDto(Field $fieldEntity, FieldDto $fieldDto): FieldDto
+    public static function mapToExistDto(Field $entity, FieldDto $dto): FieldDto
     {
-        return $fieldDto
-            ->setValue($fieldEntity->getValue())
-            ->setName($fieldEntity->getName())
+        return $dto
+            ->setValue($entity->getValue())
+            ->setName($entity->getName())
             ;
     }
 
-    public static function mapToExistEntity(FieldDto $fieldDto, Field $fieldEntity): Field
+    public static function mapToExistEntity(FieldDto $dto, Field $entity): Field
     {
-        return $fieldEntity
-            ->setValue($fieldDto->getValue())
-            ->setName($fieldDto->getName())
+        return $entity
+            ->setValue($dto->getValue())
+            ->setName($dto->getName())
             ;
     }
 }
