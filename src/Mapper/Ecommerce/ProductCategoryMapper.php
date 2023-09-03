@@ -8,39 +8,30 @@ use App\Entity\Ecommerce\ProductCategory;
 /** @deprecated пока что не используем */
 class ProductCategoryMapper
 {
-    public static function mapToDto(ProductCategory $productCategoryEntity): ProductCategoryDto
+    public static function mapToDto(ProductCategory $entity): ProductCategoryDto
     {
-        return (new ProductCategoryDto)
-            ->setId($productCategoryEntity->getId())
-            ->setName($productCategoryEntity->getName())
+        return self::mapToExistDto($entity, (new ProductCategoryDto));
+    }
+
+    public static function mapToEntity(ProductCategoryDto $dto): ProductCategory
+    {
+        return self::mapToExistEntity($dto, (new ProductCategory));
+    }
+
+    public static function mapToExistDto(ProductCategory $entity, ProductCategoryDto $dto): ProductCategoryDto
+    {
+        return $dto
+            ->setId($entity->getId())
+            ->setName($entity->getName())
             ;
     }
 
-    public static function mapToEntity(ProductCategoryDto $productCategoryDto): ProductCategory
+    public static function mapToExistEntity(ProductCategoryDto $dto, ProductCategory $entity): ProductCategory
     {
-        $productCategoryEntity = new ProductCategory();
-
-        if ($name = $productCategoryDto->getName()){
-            $productCategoryEntity->setName($name);
+        if ($name = $dto->getName()){
+            $entity->setName($name);
         }
 
-        return $productCategoryEntity;
-    }
-
-    public static function mapToExistDto(ProductCategory $productCategoryEntity, ProductCategoryDto $productCategoryDto): ProductCategoryDto
-    {
-        return $productCategoryDto
-            ->setId($productCategoryEntity->getId())
-            ->setName($productCategoryEntity->getName())
-            ;
-    }
-
-    public static function mapToExistEntity(ProductCategoryDto $productCategoryDto, ProductCategory $productCategoryEntity): ProductCategory
-    {
-        if ($name = $productCategoryDto->getName()){
-            $productCategoryEntity->setName($name);
-        }
-
-        return $productCategoryEntity;
+        return $entity;
     }
 }

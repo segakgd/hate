@@ -7,75 +7,75 @@ use App\Entity\Lead\Deal;
 
 class DealMapper
 {
-    public static function mapToDto(Deal $dealEntity): DealDto
+    public static function mapToDto(Deal $entity): DealDto
     {
-        return self::mapToExistDto($dealEntity, (new DealDto));
+        return self::mapToExistDto($entity, (new DealDto));
     }
 
-    public static function mapToEntity(DealDto $dealDto): Deal
+    public static function mapToEntity(DealDto $dto): Deal
     {
-         return self::mapToExistEntity($dealDto, (new Deal()));
+         return self::mapToExistEntity($dto, (new Deal()));
     }
 
-    public static function mapToExistDto(Deal $dealEntity, DealDto $dealDto): DealDto
+    public static function mapToExistDto(Deal $entity, DealDto $dto): DealDto
     {
-        if ($fields = $dealEntity->getFields()){
+        if ($fields = $entity->getFields()){
             foreach ($fields as $field){
-                $dealDto->addField(FieldMapper::mapToDto($field));
+                $dto->addField(FieldMapper::mapToDto($field));
             }
         }
 
-        return $dealDto
-            ->setContacts(ContactsMapper::mapToDto($dealEntity->getContacts())) // todo надо мапть в существующие dto
-            ->setOrder(OrderMapper::mapToDto($dealEntity->getOrders())) // todo надо мапть в существующие dto
+        return $dto
+            ->setContacts(ContactsMapper::mapToDto($entity->getContacts())) // todo надо мапть в существующие dto
+            ->setOrder(OrderMapper::mapToDto($entity->getOrders())) // todo надо мапть в существующие dto
         ;
     }
 
-    public static function mapToExistEntity(DealDto $dealDto, Deal $dealEntity): Deal
+    public static function mapToExistEntity(DealDto $dto, Deal $entity): Deal
     {
-        if ($contacts = $dealDto->getContacts()){
-            if ($dealEntity->getContacts()){
-                $dealEntity->setContacts(ContactsMapper::mapToExistEntity($contacts, $dealEntity->getContacts()));
+        if ($contacts = $dto->getContacts()){
+            if ($entity->getContacts()){
+                $entity->setContacts(ContactsMapper::mapToExistEntity($contacts, $entity->getContacts()));
             } else {
-                $dealEntity->setContacts(ContactsMapper::mapToEntity($contacts));
+                $entity->setContacts(ContactsMapper::mapToEntity($contacts));
             }
         }
 
-        if ($fieldsDto = $dealDto->getFields()){
-            if ($dealEntity->getFields()->count()){
-                $fieldsEntity = $dealEntity->getFields();
+        if ($fieldsDto = $dto->getFields()){
+            if ($entity->getFields()->count()){
+                $fieldsEntity = $entity->getFields();
 
                 foreach ($fieldsDto as $fieldDto){
                     $isUpdated = false;
 
                     foreach ($fieldsEntity as $fieldEntity){
                         if ($fieldDto->getId() === $fieldEntity->getId()){
-                            $dealEntity->addField(FieldMapper::mapToExistEntity($fieldDto, $fieldEntity));
+                            $entity->addField(FieldMapper::mapToExistEntity($fieldDto, $fieldEntity));
 
                             $isUpdated = true;
                         }
                     }
 
                     if (!$isUpdated){
-                        $dealEntity->addField(FieldMapper::mapToEntity($fieldDto));
+                        $entity->addField(FieldMapper::mapToEntity($fieldDto));
                     }
                 }
 
             } else {
                 foreach ($fieldsDto as $fieldDto){
-                    $dealEntity->addField(FieldMapper::mapToEntity($fieldDto));
+                    $entity->addField(FieldMapper::mapToEntity($fieldDto));
                 }
             }
         }
 
-        if ($order = $dealDto->getOrder()){
-            if ($dealEntity->getOrders()){
-                $dealEntity->setOrders(OrderMapper::mapToExistEntity($order, $dealEntity->getOrders()));
+        if ($order = $dto->getOrder()){
+            if ($entity->getOrders()){
+                $entity->setOrders(OrderMapper::mapToExistEntity($order, $entity->getOrders()));
             } else {
-                $dealEntity->setOrders(OrderMapper::mapToEntity($order));
+                $entity->setOrders(OrderMapper::mapToEntity($order));
             }
         }
 
-        return $dealEntity;
+        return $entity;
     }
 }

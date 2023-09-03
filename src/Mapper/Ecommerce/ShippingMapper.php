@@ -35,57 +35,39 @@ class ShippingMapper
         ];
     }
 
-    public static function mapToDto(Shipping $shippingEntity): ShippingDto
+    public static function mapToDto(Shipping $entity): ShippingDto
     {
-        return (new ShippingDto)
-            ->setTitle($shippingEntity->getTitle())
-            ->setType($shippingEntity->getType())
-            ->setPrice(PriceMapper::toDtoFromArr($shippingEntity->getPrice()))
+        return self::mapToExistDto($entity, (new ShippingDto()));
+    }
+
+    public static function mapToEntity(ShippingDto $dto): Shipping
+    {
+        return self::mapToExistEntity($dto, (new Shipping()));
+    }
+
+    public static function mapToExistDto(Shipping $entity, ShippingDto $dto): ShippingDto
+    {
+        return $dto
+            ->setTitle($entity->getTitle())
+            ->setType($entity->getType())
+            ->setPrice(PriceMapper::toDtoFromArr($entity->getPrice()))
             ;
     }
 
-    public static function mapToEntity(ShippingDto $shippingDto): Shipping
+    public static function mapToExistEntity(ShippingDto $dto, Shipping $entity): Shipping
     {
-        $shippingEntity = new Shipping();
-
-        if ($name = $shippingDto->getTitle()){
-            $shippingEntity->setTitle($name);
+        if ($name = $dto->getTitle()){
+            $entity->setTitle($name);
         }
 
-        if ($type = $shippingDto->getType()){
-            $shippingEntity->setType($type);
+        if ($type = $dto->getType()){
+            $entity->setType($type);
         }
 
-        if ($price = $shippingDto->getPrice()){
-            $shippingEntity->setPrice(PriceMapper::toArrFromDto($price));
+        if ($price = $dto->getPrice()){
+            $entity->setPrice(PriceMapper::toArrFromDto($price));
         }
 
-        return $shippingEntity;
-    }
-
-    public static function mapToExistDto(Shipping $shippingEntity, ShippingDto $shippingDto): ShippingDto
-    {
-        return $shippingDto
-            ->setTitle($shippingEntity->getTitle())
-            ->setType($shippingEntity->getType())
-            ->setPrice(PriceMapper::toDtoFromArr($shippingEntity->getPrice()))
-            ;
-    }
-
-    public static function mapToExistEntity(ShippingDto $shippingDto, Shipping $shippingEntity): Shipping
-    {
-        if ($name = $shippingDto->getTitle()){
-            $shippingEntity->setTitle($name);
-        }
-
-        if ($type = $shippingDto->getType()){
-            $shippingEntity->setType($type);
-        }
-
-        if ($price = $shippingDto->getPrice()){
-            $shippingEntity->setPrice(PriceMapper::toArrFromDto($price));
-        }
-
-        return $shippingEntity;
+        return $entity;
     }
 }
