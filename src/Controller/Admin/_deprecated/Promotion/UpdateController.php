@@ -4,7 +4,7 @@ namespace App\Controller\Admin\_deprecated\Promotion;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\User\Project;
-use App\Service\Ecommerce\_deprecated\PromotionServiceInterface;
+use App\Service\Ecommerce\PromotionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

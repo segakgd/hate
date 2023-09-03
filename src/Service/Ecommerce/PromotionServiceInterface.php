@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Ecommerce\_deprecated;
+namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\Ecommerce\Promotion;

@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\_deprecated\Shipping;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\_deprecated\ShippingServiceInterface;
+use App\Service\Ecommerce\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
