@@ -9,7 +9,6 @@ use App\Repository\Ecommerce\PromotionEntityRepository;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-/** @deprecated временно не смотрим на этот код */
 class PromotionService implements PromotionServiceInterface
 {
     public function __construct(

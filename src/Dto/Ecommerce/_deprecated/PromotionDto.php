@@ -6,7 +6,6 @@ use App\Dto\Ecommerce\PriceDto;
 use DateTimeInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/** @deprecated временно не смотрим на этот код */
 class PromotionDto
 {
     private ?int $id = null;

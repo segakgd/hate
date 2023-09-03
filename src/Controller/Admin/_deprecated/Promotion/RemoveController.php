@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/** @deprecated временно не смотрим на этот код */
 class RemoveController extends AbstractController
 {
     public function __construct(

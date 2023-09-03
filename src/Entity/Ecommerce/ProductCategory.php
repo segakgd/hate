@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/** @deprecated временно не смотрим на этот код */
 #[ORM\Entity(repositoryClass: ProductCategoryEntityRepository::class)]
 class ProductCategory
 {

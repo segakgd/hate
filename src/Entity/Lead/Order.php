@@ -22,12 +22,10 @@ class Order
     #[ORM\Column(nullable: true)]
     private array $products = [];
 
-    /** @deprecated временно не смотрим на этот код */
     #[Groups(['administrator'])]
     #[ORM\Column(nullable: true)]
     private array $shipping = [];
 
-    /** @deprecated временно не смотрим на этот код */
     #[Groups(['administrator'])]
     #[ORM\Column(nullable: true)]
     private array $promotions = [];
@@ -65,13 +63,11 @@ class Order
         return $this;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     public function getShipping(): array
     {
         return $this->shipping;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     public function setShipping(?array $shipping): static
     {
         $this->shipping = $shipping;
@@ -79,13 +75,11 @@ class Order
         return $this;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     public function getPromotions(): array
     {
         return $this->promotions;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     public function setPromotions(?array $promotions): static
     {
         $this->promotions = $promotions;
@@ -93,7 +87,6 @@ class Order
         return $this;
     }
 
-    /** @deprecated временно не смотрим на этот код */
     public function addPromotion(PromotionDto $promotions): static
     {
         $this->promotions[] = $promotions;

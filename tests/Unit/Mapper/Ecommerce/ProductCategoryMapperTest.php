@@ -3,15 +3,9 @@
 namespace App\Tests\Unit\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
-use App\Dto\Ecommerce\ProductDto;
-use App\Dto\Ecommerce\ProductVariantDto;
-use App\Entity\Ecommerce\Product;
 use App\Entity\Ecommerce\ProductCategory;
-use App\Entity\Ecommerce\ProductVariant;
 use App\Mapper\Ecommerce\ProductCategoryMapper;
-use App\Mapper\Ecommerce\ProductMapper;
 use App\Tests\Unit\UnitTestCase;
-use DateTimeImmutable;
 use ReflectionException;
 
 class ProductCategoryMapperTest extends UnitTestCase
