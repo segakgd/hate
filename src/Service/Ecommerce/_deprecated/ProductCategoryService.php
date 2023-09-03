@@ -12,8 +12,8 @@ use Throwable;
 class ProductCategoryService implements ProductCategoryServiceInterface
 {
     public function __construct(
-        private readonly ProductCategoryEntityRepository $productCategoryEntityRepository,
-        private readonly LoggerInterface $logger,
+        private ProductCategoryEntityRepository $productCategoryEntityRepository,
+        private LoggerInterface $logger,
     ) {
     }
 

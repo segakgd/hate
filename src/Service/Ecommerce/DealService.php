@@ -12,8 +12,8 @@ use Throwable;
 class DealService implements DealServiceInterface
 {
     public function __construct(
-        private readonly DealEntityRepository $dealEntityRepository,
-        private readonly LoggerInterface $logger,
+        private DealEntityRepository $dealEntityRepository,
+        private LoggerInterface $logger,
     ) {
     }
 

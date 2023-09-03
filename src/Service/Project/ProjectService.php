@@ -13,8 +13,8 @@ use Throwable;
 class ProjectService implements ProjectServiceInterface
 {
     public function __construct(
-        private readonly ProjectEntityRepository $projectEntityRepository,
-        private readonly LoggerInterface $logger,
+        private ProjectEntityRepository $projectEntityRepository,
+        private LoggerInterface $logger,
     ) {
     }
 
