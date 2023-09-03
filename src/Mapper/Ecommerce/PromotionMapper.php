@@ -9,30 +9,12 @@ class PromotionMapper
 {
     public static function mapToDto(Promotion $promotionEntity): PromotionDto
     {
-        return (new PromotionDto)
-            ->setName($promotionEntity->getName())
-            ->setType($promotionEntity->getType())
-            ->setPrice(PriceMapper::toDtoFromArr($promotionEntity->getPrice()))
-            ;
+        return self::mapToExistDto($promotionEntity, (new PromotionDto()));
     }
 
     public static function mapToEntity(PromotionDto $promotionDto): Promotion
     {
-        $promotionEntity = new Promotion();
-
-        if ($name = $promotionDto->getName()){
-            $promotionEntity->setName($name);
-        }
-
-        if ($type = $promotionDto->getType()){
-            $promotionEntity->setType($type);
-        }
-
-        if ($price = $promotionDto->getPrice()){
-            $promotionEntity->setPrice(PriceMapper::toArrFromDto($price));
-        }
-
-        return $promotionEntity;
+        return self::mapToExistEntity($promotionDto, (new Promotion()));
     }
 
     public static function mapToExistDto(Promotion $promotionEntity, PromotionDto $promotionDto): PromotionDto
@@ -41,6 +23,9 @@ class PromotionMapper
             ->setName($promotionEntity->getName())
             ->setType($promotionEntity->getType())
             ->setPrice(PriceMapper::toDtoFromArr($promotionEntity->getPrice()))
+            ->setActive($promotionEntity->isActive())
+            ->setCode($promotionEntity->getCode())
+            ->setCount($promotionEntity->getCount())
             ;
     }
 
@@ -56,6 +41,18 @@ class PromotionMapper
 
         if ($price = $promotionDto->getPrice()){
             $promotionEntity->setPrice(PriceMapper::toArrFromDto($price));
+        }
+
+        if ($active = $promotionDto->getActive()){
+            $promotionEntity->setActive($active);
+        }
+
+        if ($code = $promotionDto->getCode()){
+            $promotionEntity->setCode($code);
+        }
+
+        if ($count = $promotionDto->getCount()){
+            $promotionEntity->setCount($count);
         }
 
         return $promotionEntity;
