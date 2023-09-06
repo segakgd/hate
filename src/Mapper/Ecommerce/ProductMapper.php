@@ -46,7 +46,9 @@ class ProductMapper
         }
 
         if ($categoriesDto = $dto->getCategories()){
-            if ($categoriesEntity = $entity->getCategories()){
+            $categoriesEntity = $entity->getCategories();
+
+            if ($categoriesEntity->count() > 0){
                 foreach ($categoriesDto as $categoryDto){
                     $isUpdated = false;
 

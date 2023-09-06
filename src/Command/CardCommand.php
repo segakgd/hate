@@ -4,7 +4,7 @@ namespace App\Command;
 
 use App\Dto\Core\Telegram\Invoice\InvoiceDto;
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\Ecommerce\Product;
+use App\Service\Card\CardServiceInterface;
 use App\Service\Client\Telegram\TelegramService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -15,10 +15,11 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'tg:product',
     description: '',
 )]
-class ProductCommand extends Command
+class CardCommand extends Command
 {
     public function __construct(
         private TelegramService $telegramService,
+        private CardServiceInterface $cardService,
         string $name = null
     ) {
         parent::__construct($name);
@@ -87,6 +88,8 @@ class ProductCommand extends Command
             ->setPhotoUrl($product?->getImage() ?? '')
             ->setReplyMarkup($replyMarkup)
         ;
+
+        $this->cardService->recalculate(); // ...
 
 
 //        dd($invoiceDto->getArray());

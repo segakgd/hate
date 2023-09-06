@@ -3,6 +3,7 @@
 namespace App\Repository\Ecommerce;
 
 use App\Entity\Ecommerce\Promotion;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,6 +24,8 @@ class PromotionEntityRepository extends ServiceEntityRepository
 
     public function saveAndFlush(Promotion $entity): void
     {
+        $entity->setUpdatedAt(new DateTimeImmutable());
+
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
     }

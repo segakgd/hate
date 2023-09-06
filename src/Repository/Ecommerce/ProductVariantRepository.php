@@ -3,6 +3,7 @@
 namespace App\Repository\Ecommerce;
 
 use App\Entity\Ecommerce\ProductVariant;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,6 +24,8 @@ class ProductVariantRepository extends ServiceEntityRepository
 
     public function save(ProductVariant $entity, bool $flush = false): void
     {
+        $entity->setUpdatedAt(new DateTimeImmutable());
+
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {

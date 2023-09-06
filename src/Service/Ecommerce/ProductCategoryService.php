@@ -40,7 +40,7 @@ class ProductCategoryService implements ProductCategoryServiceInterface
     {
         $productCategory = ProductCategoryMapper::mapToEntity($productCategoryDto);
 
-        $productCategory->setProject($projectId);
+        $productCategory->setProjectId($projectId);
 
         $this->productCategoryEntityRepository->saveAndFlush($productCategory);
 

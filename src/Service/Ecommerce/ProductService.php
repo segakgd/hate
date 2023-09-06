@@ -43,7 +43,9 @@ class ProductService implements ProductServiceInterface
     {
         $productEntity = ProductMapper::mapToEntity($productDto);
 
-        $productEntity->setProject($projectId);
+        dd($productEntity);
+
+        $productEntity->setProjectId($projectId);
 
         $this->productEntityRepository->saveAndFlush($productEntity);
 

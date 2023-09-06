@@ -3,6 +3,7 @@
 namespace App\Repository\Visitor;
 
 use App\Entity\Visitor\Visitor;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,9 +24,11 @@ class VisitorRepository extends ServiceEntityRepository
 
     public function save(Visitor $entity, bool $flush = false): void
     {
+        $entity->setUpdatedAt(new DateTimeImmutable());
+
         $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
+        if ($flush) { // todo
             $this->getEntityManager()->flush();
         }
     }

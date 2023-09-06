@@ -21,6 +21,13 @@ class ProductDto
 
     private ?DateTimeImmutable $updatedAt = null;
 
+    public function __construct()
+    {
+        if ($this->createdAt === null){
+            $this->createdAt = new DateTimeImmutable();
+        }
+    }
+
     /**
      * @return int|null
      */

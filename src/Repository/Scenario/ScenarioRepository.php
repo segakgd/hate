@@ -24,7 +24,6 @@ class ScenarioRepository extends ServiceEntityRepository
     public function save(Scenario $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
         $this->getEntityManager()->flush();
     }
 
@@ -32,7 +31,7 @@ class ScenarioRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
+        if ($flush) { // todo
             $this->getEntityManager()->flush();
         }
     }

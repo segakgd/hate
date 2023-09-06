@@ -50,7 +50,7 @@ class CardService implements CardServiceInterface
                 $allPrice += $realPrice;
 
                 // узнаём, применяется ли общая скидка
-                $variant->isPromotionDistributed(); // todo надо обработать
+                $variant->isPromotionDistributed(); // todo надо обработать при учёте скидок
             }
         }
 

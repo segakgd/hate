@@ -3,6 +3,7 @@
 namespace App\Repository\Lead;
 
 use App\Entity\Lead\Order;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,9 +24,11 @@ class OrderEntityRepository extends ServiceEntityRepository
 
     public function save(Order $entity, bool $flush = false): void
     {
+        $entity->setUpdatedAt(new DateTimeImmutable());
+
         $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
+        if ($flush) { // todo
             $this->getEntityManager()->flush();
         }
     }
