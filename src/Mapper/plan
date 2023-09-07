@@ -57,14 +57,10 @@
     }
 
 
-
-
     PriceDto{
         value:int
         valueFraction:string
     }
-
-
 
     как обходить вложенность мапперов?
 
