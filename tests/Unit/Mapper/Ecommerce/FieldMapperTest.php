@@ -4,7 +4,7 @@ namespace App\Tests\Unit\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\FieldDto;
 use App\Entity\Lead\Field;
-use App\Mapper\Ecommerce\FieldMapper;
+use App\Service\Mapper\Ecommerce\FieldMapper;
 use App\Tests\Unit\UnitTestCase;
 use DateTimeImmutable;
 use ReflectionException;

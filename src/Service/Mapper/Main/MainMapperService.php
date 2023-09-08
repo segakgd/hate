@@ -1,24 +1,30 @@
 <?php
 
-namespace App\Mapper\Main;
+namespace App\Service\Mapper\Main;
 
 use App\Dto\Ecommerce\ProductDto;
+use App\Dto\Project\ProjectDto;
+use App\Dto\Security\UserDto;
 use App\Entity\User\Project;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\User\User;
+use ReflectionException;
 use ReflectionObject;
 
-class MainMapper
+class MainMapperService implements MainMapperServiceInterface
 {
     const CONFIG = [
-        Project::class => ProductDto::class
+        Project::class => ProjectDto::class,
+        User::class => UserDto::class,
     ];
 
-    public function map(object|array $object): void
+    /**
+     * @throws ReflectionException
+     */
+    public function mapToDto(object|array $object): object
     {
         $dto = self::CONFIG[get_class($object)];
 
-        $dto = new $dto();
-
+        $dto = new $dto;
 
 //        if (is_array($object)){
 //            foreach ($object as $key => $objectItem){
@@ -33,13 +39,28 @@ class MainMapper
         // Используем рефлексию php чтоб прочитать даже private данные
         $reflectionObjectEntity = new ReflectionObject($object);
         $reflectionObjectDto = new ReflectionObject($dto);
+//        dd($dto, $object);
 
         $properties = $reflectionObjectEntity->getProperties();
 
         foreach ($properties as $property){
-            $propertyDto = $reflectionObjectDto->getProperty($property->getName());
-            $propertyDto->setValue($property->getValue());
+
+            if (property_exists($dto, $property->getName())){
+                $propertyDto = $reflectionObjectDto->getProperty($property->getName());
+
+                $value = $property->getValue($object);
+
+                if ($this->isCollection($value)){
+//                    $dto = $this->mapCollection($propertyDto, $dto, $value);
+                } else {
+                    $dto = $this->mapScalar($propertyDto, $dto, $value);
+                }
+            }
         }
+
+//        dd(
+//            $dto->getName()
+//        );
 
 //        foreach ($properties as $propertyName => $propertyValue){
 //            if (is_array($propertyValue)){
@@ -61,5 +82,32 @@ class MainMapper
 //            }
 //        }
 
+        return $dto;
     }
+
+    public function isCollection(mixed $value): bool
+    {
+        return $value instanceof \ArrayAccess;
+    }
+
+
+    private function mapScalar($propertyDto, $dto, $value): object
+    {
+        $propertyDto->setValue($dto, $value);
+
+        return $dto;
+    }
+
+    private function mapCollection($propertyDto, $dto, \ArrayAccess $values): object
+    {
+        foreach ($values as $value){
+            dd($value);
+        }
+
+
+//        $propertyDto->setValue($dto, $value);
+
+        return $dto;
+    }
+
 }

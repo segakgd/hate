@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mapper\Project;
+namespace App\Service\Mapper\Project;
 
 use App\Dto\Project\ProjectDto;
 use App\Entity\User\Project;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mapper;
+namespace App\Service\Mapper;
 
 use App\Dto\CartDto;
 use App\Entity\Visitor\Cart;

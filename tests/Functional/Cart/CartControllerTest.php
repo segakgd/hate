@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests\Functional;
+namespace App\Tests\Functional\Cart;
 
 use App\Dto\Ecommerce\PriceDto;
-use App\Mapper\Ecommerce\PriceMapper;
-use App\Mapper\Ecommerce\ProductMapper;
+use App\Service\Mapper\Ecommerce\PriceMapper;
+use App\Service\Mapper\Ecommerce\ProductMapper;
+use App\Tests\Functional\ApiTestCase;
 use App\Tests\Functional\Trait\CartTrait;
 use App\Tests\Functional\Trait\ProductTrait;
 use App\Tests\Functional\Trait\Project\ProjectTrait;

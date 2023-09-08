@@ -8,7 +8,7 @@ use App\Dto\Ecommerce\OrderDto;
 use App\Dto\Ecommerce\PriceDto;
 use App\Dto\Ecommerce\ProductDto;
 use App\Entity\Lead\Order;
-use App\Mapper\Ecommerce\OrderMapper;
+use App\Service\Mapper\Ecommerce\OrderMapper;
 use App\Tests\Unit\UnitTestCase;
 use DateTimeImmutable;
 use ReflectionException;

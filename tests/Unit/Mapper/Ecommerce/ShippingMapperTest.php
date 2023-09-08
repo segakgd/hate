@@ -5,7 +5,7 @@ namespace App\Tests\Unit\Mapper\Ecommerce;
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Dto\Ecommerce\PriceDto;
 use App\Entity\Ecommerce\Shipping;
-use App\Mapper\Ecommerce\ShippingMapper;
+use App\Service\Mapper\Ecommerce\ShippingMapper;
 use App\Tests\Unit\UnitTestCase;
 use ReflectionException;
 

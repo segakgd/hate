@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\PriceDto;
-use App\Mapper\Ecommerce\PriceMapper;
+use App\Service\Mapper\Ecommerce\PriceMapper;
 use App\Tests\Unit\UnitTestCase;
 use ReflectionException;
 

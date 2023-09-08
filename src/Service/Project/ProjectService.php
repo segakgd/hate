@@ -5,8 +5,8 @@ namespace App\Service\Project;
 use App\Dto\Project\ProjectDto;
 use App\Entity\User\Project;
 use App\Entity\User\User;
-use App\Mapper\Project\ProjectMapper;
 use App\Repository\User\ProjectEntityRepository;
+use App\Service\Mapper\Project\ProjectMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 

@@ -4,8 +4,8 @@ namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\Ecommerce\Shipping;
-use App\Mapper\Ecommerce\ShippingMapper;
 use App\Repository\Ecommerce\ShippingEntityRepository;
+use App\Service\Mapper\Ecommerce\ShippingMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -22,7 +22,7 @@ class ShippingService implements ShippingServiceInterface
         return $this->shippingEntityRepository->findOneBy(
             [
                 'id' => $shippingId,
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -31,7 +31,7 @@ class ShippingService implements ShippingServiceInterface
     {
         return $this->shippingEntityRepository->findBy(
             [
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -40,7 +40,7 @@ class ShippingService implements ShippingServiceInterface
     {
         $shippingEntity = ShippingMapper::mapToEntity($shippingDto);
 
-        $shippingEntity->setProject($projectId);
+        $shippingEntity->setProjectId($projectId);
 
         $this->shippingEntityRepository->saveAndFlush($shippingEntity);
 

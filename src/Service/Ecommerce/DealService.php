@@ -4,8 +4,8 @@ namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\DealDto;
 use App\Entity\Lead\Deal;
-use App\Mapper\Ecommerce\DealMapper;
 use App\Repository\Lead\DealEntityRepository;
+use App\Service\Mapper\Ecommerce\DealMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -21,7 +21,7 @@ class DealService implements DealServiceInterface
     {
         return $this->dealEntityRepository->findBy(
             [
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -31,7 +31,7 @@ class DealService implements DealServiceInterface
         return $this->dealEntityRepository->findOneBy(
             [
                 'id' => $dealId,
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -40,7 +40,7 @@ class DealService implements DealServiceInterface
     {
         $dealEntity = DealMapper::mapToEntity($dealDto);
 
-        $dealEntity->setProject($projectId);
+        $dealEntity->setProjectId($projectId);
 
         $this->dealEntityRepository->saveAndFlush($dealEntity);
 

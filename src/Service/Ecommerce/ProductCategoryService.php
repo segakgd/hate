@@ -4,8 +4,8 @@ namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategory;
-use App\Mapper\Ecommerce\ProductCategoryMapper;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
+use App\Service\Mapper\Ecommerce\ProductCategoryMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -21,7 +21,7 @@ class ProductCategoryService implements ProductCategoryServiceInterface
     {
         return $this->productCategoryEntityRepository->findBy(
             [
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -31,7 +31,7 @@ class ProductCategoryService implements ProductCategoryServiceInterface
         return $this->productCategoryEntityRepository->findOneBy(
             [
                 'id' => $productCategoryId,
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }

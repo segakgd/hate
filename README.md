@@ -67,8 +67,3 @@ bin/phpunit tests/Unit/
 Запуск Functionsl тестов:
 bin/phpunit tests/Functionsl/
 ~~~
-
-~~~
-Запуск Integration тестов:
-bin/phpunit tests/Integration/
-~~~

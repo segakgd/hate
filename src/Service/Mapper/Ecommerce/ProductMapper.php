@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mapper\Ecommerce;
+namespace App\Service\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\ProductDto;
 use App\Entity\Ecommerce\Product;

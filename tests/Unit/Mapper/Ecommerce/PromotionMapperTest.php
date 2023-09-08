@@ -5,7 +5,7 @@ namespace App\Tests\Unit\Mapper\Ecommerce;
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Dto\Ecommerce\PriceDto;
 use App\Entity\Ecommerce\Promotion;
-use App\Mapper\Ecommerce\PromotionMapper;
+use App\Service\Mapper\Ecommerce\PromotionMapper;
 use App\Tests\Unit\UnitTestCase;
 use ReflectionException;
 

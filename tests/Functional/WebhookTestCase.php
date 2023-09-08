@@ -4,7 +4,7 @@ namespace App\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class WebhookTest extends WebTestCase
+class WebhookTestCase extends WebTestCase
 {
     public function test(){
         $client = static::createClient();

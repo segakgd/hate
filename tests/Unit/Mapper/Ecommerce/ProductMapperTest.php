@@ -8,7 +8,7 @@ use App\Dto\Ecommerce\ProductVariantDto;
 use App\Entity\Ecommerce\Product;
 use App\Entity\Ecommerce\ProductCategory;
 use App\Entity\Ecommerce\ProductVariant;
-use App\Mapper\Ecommerce\ProductMapper;
+use App\Service\Mapper\Ecommerce\ProductMapper;
 use App\Tests\Unit\UnitTestCase;
 use DateTimeImmutable;
 use ReflectionException;

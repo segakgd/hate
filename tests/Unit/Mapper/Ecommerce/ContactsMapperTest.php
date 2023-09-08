@@ -4,7 +4,7 @@ namespace App\Tests\Unit\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\ContactsDto;
 use App\Entity\Lead\Contacts;
-use App\Mapper\Ecommerce\ContactsMapper;
+use App\Service\Mapper\Ecommerce\ContactsMapper;
 use App\Tests\Unit\UnitTestCase;
 use DateTimeImmutable;
 use ReflectionException;

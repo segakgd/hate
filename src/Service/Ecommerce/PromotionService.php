@@ -4,8 +4,8 @@ namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\Ecommerce\Promotion;
-use App\Mapper\Ecommerce\PromotionMapper;
 use App\Repository\Ecommerce\PromotionEntityRepository;
+use App\Service\Mapper\Ecommerce\PromotionMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -22,7 +22,7 @@ class PromotionService implements PromotionServiceInterface
         return $this->promotionEntityRepository->findOneBy(
             [
                 'id' => $promotionId,
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -31,7 +31,7 @@ class PromotionService implements PromotionServiceInterface
     {
         return $this->promotionEntityRepository->findBy(
             [
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -40,7 +40,7 @@ class PromotionService implements PromotionServiceInterface
     {
         $promotionEntity = PromotionMapper::mapToEntity($promotionDto);
 
-        $promotionEntity->setProject($projectId);
+        $promotionEntity->setProjectId($projectId);
 
         $this->promotionEntityRepository->saveAndFlush($promotionEntity);
 

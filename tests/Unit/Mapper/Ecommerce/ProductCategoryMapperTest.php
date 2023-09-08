@@ -4,7 +4,7 @@ namespace App\Tests\Unit\Mapper\Ecommerce;
 
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategory;
-use App\Mapper\Ecommerce\ProductCategoryMapper;
+use App\Service\Mapper\Ecommerce\ProductCategoryMapper;
 use App\Tests\Unit\UnitTestCase;
 use ReflectionException;
 

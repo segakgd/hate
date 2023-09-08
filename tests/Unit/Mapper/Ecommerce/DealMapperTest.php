@@ -14,7 +14,7 @@ use App\Entity\Lead\Contacts;
 use App\Entity\Lead\Deal;
 use App\Entity\Lead\Field;
 use App\Entity\Lead\Order;
-use App\Mapper\Ecommerce\DealMapper;
+use App\Service\Mapper\Ecommerce\DealMapper;
 use App\Tests\Unit\UnitTestCase;
 use DateTimeImmutable;
 use ReflectionException;

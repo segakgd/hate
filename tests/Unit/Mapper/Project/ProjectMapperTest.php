@@ -5,7 +5,7 @@ namespace App\Tests\Unit\Mapper\Project;
 use App\Dto\Project\ProjectDto;
 use App\Entity\User\Project;
 use App\Entity\User\User;
-use App\Mapper\Project\ProjectMapper;
+use App\Service\Mapper\Project\ProjectMapper;
 use App\Tests\Unit\UnitTestCase;
 use ReflectionException;
 
