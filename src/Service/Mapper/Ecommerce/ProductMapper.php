@@ -7,36 +7,9 @@ use App\Entity\Ecommerce\Product;
 
 class ProductMapper
 {
-    public static function mapToDto(Product $entity): ProductDto
-    {
-        return self::mapToExistDto($entity, (new ProductDto));
-    }
-
     public static function mapToEntity(ProductDto $dto): Product
     {
         return self::mapToExistEntity($dto, (new Product));
-    }
-
-    public static function mapToExistDto(Product $entity, ProductDto $dto): ProductDto
-    {
-        if ($categories = $entity->getCategories()){
-            foreach ($categories as $category){
-                $dto->addCategory(ProductCategoryMapper::mapToDto($category));
-            }
-        }
-
-        if ($variants = $entity->getVariants()){
-            foreach ($variants as $variant){
-                $dto->addVariant(ProductVariantMapper::mapToDto($variant));
-            }
-        }
-
-        return $dto
-            ->setId($entity->getId())
-            ->setProjectId($entity->getProjectId())
-            ->setCreatedAt($entity->getCreatedAt())
-            ->setUpdatedAt($entity->getUpdatedAt())
-        ;
     }
 
     public static function mapToExistEntity(ProductDto $dto, Product $entity): Product

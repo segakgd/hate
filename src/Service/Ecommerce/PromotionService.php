@@ -38,24 +38,70 @@ class PromotionService implements PromotionServiceInterface
 
     public function add(PromotionDto $promotionDto, int $projectId): Promotion
     {
-        $promotionEntity = PromotionMapper::mapToEntity($promotionDto);
+        $entity = (new Promotion());
 
-        $promotionEntity->setProjectId($projectId);
+        if ($name = $promotionDto->getName()){
+            $entity->setName($name);
+        }
 
-        $this->promotionEntityRepository->saveAndFlush($promotionEntity);
+        if ($type = $promotionDto->getType()){
+            $entity->setType($type);
+        }
 
-        return $promotionEntity;
+        if ($price = $promotionDto->getPrice()){
+            $entity->setPrice($price->toArray());
+        }
+
+        if ($active = $promotionDto->getActive()){
+            $entity->setActive($active);
+        }
+
+        if ($code = $promotionDto->getCode()){
+            $entity->setCode($code);
+        }
+
+        if ($count = $promotionDto->getCount()){
+            $entity->setCount($count);
+        }
+
+        $entity->setProjectId($projectId);
+
+        $this->promotionEntityRepository->saveAndFlush($entity);
+
+        return $entity;
     }
 
     public function update(PromotionDto $promotionDto, int $projectId, int $promotionId): Promotion
     {
-        $promotionEntity = $this->getOne($projectId, $promotionId);
+        $entity = $this->getOne($projectId, $promotionId);
 
-        $promotionEntity = PromotionMapper::mapToExistEntity($promotionDto, $promotionEntity);
+        if ($name = $promotionDto->getName()){
+            $entity->setName($name);
+        }
 
-        $this->promotionEntityRepository->saveAndFlush($promotionEntity);
+        if ($type = $promotionDto->getType()){
+            $entity->setType($type);
+        }
 
-        return $promotionEntity;
+        if ($price = $promotionDto->getPrice()){
+            $entity->setPrice($price->toArray());
+        }
+
+        if ($active = $promotionDto->getActive()){
+            $entity->setActive($active);
+        }
+
+        if ($code = $promotionDto->getCode()){
+            $entity->setCode($code);
+        }
+
+        if ($count = $promotionDto->getCount()){
+            $entity->setCount($count);
+        }
+
+        $this->promotionEntityRepository->saveAndFlush($entity);
+
+        return $entity;
     }
 
     public function remove(int $projectId, int $promotionId): bool

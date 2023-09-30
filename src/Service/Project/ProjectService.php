@@ -6,7 +6,6 @@ use App\Dto\Project\ProjectDto;
 use App\Entity\User\Project;
 use App\Entity\User\User;
 use App\Repository\User\ProjectEntityRepository;
-use App\Service\Mapper\Project\ProjectMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -30,22 +29,28 @@ class ProjectService implements ProjectServiceInterface
 
     public function add(ProjectDto $projectDto, User $user): Project
     {
-        $projectEntity = ProjectMapper::mapToEntity($projectDto);
-        $projectEntity->addUser($user);
+        $entity = (new Project);
 
-        $this->projectEntityRepository->saveAndFlush($projectEntity);
+        $entity->addUser($user);
+        $entity
+            ->setName($projectDto->getName())
+        ;
 
-        return $projectEntity;
+        $this->projectEntityRepository->saveAndFlush($entity);
+
+        return $entity;
     }
 
     public function update(ProjectDto $projectDto, int $projectId): Project
     {
-        $projectEntity = $this->getOne($projectId);
-        $projectEntity = ProjectMapper::mapToExistEntity($projectDto, $projectEntity);
+        $entity = $this->getOne($projectId);
+        $entity
+            ->setName($projectDto->getName())
+        ;
 
-        $this->projectEntityRepository->saveAndFlush($projectEntity);
+        $this->projectEntityRepository->saveAndFlush($entity);
 
-        return $projectEntity;
+        return $entity;
     }
 
     public function remove(int $projectId): bool

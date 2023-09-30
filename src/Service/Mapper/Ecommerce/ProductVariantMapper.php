@@ -7,48 +7,9 @@ use App\Entity\Ecommerce\ProductVariant;
 
 class ProductVariantMapper
 {
-    public static function mapToArray(ProductVariant $entity): array
-    {
-        return [
-            'id' => $entity->getId(),
-            'name' => $entity->getName(),
-            'article' => $entity,
-            'image' => $entity,
-            'price' => $entity->getPrice(),
-            'count' => $entity,
-            'promotionDistributed' => $entity,
-            'percentDiscount' => $entity,
-            'active' => $entity,
-            'activeFrom' => $entity,
-            'activeTo' => $entity,
-        ];
-    }
-
-    public static function mapToDto(ProductVariant $entity): ProductVariantDto
-    {
-        return self::mapToExistDto($entity, (new ProductVariantDto));
-    }
-
     public static function mapToEntity(ProductVariantDto $dto): ProductVariant
     {
         return self::mapToExistEntity($dto, (new ProductVariant()));
-    }
-
-    public static function mapToExistDto(ProductVariant $entity, ProductVariantDto $dto): ProductVariantDto
-    {
-        return $dto
-            ->setId($entity->getId())
-            ->setName($entity->getName())
-            ->setArticle($entity->getArticle())
-            ->setImage($entity->getImage())
-            ->setPrice($entity->getPrice())
-            ->setCount($entity->getCount())
-            ->setPromotionDistributed($entity->isPromotionDistributed())
-            ->setPercentDiscount($entity->getPercentDiscount())
-            ->setActive($entity->isActive())
-            ->setActiveFrom($entity->getActiveFrom())
-            ->setActiveTo($entity->getActiveTo())
-            ;
     }
 
     public static function mapToExistEntity(ProductVariantDto $dto, ProductVariant $entity): ProductVariant

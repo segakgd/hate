@@ -5,7 +5,6 @@ namespace App\Service\Ecommerce;
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\Ecommerce\Shipping;
 use App\Repository\Ecommerce\ShippingEntityRepository;
-use App\Service\Mapper\Ecommerce\ShippingMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -38,24 +37,46 @@ class ShippingService implements ShippingServiceInterface
 
     public function add(ShippingDto $shippingDto, int $projectId): Shipping
     {
-        $shippingEntity = ShippingMapper::mapToEntity($shippingDto);
+        $entity = (new Shipping());
 
-        $shippingEntity->setProjectId($projectId);
+        if ($name = $shippingDto->getTitle()){
+            $entity->setTitle($name);
+        }
 
-        $this->shippingEntityRepository->saveAndFlush($shippingEntity);
+        if ($type = $shippingDto->getType()){
+            $entity->setType($type);
+        }
 
-        return $shippingEntity;
+        if ($price = $shippingDto->getPrice()){
+            $entity->setPrice($price->toArray());
+        }
+
+        $entity->setProjectId($projectId);
+
+        $this->shippingEntityRepository->saveAndFlush($entity);
+
+        return $entity;
     }
 
     public function update(ShippingDto $shippingDto, int $projectId, int $shippingId): Shipping
     {
-        $shippingEntity = $this->getOne($projectId, $shippingId);
+        $entity = $this->getOne($projectId, $shippingId);
 
-        $shippingEntity = ShippingMapper::mapToExistEntity($shippingDto, $shippingEntity);
+        if ($name = $shippingDto->getTitle()){
+            $entity->setTitle($name);
+        }
 
-        $this->shippingEntityRepository->saveAndFlush($shippingEntity);
+        if ($type = $shippingDto->getType()){
+            $entity->setType($type);
+        }
 
-        return $shippingEntity;
+        if ($price = $shippingDto->getPrice()){
+            $entity->setPrice($price->toArray());
+        }
+
+        $this->shippingEntityRepository->saveAndFlush($entity);
+
+        return $entity;
     }
 
     public function remove(int $projectId, int $shippingId): bool

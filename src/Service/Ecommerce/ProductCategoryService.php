@@ -5,7 +5,6 @@ namespace App\Service\Ecommerce;
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategory;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
-use App\Service\Mapper\Ecommerce\ProductCategoryMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -38,7 +37,11 @@ class ProductCategoryService implements ProductCategoryServiceInterface
 
     public function add(ProductCategoryDto $productCategoryDto, int $projectId): ProductCategory
     {
-        $productCategory = ProductCategoryMapper::mapToEntity($productCategoryDto);
+        $productCategory = (new ProductCategory);
+
+        if ($name = $productCategoryDto->getName()){
+            $productCategory->setName($name);
+        }
 
         $productCategory->setProjectId($projectId);
 
@@ -51,7 +54,9 @@ class ProductCategoryService implements ProductCategoryServiceInterface
     {
         $productCategory = $this->getOne($projectId, $productCategoryId);
 
-        $productCategory = ProductCategoryMapper::mapToExistEntity($productCategoryDto, $productCategory);
+        if ($name = $productCategoryDto->getName()){
+            $productCategory->setName($name);
+        }
 
         $this->productCategoryEntityRepository->saveAndFlush($productCategory);
 

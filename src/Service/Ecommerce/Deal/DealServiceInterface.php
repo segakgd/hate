@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\Deal;
 
 use App\Dto\Ecommerce\DealDto;
 use App\Entity\Lead\Deal;
