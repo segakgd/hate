@@ -35,6 +35,13 @@ class Contacts // todo deal_contact
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
 
+    public function __construct()
+    {
+        if ($this->createdAt === null){
+            $this->createdAt = new DateTimeImmutable();
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

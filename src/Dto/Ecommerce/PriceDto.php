@@ -30,4 +30,12 @@ class PriceDto
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'value' => $this->getValue(),
+            'valueFraction' => $this->getValueFraction(),
+        ];
+    }
 }

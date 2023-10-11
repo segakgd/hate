@@ -11,7 +11,7 @@ trait DealTrait
     public function createDeal(ObjectManager $manager, Project $project): Deal
     {
         $deal = (new Deal())
-            ->setProject($project->getId())
+            ->setProjectId($project->getId())
         ;
 
         $manager->persist($deal);

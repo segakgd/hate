@@ -3,11 +3,11 @@
 namespace App\Service\Ecommerce;
 
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\Ecommerce\ProductCategory;
 use App\Entity\Ecommerce\Product;
-use App\Mapper\Ecommerce\ProductMapper;
+use App\Entity\Ecommerce\ProductCategory;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
 use App\Repository\Ecommerce\ProductEntityRepository;
+use App\Service\Ecommerce\ProductVariant\ProductVariantService;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -16,6 +16,8 @@ class ProductService implements ProductServiceInterface
     public function __construct(
         private ProductEntityRepository $productEntityRepository,
         private ProductCategoryEntityRepository $productCategoryEntityRepository,
+        private ProductCategoryService $productCategoryService,
+        private ProductVariantService $productVariantService,
         private LoggerInterface $logger,
     ) {
     }
@@ -24,7 +26,7 @@ class ProductService implements ProductServiceInterface
     {
         return $this->productEntityRepository->findBy(
             [
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
@@ -34,16 +36,16 @@ class ProductService implements ProductServiceInterface
         return $this->productEntityRepository->findOneBy(
             [
                 'id' => $productId,
-                'project' => $projectId
+                'projectId' => $projectId
             ]
         );
     }
 
     public function add(ProductDto $productDto, int $projectId): Product
     {
-        $productEntity = ProductMapper::mapToEntity($productDto);
+        $productEntity = $this->mapToExistEntity($productDto, (new Product));
 
-        $productEntity->setProject($projectId);
+        $productEntity->setProjectId($projectId);
 
         $this->productEntityRepository->saveAndFlush($productEntity);
 
@@ -54,7 +56,7 @@ class ProductService implements ProductServiceInterface
     {
         $productEntity = $this->getOne($projectId, $productId);
 
-        $productEntity = ProductMapper::mapToExistEntity($productDto, $productEntity);
+        $productEntity = $this->mapToExistEntity($productDto, $productEntity);
 
         $this->productEntityRepository->saveAndFlush($productEntity);
 
@@ -91,5 +93,77 @@ class ProductService implements ProductServiceInterface
     public function isExist(int $id): bool
     {
         return (bool) $this->productEntityRepository->find($id);
+    }
+
+    public function mapToExistEntity(ProductDto $dto, Product $entity): Product
+    {
+        if ($projectId = $dto->getProjectId()){
+            $entity->setProjectId($projectId);
+        }
+
+        if ($categoriesDto = $dto->getCategories()){
+            $categoriesEntity = $entity->getCategories();
+
+            if ($categoriesEntity->count() > 0){
+                foreach ($categoriesDto as $categoryDto){
+                    $isUpdated = false;
+
+                    foreach ($categoriesEntity as $categoryEntity){
+                        if ($categoryDto->getId() === $categoryEntity->getId()){
+                            $productCategory = $this->productCategoryService->update($categoryDto, $categoryEntity->getProjectId(), $categoryEntity->getId());
+
+                            $entity->addCategory($productCategory);
+
+                            $isUpdated = true;
+                        }
+                    }
+
+                    if (!$isUpdated){
+                        $productCategory = $this->productCategoryService->add($categoryDto, $entity->getProjectId());
+
+                        $entity->addCategory($productCategory);
+                    }
+                }
+
+            } else {
+                foreach ($categoriesDto as $categoryDto){
+                    $productCategory = $this->productCategoryService->add($categoryDto, $entity->getProjectId());
+
+                    $entity->addCategory($productCategory);
+                }
+            }
+        }
+
+        if ($variantsDto = $dto->getVariants()){
+            if ($variantsEntity = $entity->getVariants()){
+                foreach ($variantsDto as $variantDto){
+                    $isUpdated = false;
+
+                    foreach ($variantsEntity as $variantEntity){
+                        if ($variantDto->getId() === $variantEntity->getId()){
+                            $productVariant = $this->productVariantService->update($variantDto);
+
+                            $entity->addVariant($productVariant);
+
+                            $isUpdated = true;
+                        }
+                    }
+
+                    if (!$isUpdated){
+                        $productVariant = $this->productVariantService->add($variantDto);
+
+                        $entity->addVariant($productVariant);
+                    }
+                }
+            } else {
+                foreach ($variantsDto as $variantDto){
+                    $productVariant = $this->productVariantService->add($variantDto);
+
+                    $entity->addVariant($productVariant);
+                }
+            }
+        }
+
+        return $entity;
     }
 }

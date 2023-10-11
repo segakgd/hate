@@ -8,7 +8,7 @@ use App\Entity\User\Project;
 use App\Exception\EcommerceException;
 use App\Repository\Ecommerce\PromotionRepository;
 use App\Repository\Visitor\CartRepository;
-use App\Service\Ecommerce\DealServiceInterface;
+use App\Service\Ecommerce\Deal\DealServiceInterface;
 use App\Service\Ecommerce\ProductServiceInterface;
 use App\Service\Project\ProjectServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -25,7 +25,7 @@ class CartRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
+        if ($flush) { // todo
             $this->getEntityManager()->flush();
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Repository\Ecommerce;
 
 use App\Entity\Ecommerce\Shipping;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,6 +24,8 @@ class ShippingEntityRepository extends ServiceEntityRepository
 
     public function saveAndFlush(Shipping $entity): void
     {
+        $entity->setUpdatedAt(new DateTimeImmutable());
+
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
     }

@@ -77,4 +77,13 @@ class ShippingDto
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'title' => $this->getTitle(),
+            'type' => $this->getType(),
+            'price' => $this->getPrice(),
+        ];
+    }
 }

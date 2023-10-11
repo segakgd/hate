@@ -30,7 +30,6 @@ class ProjectEntityRepository extends ServiceEntityRepository
     public function removeAndFlush(Project $entity): void
     {
         $this->getEntityManager()->remove($entity);
-
         $this->getEntityManager()->flush();
     }
 }
