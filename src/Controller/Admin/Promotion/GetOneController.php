@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\ProductCategory;
+namespace App\Controller\Admin\Promotion;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\ProductCategoryServiceInterface;
+use App\Service\Ecommerce\PromotionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,17 +13,17 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetOneController extends AbstractController
 {
     public function __construct(
-        private ProductCategoryServiceInterface $productCategoryService,
+        private PromotionServiceInterface $promotionService,
         private SerializerInterface $serializer,
     ) {}
 
-    #[Route('/api/admin/project/{project}/productCategory/{productCategoryId}/', name: 'admin_product_category_get_one', methods: ['GET'])]
+    #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'admin_promotion_get_one', methods: ['GET'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Project $project, int $productCategoryId): JsonResponse
+    public function execute(Project $project, int $promotionId): JsonResponse
     {
         return new JsonResponse(
             $this->serializer->normalize(
-                $this->productCategoryService->getOne($project->getId(), $productCategoryId),
+                $this->promotionService->getOne($project->getId(), $promotionId),
                 null,
                 ['groups' => 'administrator']
             )

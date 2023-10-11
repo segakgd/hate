@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\ProductCategory;
+namespace App\Controller\Admin\ProductCategory;
 
 use App\Entity\User\Project;
 use App\Service\Ecommerce\ProductCategoryServiceInterface;

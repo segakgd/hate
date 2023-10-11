@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\ProductCategory;
+namespace App\Controller\Admin\Shipping;
 
-use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
+use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\User\Project;
-use App\Service\Ecommerce\ProductCategoryServiceInterface;
+use App\Service\Ecommerce\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,30 +17,30 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UpdateController extends AbstractController
 {
     public function __construct(
-        private ProductCategoryServiceInterface $productCategoryService,
+        private ShippingServiceInterface $shippingService,
         private ValidatorInterface $validator,
         private SerializerInterface $serializer
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/productCategory/{productCategoryId}/', name: 'admin_product_category_update', methods: ['PUT'])]
+    #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, Project $project, int $productCategoryId): JsonResponse
+    public function execute(Request $request, Project $project, int $shippingId): JsonResponse
     {
         $content = $request->getContent();
-        $productCategoryDto = $this->serializer->deserialize($content, ProductCategoryDto::class, 'json');
+        $shippingDto = $this->serializer->deserialize($content, ShippingDto::class, 'json');
 
-        $errors = $this->validator->validate($productCategoryDto);
+        $errors = $this->validator->validate($shippingDto);
 
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $productCategoryEntity = $this->productCategoryService->update($productCategoryDto, $project->getId(), $productCategoryId);
+        $shippingEntity = $this->shippingService->update($shippingDto, $project->getId(), $shippingId);
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $productCategoryEntity,
+                $shippingEntity,
                 null,
                 ['groups' => 'administrator']
             )

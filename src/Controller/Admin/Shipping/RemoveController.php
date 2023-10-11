@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\Shipping;
+namespace App\Controller\Admin\Shipping;
 
 use App\Entity\User\Project;
 use App\Service\Ecommerce\ShippingServiceInterface;

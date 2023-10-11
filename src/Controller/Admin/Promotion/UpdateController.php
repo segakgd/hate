@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\ProductCategory;
+namespace App\Controller\Admin\Promotion;
 
-use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
+use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\User\Project;
-use App\Service\Ecommerce\ProductCategoryServiceInterface;
+use App\Service\Ecommerce\PromotionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,33 +14,33 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateController extends AbstractController
+class UpdateController extends AbstractController
 {
     public function __construct(
-        private ProductCategoryServiceInterface $productCategoryService,
+        private PromotionServiceInterface $promotionService,
         private ValidatorInterface $validator,
         private SerializerInterface $serializer
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/productCategory/', name: 'admin_product_category_create', methods: ['POST'])]
+    #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'admin_promotion_update', methods: ['PUT'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, Project $project): JsonResponse
+    public function execute(Request $request, Project $project, int $promotionId): JsonResponse
     {
         $content = $request->getContent();
-        $productCategoryDto = $this->serializer->deserialize($content, ProductCategoryDto::class, 'json');
+        $promotionDto = $this->serializer->deserialize($content, PromotionDto::class, 'json');
 
-        $errors = $this->validator->validate($productCategoryDto);
+        $errors = $this->validator->validate($promotionDto);
 
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $productCategoryEntity = $this->productCategoryService->add($productCategoryDto, $project->getId());
+        $promotionEntity = $this->promotionService->update($promotionDto, $project->getId(), $promotionId);
 
         return new JsonResponse(
             $this->serializer->normalize(
-                $productCategoryEntity,
+                $promotionEntity,
                 null,
                 ['groups' => 'administrator']
             )

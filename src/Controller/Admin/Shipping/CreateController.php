@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\Shipping;
+namespace App\Controller\Admin\Shipping;
 
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\User\Project;
@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateController extends AbstractController
+class CreateController extends AbstractController
 {
     public function __construct(
         private ShippingServiceInterface $shippingService,
@@ -23,9 +23,9 @@ class UpdateController extends AbstractController
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_update', methods: ['PUT'])]
+    #[Route('/api/admin/project/{project}/shipping/', name: 'admin_shipping_create', methods: ['POST'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, Project $project, int $shippingId): JsonResponse
+    public function execute(Request $request, Project $project): JsonResponse
     {
         $content = $request->getContent();
         $shippingDto = $this->serializer->deserialize($content, ShippingDto::class, 'json');
@@ -36,7 +36,7 @@ class UpdateController extends AbstractController
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $shippingEntity = $this->shippingService->update($shippingDto, $project->getId(), $shippingId);
+        $shippingEntity = $this->shippingService->add($shippingDto, $project->getId());
 
         return new JsonResponse(
             $this->serializer->normalize(

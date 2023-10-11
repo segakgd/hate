@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\Promotion;
+namespace App\Controller\Admin\Promotion;
 
 use App\Entity\User\Project;
 use App\Service\Ecommerce\PromotionServiceInterface;

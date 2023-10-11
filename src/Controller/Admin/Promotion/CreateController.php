@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\_deprecated\Promotion;
+namespace App\Controller\Admin\Promotion;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\User\Project;
@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateController extends AbstractController
+class CreateController extends AbstractController
 {
     public function __construct(
         private PromotionServiceInterface $promotionService,
@@ -23,9 +23,9 @@ class UpdateController extends AbstractController
     ) {
     }
 
-    #[Route('/api/admin/project/{project}/promotion/{promotionId}/', name: 'admin_promotion_update', methods: ['PUT'])]
+    #[Route('/api/admin/project/{project}/promotion/', name: 'admin_promotion_create', methods: ['POST'])]
     #[IsGranted('existUser', 'project')]
-    public function execute(Request $request, Project $project, int $promotionId): JsonResponse
+    public function execute(Request $request, Project $project): JsonResponse
     {
         $content = $request->getContent();
         $promotionDto = $this->serializer->deserialize($content, PromotionDto::class, 'json');
@@ -36,7 +36,7 @@ class UpdateController extends AbstractController
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        $promotionEntity = $this->promotionService->update($promotionDto, $project->getId(), $promotionId);
+        $promotionEntity = $this->promotionService->add($promotionDto, $project->getId());
 
         return new JsonResponse(
             $this->serializer->normalize(
