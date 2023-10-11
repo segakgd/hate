@@ -92,6 +92,7 @@ class CreateDealControllerTest extends ApiTestCase
             [],
             json_encode($requestContent)
         );
+        dd($client->getResponse());
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
