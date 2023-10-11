@@ -89,11 +89,9 @@ class DealService implements DealServiceInterface
         }
 
         if ($order = $dealDto->getOrder()){
-            if ($entity->getOrders()){
-                $entity->setOrders(self::mapToExistEntity($order, $entity->getOrders()));
-            } else {
-                $entity->setOrders(self::mapToExistEntity($order, (new Order())));
-            }
+            $orderEntity = $this->orderService->add($order);
+
+            $entity->setOrders($orderEntity);
         }
 
         $entity->setProjectId($projectId);
