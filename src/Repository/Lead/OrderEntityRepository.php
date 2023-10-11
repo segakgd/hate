@@ -22,48 +22,17 @@ class OrderEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function save(Order $entity, bool $flush = false): void
+    public function saveAndFlush(Order $entity): void
     {
         $entity->setUpdatedAt(new DateTimeImmutable());
 
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) { // todo
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
-    public function remove(Order $entity, bool $flush = false): void
+    public function removeAndFlush(Order $entity): void
     {
         $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
-
-//    /**
-//     * @return OrderEntity[] Returns an array of OrderEntity objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?OrderEntity
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

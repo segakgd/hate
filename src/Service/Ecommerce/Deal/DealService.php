@@ -3,7 +3,9 @@
 namespace App\Service\Ecommerce\Deal;
 
 use App\Dto\Ecommerce\DealDto;
+use App\Dto\Ecommerce\OrderDto;
 use App\Entity\Lead\Deal;
+use App\Entity\Lead\Order;
 use App\Repository\Lead\DealEntityRepository;
 use App\Service\Ecommerce\Contact\ContactService;
 use App\Service\Ecommerce\Field\FieldService;
@@ -62,29 +64,35 @@ class DealService implements DealServiceInterface
 
                     foreach ($fieldsEntity as $fieldEntity){
                         if ($fieldDto->getId() === $fieldEntity->getId()){
-                            $entity->addField(FieldMapper::mapToExistEntity($fieldDto, $fieldEntity));
+                            $fieldEntity = $this->fieldService->update($fieldDto);
+
+                            $entity->addField($fieldEntity);
 
                             $isUpdated = true;
                         }
                     }
 
                     if (!$isUpdated){
-                        $entity->addField(FieldMapper::mapToEntity($fieldDto));
+                        $fieldEntity = $this->fieldService->add($fieldDto);
+
+                        $entity->addField($fieldEntity);
                     }
                 }
 
             } else {
                 foreach ($fieldsDto as $fieldDto){
-                    $entity->addField(FieldMapper::mapToEntity($fieldDto));
+                    $fieldEntity = $this->fieldService->add($fieldDto);
+
+                    $entity->addField($fieldEntity);
                 }
             }
         }
 
         if ($order = $dealDto->getOrder()){
             if ($entity->getOrders()){
-                $entity->setOrders(OrderMapper::mapToExistEntity($order, $entity->getOrders()));
+                $entity->setOrders(self::mapToExistEntity($order, $entity->getOrders()));
             } else {
-                $entity->setOrders(OrderMapper::mapToEntity($order));
+                $entity->setOrders(self::mapToExistEntity($order, (new Order())));
             }
         }
 
@@ -115,29 +123,35 @@ class DealService implements DealServiceInterface
 
                     foreach ($fieldsEntity as $fieldEntity){
                         if ($fieldDto->getId() === $fieldEntity->getId()){
-                            $entity->addField(FieldMapper::mapToExistEntity($fieldDto, $fieldEntity));
+                            $fieldEntity = $this->fieldService->update($fieldDto);
+
+                            $entity->addField($fieldEntity);
 
                             $isUpdated = true;
                         }
                     }
 
                     if (!$isUpdated){
-                        $entity->addField(FieldMapper::mapToEntity($fieldDto));
+                        $fieldEntity = $this->fieldService->add($fieldDto);
+
+                        $entity->addField($fieldEntity);
                     }
                 }
 
             } else {
                 foreach ($fieldsDto as $fieldDto){
-                    $entity->addField(FieldMapper::mapToEntity($fieldDto));
+                    $fieldEntity = $this->fieldService->add($fieldDto);
+
+                    $entity->addField($fieldEntity);
                 }
             }
         }
 
         if ($order = $dealDto->getOrder()){
             if ($entity->getOrders()){
-                $entity->setOrders(OrderMapper::mapToExistEntity($order, $entity->getOrders()));
+                $entity->setOrders(self::mapToExistEntity($order, $entity->getOrders()));
             } else {
-                $entity->setOrders(OrderMapper::mapToEntity($order));
+                $entity->setOrders(self::mapToExistEntity($order, (new Order)));
             }
         }
 
@@ -162,5 +176,30 @@ class DealService implements DealServiceInterface
         }
 
         return true;
+    }
+
+    public static function mapToExistEntity(OrderDto $dto, Order $entity): Order
+    {
+        if ($products = $dto->getProducts()){
+            foreach ($products as $product){
+                $entity->addProduct($product);
+            }
+        }
+
+        if ($promotions = $dto->getPromotions()){
+            foreach ($promotions as $promotion){
+                $entity->addPromotion($promotion);
+            }
+        }
+
+        if ($shipping = $dto->getShipping()){
+            $entity->setShipping($shipping->toArray());
+        }
+
+        if ($totalAmount = $dto->getTotalAmount()){
+            $entity->setTotalAmount($totalAmount);
+        }
+
+        return $entity;
     }
 }

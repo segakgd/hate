@@ -21,21 +21,15 @@ class FieldEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, Field::class);
     }
 
-    public function save(Field $entity, bool $flush = false): void
+    public function saveAndFlush(Field $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) { // todo
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
-    public function remove(Field $entity, bool $flush = false): void
+    public function removeAndFlush(Field $entity): void
     {
         $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 }
