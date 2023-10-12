@@ -90,15 +90,10 @@ class DealService implements DealServiceInterface
         }
 
         if ($order = $dealDto->getOrder()){
-
-//            dd($order);
-
             $orderEntity = $this->orderService->add($order);
 
-            dd($orderEntity);
             $entity->setOrder($orderEntity);
         }
-
 
         $entity->setProjectId($projectId);
 

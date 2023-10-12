@@ -24,7 +24,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
     public function saveAndFlush(DealOrder $entity): void
     {
-//        $entity->setUpdatedAt(new DateTimeImmutable());
+        $entity->setUpdatedAt(new DateTimeImmutable());
 
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();

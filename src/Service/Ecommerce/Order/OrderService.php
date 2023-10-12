@@ -19,11 +19,7 @@ class OrderService
 
         $entity = self::mapToExistEntity($dto, $entity);
 
-//        dd($entity);
-
         $this->orderEntityRepository->saveAndFlush($entity);
-        dd($entity);
-
 
         return $entity;
     }
