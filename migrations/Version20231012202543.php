@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230813214215 extends AbstractMigration
+final class Version20231012202543 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -27,20 +27,15 @@ final class Version20230813214215 extends AbstractMigration
         , promotion CLOB NOT NULL --(DC2Type:json)
         , total_amount INTEGER NOT NULL, status VARCHAR(20) NOT NULL, visitor_id INTEGER DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         )');
-        $this->addSql('CREATE TABLE contacts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, first_name VARCHAR(50) DEFAULT NULL, last_name VARCHAR(50) DEFAULT NULL, phone VARCHAR(25) DEFAULT NULL, email VARCHAR(50) DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
-        )');
-        $this->addSql('CREATE TABLE deal (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, contacts_id INTEGER DEFAULT NULL, orders_id INTEGER DEFAULT NULL, project_id INTEGER NOT NULL, CONSTRAINT FK_E3FEC116719FB48E FOREIGN KEY (contacts_id) REFERENCES contacts (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_E3FEC116CFFE9AD6 FOREIGN KEY (orders_id) REFERENCES "order" (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('CREATE TABLE deal (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, contacts_id INTEGER DEFAULT NULL, order_id INTEGER DEFAULT NULL, project_id INTEGER NOT NULL, CONSTRAINT FK_E3FEC116719FB48E FOREIGN KEY (contacts_id) REFERENCES deal_contacts (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_E3FEC1168D9F6D38 FOREIGN KEY (order_id) REFERENCES deal_order (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_E3FEC116719FB48E ON deal (contacts_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_E3FEC116CFFE9AD6 ON deal (orders_id)');
-        $this->addSql('CREATE TABLE field (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, deal_id INTEGER DEFAULT NULL, name VARCHAR(50) NOT NULL, value VARCHAR(50) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
-        , CONSTRAINT FK_5BF54558F60E2305 FOREIGN KEY (deal_id) REFERENCES deal (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
-        $this->addSql('CREATE INDEX IDX_5BF54558F60E2305 ON field (deal_id)');
-        $this->addSql('CREATE TABLE "order" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, products CLOB DEFAULT NULL --(DC2Type:json)
-        , shipping CLOB DEFAULT NULL --(DC2Type:json)
-        , promotions CLOB DEFAULT NULL --(DC2Type:json)
-        , total_amount INTEGER NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
-        , updated_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_E3FEC1168D9F6D38 ON deal (order_id)');
+        $this->addSql('CREATE TABLE deal_contacts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, first_name VARCHAR(50) DEFAULT NULL, last_name VARCHAR(50) DEFAULT NULL, phone VARCHAR(25) DEFAULT NULL, email VARCHAR(50) DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         )');
+        $this->addSql('CREATE TABLE deal_field (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, deal_id INTEGER DEFAULT NULL, name VARCHAR(50) NOT NULL, value VARCHAR(50) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+        , CONSTRAINT FK_1D2A8644F60E2305 FOREIGN KEY (deal_id) REFERENCES deal (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('CREATE INDEX IDX_1D2A8644F60E2305 ON deal_field (deal_id)');
+        $this->addSql('CREATE TABLE deal_order (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)');
         $this->addSql('CREATE TABLE product (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, project_id INTEGER NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , updated_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         )');
@@ -52,7 +47,7 @@ final class Version20230813214215 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_9A1E202F4584665A ON product_category_product (product_id)');
         $this->addSql('CREATE TABLE product_variant (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, product_id INTEGER DEFAULT NULL, name VARCHAR(50) NOT NULL, article VARCHAR(50) NOT NULL, image CLOB DEFAULT NULL --(DC2Type:json)
         , price CLOB NOT NULL --(DC2Type:json)
-        , count INTEGER NOT NULL, promotion_distributed BOOLEAN NOT NULL, percent_discount INTEGER DEFAULT NULL, active BOOLEAN NOT NULL, active_from DATETIME DEFAULT NULL, active_to DATETIME DEFAULT NULL, crated_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+        , count INTEGER NOT NULL, promotion_distributed BOOLEAN NOT NULL, percent_discount INTEGER DEFAULT NULL, active BOOLEAN NOT NULL, active_from DATETIME DEFAULT NULL, active_to DATETIME DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , updated_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , CONSTRAINT FK_209AA41D4584665A FOREIGN KEY (product_id) REFERENCES product (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_209AA41D4584665A ON product_variant (product_id)');
@@ -89,10 +84,10 @@ final class Version20230813214215 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP TABLE cart');
-        $this->addSql('DROP TABLE contacts');
         $this->addSql('DROP TABLE deal');
-        $this->addSql('DROP TABLE field');
-        $this->addSql('DROP TABLE "order"');
+        $this->addSql('DROP TABLE deal_contacts');
+        $this->addSql('DROP TABLE deal_field');
+        $this->addSql('DROP TABLE deal_order');
         $this->addSql('DROP TABLE product');
         $this->addSql('DROP TABLE product_category');
         $this->addSql('DROP TABLE product_category_product');

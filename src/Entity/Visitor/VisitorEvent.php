@@ -53,13 +53,6 @@ class VisitorEvent
         return $this->id;
     }
 
-    public function setId(?int $id): self // todo откуда сеттер? хм..
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;

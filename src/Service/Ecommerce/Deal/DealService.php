@@ -5,7 +5,7 @@ namespace App\Service\Ecommerce\Deal;
 use App\Dto\Ecommerce\DealDto;
 use App\Dto\Ecommerce\OrderDto;
 use App\Entity\Lead\Deal;
-use App\Entity\Lead\Order;
+use App\Entity\Lead\DealOrder;
 use App\Repository\Lead\DealEntityRepository;
 use App\Service\Ecommerce\Contact\ContactService;
 use App\Service\Ecommerce\Field\FieldService;
@@ -50,6 +50,7 @@ class DealService implements DealServiceInterface
         $entity = (new Deal());
 
         if ($contacts = $dealDto->getContacts()){
+            // todo мы можем добавить сущесвтующие контакты.
             $contacts = $this->contactService->add($contacts);
 
             $entity->setContacts($contacts);
@@ -89,10 +90,15 @@ class DealService implements DealServiceInterface
         }
 
         if ($order = $dealDto->getOrder()){
+
+//            dd($order);
+
             $orderEntity = $this->orderService->add($order);
 
-            $entity->setOrders($orderEntity);
+            dd($orderEntity);
+            $entity->setOrder($orderEntity);
         }
+
 
         $entity->setProjectId($projectId);
 
@@ -146,10 +152,10 @@ class DealService implements DealServiceInterface
         }
 
         if ($order = $dealDto->getOrder()){
-            if ($entity->getOrders()){
-                $entity->setOrders(self::mapToExistEntity($order, $entity->getOrders()));
+            if ($entity->getOrder()){
+                $entity->setOrder(self::mapToExistEntity($order, $entity->getOrder()));
             } else {
-                $entity->setOrders(self::mapToExistEntity($order, (new Order)));
+                $entity->setOrder(self::mapToExistEntity($order, (new DealOrder)));
             }
         }
 
@@ -176,7 +182,7 @@ class DealService implements DealServiceInterface
         return true;
     }
 
-    public static function mapToExistEntity(OrderDto $dto, Order $entity): Order
+    public static function mapToExistEntity(OrderDto $dto, DealOrder $entity): DealOrder
     {
         if ($products = $dto->getProducts()){
             foreach ($products as $product){

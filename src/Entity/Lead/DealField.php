@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FieldEntityRepository::class)]
-class Field // todo deal_field
+class DealField
 {
     #[Groups(['administrator'])]
     #[ORM\Id]

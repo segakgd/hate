@@ -19,15 +19,15 @@ class Deal
 
     #[Groups(['administrator'])]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Contacts $contacts = null;
+    private ?DealContacts $contacts = null;
 
     #[Groups(['administrator'])]
-    #[ORM\OneToMany(mappedBy: 'deal', targetEntity: Field::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'deal', targetEntity: DealField::class, cascade: ['persist', 'remove'])]
     private Collection $fields;
 
     #[Groups(['administrator'])]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Order $orders = null;
+    private ?DealOrder $order = null;
 
     #[ORM\Column]
     private ?int $projectId = null;
@@ -42,46 +42,46 @@ class Deal
         return $this->id;
     }
 
-    public function getContacts(): ?Contacts
+    public function getContacts(): ?DealContacts
     {
         return $this->contacts;
     }
 
-    public function setContacts(?Contacts $contacts): static
+    public function setContacts(?DealContacts $contacts): static
     {
         $this->contacts = $contacts;
 
         return $this;
     }
 
-    public function getOrders(): ?Order
+    public function getOrder(): ?DealOrder
     {
-        return $this->orders;
+        return $this->order;
     }
 
-    public function setOrders(?Order $orders): static
+    public function setOrder(?DealOrder $order): static
     {
-        $this->orders = $orders;
+        $this->order = $order;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Field>
+     * @return Collection<int, DealField>
      */
     public function getFields(): Collection
     {
         return $this->fields;
     }
 
-    public function addField(Field $field): static
+    public function addField(DealField $field): static
     {
         $this->fields[] = $field;
 
         return $this;
     }
 
-    public function removeField(Field $field): static
+    public function removeField(DealField $field): static
     {
         if ($this->fields->removeElement($field)) {
             // set the owning side to null (unless already changed)

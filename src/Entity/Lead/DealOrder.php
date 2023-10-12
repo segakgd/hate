@@ -3,7 +3,6 @@
 namespace App\Entity\Lead;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
-use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Dto\Ecommerce\ProductDto;
 use App\Repository\Lead\OrderEntityRepository;
 use DateTimeImmutable;
@@ -11,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OrderEntityRepository::class)]
-class Order
+class DealOrder
 {
     #[Groups(['administrator'])]
     #[ORM\Id]
@@ -37,7 +36,7 @@ class Order
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?DateTimeImmutable $updatedAt = null;
 
     public function __construct()
@@ -64,9 +63,9 @@ class Order
         return $this;
     }
 
-    public function addProduct(?ProductDto $products): static
+    public function addProduct(?ProductDto $product): static
     {
-        $this->products[] = $products;
+        $this->products[] = $product;
 
         return $this;
     }
@@ -119,7 +118,7 @@ class Order
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): static
+    public function setCreatedAt(?DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -131,7 +130,7 @@ class Order
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 

@@ -3,7 +3,7 @@
 namespace App\Service\Ecommerce\Contact;
 
 use App\Dto\Ecommerce\ContactsDto;
-use App\Entity\Lead\Contacts;
+use App\Entity\Lead\DealContacts;
 use App\Repository\Lead\ContactsEntityRepository;
 use DateTimeImmutable;
 
@@ -14,9 +14,9 @@ class ContactService
     ) {
     }
 
-    public function add(ContactsDto $dto): Contacts
+    public function add(ContactsDto $dto): DealContacts
     {
-        $entity = (new Contacts());
+        $entity = (new DealContacts());
 
         $entity
             ->setFirstName($dto->getFirstName())
@@ -31,12 +31,12 @@ class ContactService
         return $entity;
     }
 
-    public function update(ContactsDto $dto): ?Contacts
+    public function update(ContactsDto $dto): ?DealContacts
     {
         $entity = $this->contactsEntityRepository->find($dto->getId());
 
         if (!$entity){
-            $entity = (new Contacts());
+            $entity = (new DealContacts());
         }
 
         $entity

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContactsEntityRepository::class)]
-class Contacts // todo deal_contact
+class DealContacts
 {
     #[Groups(['administrator'])]
     #[ORM\Id]

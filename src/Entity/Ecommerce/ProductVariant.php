@@ -52,15 +52,15 @@ class ProductVariant
     private ?DateTimeInterface $activeTo = null;
 
     #[ORM\Column]
-    private ?DateTimeImmutable $cratedAt = null; // todo cratedAt -> createdAt
+    private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
-        if ($this->cratedAt === null){
-            $this->cratedAt = new DateTimeImmutable();
+        if ($this->createdAt === null){
+            $this->createdAt = new DateTimeImmutable();
         }
     }
 
@@ -189,14 +189,14 @@ class ProductVariant
         return $this;
     }
 
-    public function getCratedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
-        return $this->cratedAt;
+        return $this->createdAt;
     }
 
-    public function setCratedAt(DateTimeImmutable $cratedAt): static
+    public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
-        $this->cratedAt = $cratedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

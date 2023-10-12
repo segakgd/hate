@@ -6,7 +6,7 @@ use App\Repository\Scenario\ScenarioRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ScenarioRepository::class)]
-class Scenario // переименовать в Scenario
+class Scenario
 {
     // todo требуется добавить userId
 

@@ -24,7 +24,7 @@ class CreateController extends AbstractController
     }
 
     #[Route('/api/admin/project/{project}/deal/', name: 'admin_deal_create', methods: ['POST'])]
-    #[IsGranted('existUser', 'project')]
+//    #[IsGranted('existUser', 'project')]
     public function execute(Request $request, Project $project): JsonResponse
     {
         $content = $request->getContent();
@@ -35,6 +35,8 @@ class CreateController extends AbstractController
         if (count($errors) > 0) {
             return $this->json(['message' => $errors->get(0)->getMessage()], Response::HTTP_BAD_REQUEST);
         }
+
+//        dd($dealDto);
 
         $dealEntity = $this->dealService->add($dealDto, $project->getId());
 
