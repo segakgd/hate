@@ -10,8 +10,6 @@ use App\Repository\Lead\DealEntityRepository;
 use App\Service\Ecommerce\Contact\ContactService;
 use App\Service\Ecommerce\Field\FieldService;
 use App\Service\Ecommerce\Order\OrderService;
-use App\Service\Mapper\Ecommerce\FieldMapper;
-use App\Service\Mapper\Ecommerce\OrderMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
