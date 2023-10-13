@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\ProductCategory;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\ProductCategoryServiceInterface;
+use App\Service\Ecommerce\ProductCategory\ProductCategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;

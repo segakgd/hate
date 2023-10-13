@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Promotion;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\PromotionServiceInterface;
+use App\Service\Ecommerce\Promotion\PromotionServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

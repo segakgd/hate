@@ -9,7 +9,7 @@ use App\Exception\EcommerceException;
 use App\Repository\Ecommerce\PromotionRepository;
 use App\Repository\Visitor\CartRepository;
 use App\Service\Ecommerce\Deal\DealServiceInterface;
-use App\Service\Ecommerce\ProductServiceInterface;
+use App\Service\Ecommerce\Product\ProductServiceInterface;
 use App\Service\Project\ProjectServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
