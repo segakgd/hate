@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\Promotion;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\Ecommerce\Promotion;
 use App\Repository\Ecommerce\PromotionEntityRepository;
-use App\Service\Mapper\Ecommerce\PromotionMapper;
 use Psr\Log\LoggerInterface;
 use Throwable;
 

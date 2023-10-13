@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\Shipping;
 
 use App\Dto\Ecommerce\_deprecated\ShippingDto;
 use App\Entity\Ecommerce\Shipping;

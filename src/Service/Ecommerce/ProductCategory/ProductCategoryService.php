@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\ProductCategory;
 
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategory;

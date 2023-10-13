@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\Product;
 
 use App\Dto\Ecommerce\ProductDto;
-use App\Entity\Ecommerce\ProductCategory;
 use App\Entity\Ecommerce\Product;
+use App\Entity\Ecommerce\ProductCategory;
 
 interface ProductServiceInterface
 {

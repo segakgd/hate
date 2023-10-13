@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Service\Ecommerce;
+namespace App\Service\Ecommerce\Product;
 
 use App\Dto\Ecommerce\ProductDto;
 use App\Entity\Ecommerce\Product;
 use App\Entity\Ecommerce\ProductCategory;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
 use App\Repository\Ecommerce\ProductEntityRepository;
+use App\Service\Ecommerce\ProductCategory\ProductCategoryService;
 use App\Service\Ecommerce\ProductVariant\ProductVariantService;
 use Psr\Log\LoggerInterface;
 use Throwable;
