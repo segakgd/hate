@@ -14,8 +14,10 @@ trait DealTrait
             ->setProjectId($project->getId())
         ;
 
+
         $manager->persist($deal);
         $manager->flush($deal);
+//        dd($deal);
 
         return $deal;
     }

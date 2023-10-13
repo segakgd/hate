@@ -67,9 +67,9 @@ class UpdateDealControllerTest extends ApiTestCase
         $this->assertTrue($deal['contacts']['firstName'] === 'asdGHbdtm');
         $this->assertTrue($deal['contacts']['lastName'] === 'sdsd');
         $this->assertTrue($deal['contacts']['phone'] === 'GHbdtm');
-        $this->assertTrue($deal['contacts']['email'] === 'GHbdtme');
+        $this->assertTrue($deal['contacts']['email'] === 'GHbdtm');
 
-        $this->assertTrue(isset($deal['orders']));
+        $this->assertTrue(isset($deal['order']));
 
         $this->assertTrue($deal['fields'][0]['name'] === 'sadasd');
         $this->assertTrue($deal['fields'][0]['value'] === 'yttyt');
@@ -79,24 +79,23 @@ class UpdateDealControllerTest extends ApiTestCase
     {
         yield [
             'requestContent' => [
+                "contacts" => [
+                    "firstName" => "asdGHbdtm",
+                    "phone" => "GHbdtm",
+                    "email" => "GHbdtm",
+                    "lastName" => "sdsd"
+                ],
                 "fields" => [
                     [
                         "name" => "sadasd",
                         "value" => "yttyt"
                     ],
                 ],
-                "contacts" => [
-                    "firstName" => "asdGHbdtm",
-                    "phone" => "GHbdtm",
-                    "email" => "GHbdtme",
-                    "lastName" => "sdsd"
-                ],
                 "order" => [
-                    [
-                        "products" => null,
-                        "shipping" => null,
-                        "promotions" => null,
-                    ],
+                    "products" => [],
+                    "shipping" => [],
+                    "promotions" => [],
+                    "totalAmount" => 20000,
                 ],
             ],
         ];

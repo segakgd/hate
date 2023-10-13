@@ -8,6 +8,14 @@ use App\Repository\Lead\OrderEntityRepository;
 
 class OrderService
 {
+    // Заводим тесты
+    // bin/phpunit tests/Functional/Admin/Deal/CreateDealControllerTest.php
+
+    // решаем проблему с сопоставлением json-а и объектов
+
+    // если не передан id, тогда создаём продукт, вариант и тд
+    // если передан, то просто подтягиваем
+
     public function __construct(
         private OrderEntityRepository $orderEntityRepository,
     ){
@@ -48,22 +56,22 @@ class OrderService
             }
         }
 
-//        // todo мы можем добавить сущесвтующие скидки.
-//        if ($promotions = $dto->getPromotions()){
-//            foreach ($promotions as $promotion){
-//                $entity->addPromotion($promotion);
-//            }
-//        }
+        // todo мы можем добавить сущесвтующие скидки.
+        if ($promotions = $dto->getPromotions()){
+            foreach ($promotions as $promotion){
+                $entity->addPromotion($promotion);
+            }
+        }
+
+        // todo мы можем добавить сущесвтующие доставки.
+        if ($shipping = $dto->getShipping()){
+            $entity->setShipping($shipping->toArray());
+        }
 //
-//        // todo мы можем добавить сущесвтующие доставки.
-//        if ($shipping = $dto->getShipping()){
-//            $entity->setShipping($shipping->toArray());
-//        }
-//
-//        // вообще, можно прям тут пересчитывать
-//        if ($totalAmount = $dto->getTotalAmount()){
-//            $entity->setTotalAmount($totalAmount);
-//        }
+        // вообще, можно прям тут пересчитывать
+        if ($totalAmount = $dto->getTotalAmount()){
+            $entity->setTotalAmount($totalAmount);
+        }
 
         return $entity;
     }

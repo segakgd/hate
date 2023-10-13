@@ -112,7 +112,6 @@ class DealService implements DealServiceInterface
             $entity->setContacts($contacts);
         }
 
-
         if ($fieldsDto = $dealDto->getFields()){
             if ($entity->getFields()->count()){
                 $fieldsEntity = $entity->getFields();

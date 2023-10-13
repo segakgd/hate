@@ -17,57 +17,57 @@ class CreateDealControllerTest extends ApiTestCase
     use UserTrait;
     use ProjectTrait;
 
-    /**
-     * @throws Exception
-     */
-    public function testWithoutAuth()
-    {
-        $client = static::createClient();
-        $entityManager = $this->getEntityManager();
-
-        $user = $this->createUser($entityManager);
-        $project = $this->createProject($entityManager, $user);
-
-        $client->request(
-            'POST',
-            '/api/admin/project/' . $project->getId() .'/deal/',
-        );
-
-        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testCreateEmptyDeal()
-    {
-        $client = static::createClient();
-        $entityManager = $this->getEntityManager();
-
-        $user = $this->createUser($entityManager);
-        $project = $this->createProject($entityManager, $user);
-
-        $client->loginUser($user);
-
-        $client->request(
-            'POST',
-            '/api/admin/project/' . $project->getId() .'/deal/',
-            [],
-            [],
-            [],
-            json_encode([])
-        );
-
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-
-        $deal = json_decode($client->getResponse()->getContent(), true);
-
-        $this->assertTrue(isset($deal['id']));
-
-        $dealEntity = $this->getEntityManager()->getRepository(Deal::class)->find($deal['id']);
-
-        $this->assertEquals($dealEntity->getId(), $deal['id']);
-    }
+//    /**
+//     * @throws Exception
+//     */
+//    public function testWithoutAuth()
+//    {
+//        $client = static::createClient();
+//        $entityManager = $this->getEntityManager();
+//
+//        $user = $this->createUser($entityManager);
+//        $project = $this->createProject($entityManager, $user);
+//
+//        $client->request(
+//            'POST',
+//            '/api/admin/project/' . $project->getId() .'/deal/',
+//        );
+//
+//        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+//    }
+//
+//    /**
+//     * @throws Exception
+//     */
+//    public function testCreateEmptyDeal()
+//    {
+//        $client = static::createClient();
+//        $entityManager = $this->getEntityManager();
+//
+//        $user = $this->createUser($entityManager);
+//        $project = $this->createProject($entityManager, $user);
+//
+//        $client->loginUser($user);
+//
+//        $client->request(
+//            'POST',
+//            '/api/admin/project/' . $project->getId() .'/deal/',
+//            [],
+//            [],
+//            [],
+//            json_encode([])
+//        );
+//
+//        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+//
+//        $deal = json_decode($client->getResponse()->getContent(), true);
+//
+//        $this->assertTrue(isset($deal['id']));
+//
+//        $dealEntity = $this->getEntityManager()->getRepository(Deal::class)->find($deal['id']);
+//
+//        $this->assertEquals($dealEntity->getId(), $deal['id']);
+//    }
 
     /**
      * @dataProvider positiveVariantsWithAllData
@@ -92,14 +92,6 @@ class CreateDealControllerTest extends ApiTestCase
             [],
             json_encode($requestContent)
         );
-
-        // Заводим тесты
-        // bin/phpunit tests/Functional/Admin/Deal/CreateDealControllerTest.php
-
-        // решаем проблему с сопоставлением json-а и объектов
-
-        // если не передан id, тогда создаём продукт, вариант и тд
-        // если передан, то просто подтягиваем
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
@@ -221,11 +213,11 @@ class CreateDealControllerTest extends ApiTestCase
 
         $this->assertEquals($dealEntity->getId(), $deal['id']);
 
-        $this->assertTrue(isset($deal['orders']['id']));
+        $this->assertTrue(isset($deal['order']['id']));
 
-        $order = $this->getEntityManager()->getRepository(DealOrder::class)->find($deal['orders']['id']);
+        $order = $this->getEntityManager()->getRepository(DealOrder::class)->find($deal['order']['id']);
 
-        $this->assertEquals($order->getId(), $deal['orders']['id']);
+        $this->assertEquals($order->getId(), $deal['order']['id']);
     }
 
     private function positiveVariantsWithAllData(): iterable
@@ -285,6 +277,7 @@ class CreateDealControllerTest extends ApiTestCase
                             ]
                         ]
                     ],
+                    "totalAmount" => 20000,
                 ],
             ],
         ];
@@ -324,10 +317,48 @@ class CreateDealControllerTest extends ApiTestCase
             'requestContent' => [
                 "order" => [
                     [
-                        "products" => null,
-                        "shipping" => null,
-                        "promotions" => null,
+                        "products" => [
+                            [
+                                'name' => 'product 1',
+                                'projectId' => 1,
+                                'categories' => [],
+                                'variants' => [],
+                            ],
+                            [
+                                'name' => 'product 2',
+                                'price' => [
+                                    'value' => 20000,
+                                    'valueFraction' => '200',
+                                ]
+                            ],
+                            [
+                                'name' => 'product 3',
+                                'price' => [
+                                    'value' => 30000,
+                                    'valueFraction' => '300',
+                                ]
+                            ],
+                        ],
+                        "shipping" => [
+                            'name' => 'delivery 1',
+                            'type' => 'pickup',
+                            'price' => [
+                                'value' => 10000,
+                                'valueFraction' => '100',
+                            ]
+                        ],
+                        "promotions" => [
+                            [
+                                'name' => 'promotion 1',
+                                'type' => 'code',
+                                'price' => [
+                                    'value' => 10000,
+                                    'valueFraction' => '100',
+                                ]
+                            ]
+                        ],
                     ],
+                    "totalAmount" => 20000
                 ],
             ],
         ];

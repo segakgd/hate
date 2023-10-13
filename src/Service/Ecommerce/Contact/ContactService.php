@@ -33,7 +33,11 @@ class ContactService
 
     public function update(ContactsDto $dto): ?DealContacts
     {
-        $entity = $this->contactsEntityRepository->find($dto->getId());
+        $entity = null;
+
+        if ($dto->getId()){
+            $entity = $this->contactsEntityRepository->find($dto->getId());
+        }
 
         if (!$entity){
             $entity = (new DealContacts());
