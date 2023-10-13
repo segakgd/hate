@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin\Product;
 
-use App\Entity\Ecommerce\ProductCategory;
 use App\Entity\Ecommerce\Product;
-use App\Service\Ecommerce\ProductServiceInterface;
+use App\Entity\Ecommerce\ProductCategory;
+use App\Service\Ecommerce\Product\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;

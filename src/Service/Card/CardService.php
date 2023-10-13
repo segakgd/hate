@@ -4,9 +4,7 @@ namespace App\Service\Card;
 
 use App\Dto\CartDto;
 use App\Dto\Ecommerce\ProductDto;
-use App\Service\Ecommerce\ProductServiceInterface;
-use App\Service\Ecommerce\PromotionServiceInterface;
-use App\Service\Ecommerce\ShippingServiceInterface;
+use App\Service\Ecommerce\Product\ProductServiceInterface;
 
 class CardService implements CardServiceInterface
 {

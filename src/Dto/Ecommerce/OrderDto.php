@@ -7,6 +7,8 @@ use App\Dto\Ecommerce\_deprecated\ShippingDto;
 
 class OrderDto
 {
+    private ?int $id = null;
+
     /** @var array<ProductDto>|null */
     private ?array $products = null;
 
@@ -16,6 +18,16 @@ class OrderDto
     private ?array $promotions = null;
 
     private ?int $totalAmount = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getProducts(): ?array
     {

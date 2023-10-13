@@ -2,27 +2,27 @@
 
 namespace App\Repository\Lead;
 
-use App\Entity\Lead\Order;
+use App\Entity\Lead\DealOrder;
 use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Order>
+ * @extends ServiceEntityRepository<DealOrder>
  *
- * @method Order|null find($id, $lockMode = null, $lockVersion = null)
- * @method Order|null findOneBy(array $criteria, array $orderBy = null)
- * @method Order[]    findAll()
- * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DealOrder|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DealOrder|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DealOrder[]    findAll()
+ * @method DealOrder[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class OrderEntityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Order::class);
+        parent::__construct($registry, DealOrder::class);
     }
 
-    public function saveAndFlush(Order $entity): void
+    public function saveAndFlush(DealOrder $entity): void
     {
         $entity->setUpdatedAt(new DateTimeImmutable());
 
@@ -30,7 +30,7 @@ class OrderEntityRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function removeAndFlush(Order $entity): void
+    public function removeAndFlush(DealOrder $entity): void
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();

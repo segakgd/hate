@@ -3,7 +3,7 @@
 namespace App\Service\Ecommerce\Field;
 
 use App\Dto\Ecommerce\FieldDto;
-use App\Entity\Lead\Field;
+use App\Entity\Lead\DealField;
 use App\Repository\Lead\FieldEntityRepository;
 
 class FieldService
@@ -14,9 +14,9 @@ class FieldService
     ) {
     }
 
-    public function add(FieldDto $dto): Field
+    public function add(FieldDto $dto): DealField
     {
-        $entity = (new Field());
+        $entity = (new DealField());
 
         $entity
             ->setValue($dto->getValue())
@@ -28,12 +28,12 @@ class FieldService
         return $entity;
     }
 
-    public function update(FieldDto $dto): ?Field
+    public function update(FieldDto $dto): ?DealField
     {
         $entity = $this->fieldEntityRepository->find($dto->getId());
 
         if (!$entity){
-            $entity = (new Field());
+            $entity = (new DealField());
         }
 
         $entity

@@ -12,10 +12,10 @@ class ProductDto
     private ?int $projectId = null;
 
     /** @var array<ProductCategoryDto> */
-    private array $categories;
+    private array $categories = [];
 
     /** @var array<ProductVariantDto> */
-    private array $variants;
+    private array $variants = [];
 
     private ?DateTimeImmutable $createdAt = null;
 

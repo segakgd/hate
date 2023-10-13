@@ -4,7 +4,7 @@ namespace App\Controller\Admin\Product;
 
 use App\Dto\Ecommerce\ProductDto;
 use App\Entity\User\Project;
-use App\Service\Ecommerce\ProductServiceInterface;
+use App\Service\Ecommerce\Product\ProductServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

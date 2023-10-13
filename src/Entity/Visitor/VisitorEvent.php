@@ -3,6 +3,7 @@
 namespace App\Entity\Visitor;
 
 use App\Repository\Visitor\VisitorEventRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VisitorEventRepository::class)]
@@ -38,18 +39,18 @@ class VisitorEvent
     #[ORM\Column(length: 15)]
     private string $status = self::STATUS_NEW;
 
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?DateTimeImmutable $createdAt = null;
+
+    public function __construct()
+    {
+        if ($this->createdAt === null){
+            $this->createdAt = new DateTimeImmutable();
+        }
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(?int $id): self // todo откуда сеттер? хм..
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getType(): ?string
@@ -117,12 +118,12 @@ class VisitorEvent
         return $this->actionAfter || $this->actionBefore;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 

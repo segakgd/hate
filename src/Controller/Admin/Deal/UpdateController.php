@@ -30,6 +30,7 @@ class UpdateController extends AbstractController
         $content = $request->getContent();
         $dealDto = $this->serializer->deserialize($content, DealDto::class, 'json');
 
+//        dd($dealDto);
         $errors = $this->validator->validate($dealDto);
 
         if (count($errors) > 0) {

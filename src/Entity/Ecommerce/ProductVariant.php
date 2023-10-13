@@ -3,6 +3,8 @@
 namespace App\Entity\Ecommerce;
 
 use App\Repository\Ecommerce\ProductVariantRepository;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -44,16 +46,23 @@ class ProductVariant
     private ?bool $active = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $activeFrom = null;
+    private ?DateTimeInterface $activeFrom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $activeTo = null;
+    private ?DateTimeInterface $activeTo = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $cratedAt = null;
+    private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(nullable: true)]
+    private ?DateTimeImmutable $updatedAt = null;
+
+    public function __construct()
+    {
+        if ($this->createdAt === null){
+            $this->createdAt = new DateTimeImmutable();
+        }
+    }
 
     public function getId(): ?int
     {
@@ -156,48 +165,48 @@ class ProductVariant
         return $this;
     }
 
-    public function getActiveFrom(): ?\DateTimeInterface
+    public function getActiveFrom(): ?DateTimeInterface
     {
         return $this->activeFrom;
     }
 
-    public function setActiveFrom(?\DateTimeInterface $activeFrom): static
+    public function setActiveFrom(?DateTimeInterface $activeFrom): static
     {
         $this->activeFrom = $activeFrom;
 
         return $this;
     }
 
-    public function getActiveTo(): ?\DateTimeInterface
+    public function getActiveTo(): ?DateTimeInterface
     {
         return $this->activeTo;
     }
 
-    public function setActiveTo(?\DateTimeInterface $activeTo): static
+    public function setActiveTo(?DateTimeInterface $activeTo): static
     {
         $this->activeTo = $activeTo;
 
         return $this;
     }
 
-    public function getCratedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
-        return $this->cratedAt;
+        return $this->createdAt;
     }
 
-    public function setCratedAt(\DateTimeImmutable $cratedAt): static
+    public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
-        $this->cratedAt = $cratedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
