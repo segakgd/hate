@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Project;
 
 use App\Entity\User\Project;
-use App\Service\Project\ProjectServiceInterface;
+use App\Service\Common\Project\ProjectServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

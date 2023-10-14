@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Promotion;
 
 use App\Entity\User\Project;
-use App\Service\Admin\Ecommerce\Promotion\PromotionServiceInterface;
+use App\Service\Admin\Ecommerce\Promotion\PromotionManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetOneController extends AbstractController
 {
     public function __construct(
-        private PromotionServiceInterface $promotionService,
+        private PromotionManagerInterface $promotionService,
         private SerializerInterface $serializer,
     ) {}
 

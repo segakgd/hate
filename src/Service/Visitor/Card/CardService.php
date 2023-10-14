@@ -4,12 +4,12 @@ namespace App\Service\Visitor\Card;
 
 use App\Dto\CartDto;
 use App\Dto\Ecommerce\ProductDto;
-use App\Service\Admin\Ecommerce\Product\ProductServiceInterface;
+use App\Service\Admin\Ecommerce\Product\ProductManagerInterface;
 
 class CardService implements CardServiceInterface
 {
     public function __construct(
-        private ProductServiceInterface $productService,
+        private ProductManagerInterface $productService,
         // private PromotionServiceInterface $promotionService, todo нужно будет учитывать
         // private ShippingServiceInterface $service, todo нужно будет учитывать
     ) {

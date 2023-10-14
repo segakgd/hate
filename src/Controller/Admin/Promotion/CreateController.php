@@ -4,7 +4,7 @@ namespace App\Controller\Admin\Promotion;
 
 use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Entity\User\Project;
-use App\Service\Admin\Ecommerce\Promotion\PromotionServiceInterface;
+use App\Service\Admin\Ecommerce\Promotion\PromotionManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class CreateController extends AbstractController
 {
     public function __construct(
-        private PromotionServiceInterface $promotionService,
+        private PromotionManagerInterface $promotionService,
         private ValidatorInterface $validator,
         private SerializerInterface $serializer
     ) {

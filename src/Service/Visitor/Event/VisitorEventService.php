@@ -7,9 +7,9 @@ use App\Entity\Visitor\VisitorEvent;
 use App\Entity\Visitor\VisitorSession;
 use App\Repository\Visitor\VisitorEventRepository;
 use App\Repository\Visitor\VisitorSessionRepository;
+use App\Service\Admin\Scenario\BehaviorScenarioService;
 use App\Service\System\Handler\ActionAfterHandler;
 use App\Service\System\Handler\ActionBeforeHandler;
-use App\Service\System\Scenario\BehaviorScenarioService;
 use Exception;
 
 class VisitorEventService

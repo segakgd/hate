@@ -6,7 +6,7 @@ use App\Dto\Core\Telegram\Message\MessageDto;
 use App\Entity\Visitor\VisitorEvent;
 use App\Repository\Scenario\ScenarioRepository;
 use App\Repository\Visitor\VisitorSessionRepository;
-use App\Service\Common\Client\Telegram\TelegramService;
+use App\Service\Integration\Telegram\TelegramService;
 
 class MessageHandler
 {
