@@ -4,8 +4,8 @@ namespace App\Command;
 
 use App\Dto\Core\Telegram\Invoice\InvoiceDto;
 use App\Dto\Ecommerce\ProductDto;
-use App\Service\Card\CardServiceInterface;
-use App\Service\Client\Telegram\TelegramService;
+use App\Service\Common\Client\Telegram\TelegramService;
+use App\Service\Visitor\Card\CardServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

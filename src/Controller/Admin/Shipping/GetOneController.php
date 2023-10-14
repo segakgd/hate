@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Shipping;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\Shipping\ShippingServiceInterface;
+use App\Service\Admin\Ecommerce\Shipping\ShippingServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;

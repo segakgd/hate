@@ -4,7 +4,7 @@ namespace App\Controller\Admin\Deal;
 
 use App\Dto\Ecommerce\DealDto;
 use App\Entity\User\Project;
-use App\Service\Ecommerce\Deal\DealServiceInterface;
+use App\Service\Admin\Ecommerce\Deal\DealServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
