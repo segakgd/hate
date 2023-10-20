@@ -24,9 +24,9 @@ class SandboxController extends AbstractController
     {
         $reflection = $this->mirrorEntityManager->find(DealField::class, 1);
 
-        $reflection->setId(32);
+        $reflection->map('{"name": "ываывsssssssа"}');
 
-        // $reflection->
+        $this->mirrorEntityManager->save(DealField::class, 1, $reflection);
 
         return new JsonResponse([$reflection, $reflection->getId()]);
     }

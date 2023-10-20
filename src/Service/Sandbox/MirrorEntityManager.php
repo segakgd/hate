@@ -11,6 +11,7 @@ use App\Service\Sandbox\Reflection\Reflection\DealFieldReflection;
 use App\Service\Sandbox\Reflection\Reflection\DealReflection;
 use Doctrine\ORM\EntityManagerInterface;
 use ReflectionClass;
+use Throwable;
 
 /**
  * Менеджер для создания отражений(reflection) сущностей
@@ -28,7 +29,6 @@ class MirrorEntityManager
         DealField::class => DealFieldReflection::class,
         Deal::class => DealReflection::class,
         DealContacts::class => DealContactsReflection::class,
-        'Proxies\__CG__\App\Entity\Lead\DealContacts' => DealContactsReflection::class,
     ];
 
     /**
@@ -36,17 +36,8 @@ class MirrorEntityManager
      */
     public function find(string $name, $id): ReflectionInterface
     {
-        /** @var Deal $entity */
         $entity = $this->entityManager->find($name, $id);
 
-//        dd($entity->getContacts());
-//
-//        foreach ($entity->getContacts() as $ggg){
-//            dd('asd', $ggg, $entity->getContacts()->getEmail());
-//        }
-//
-//        dd('asd');
-//        dd($entity->getContacts());
         return $this->reflect($entity);
     }
 
@@ -65,9 +56,7 @@ class MirrorEntityManager
         $phpReflectionObject = new ReflectionClass($object);
         $reflection = new $reflectionType();
 
-        $reflection = $this->reflectProperties($phpReflectionObject, $reflection, $object);
-
-        return $reflection;
+        return $this->reflectProperties($phpReflectionObject, $reflection, $object);
     }
 
     private function reflectProperties($phpReflectionObject, $reflection, $object)
@@ -77,33 +66,27 @@ class MirrorEntityManager
         foreach ($props as $prop) {
             $value = $prop->getValue($object);
 
-
-//            if (is_iterable($value)){
-//                dd($value, $value[0], $value, 'asd');
-//                foreach ($value as $val){
-//                    $d = $this->reflect($val);
-//                    dd($d);
-//                }
-//
-//
-////                dd($value);
-////                dd('asd');
-//            }
-
-//            if (is_object($value)){
-//                if (is_iterable($value)){
-//                    dd('asd');
-//                }
-//                dd($value);
-
-//                $d = $this->reflect($value);
-//                dd($d, $value);
-//            }
-
-//            dd($prop->getValue($object));
             $reflection->{$prop->getName()} = $value;
         }
 
         return $reflection;
+    }
+
+    public function save(string $name, int $id, ReflectionInterface $reflection)
+    {
+        $entity = $this->entityManager->find($name, $id);
+
+        foreach ($reflection as $dd => $reflectio){
+            $ff = 'set' . ucfirst($dd);
+
+            try {
+                $entity->$ff($reflectio);
+            } catch (Throwable){
+                // todo костыль
+            }
+        }
+
+        $this->entityManager->flush($entity);
+        $this->entityManager->persist($entity);
     }
 }
