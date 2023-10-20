@@ -4,7 +4,7 @@ namespace App\Controller\Security;
 
 use App\Dto\Security\UserDto;
 use App\Exception\Security\UserExistException;
-use App\Service\Security\SecurityService;
+use App\Service\Common\Security\SecurityService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

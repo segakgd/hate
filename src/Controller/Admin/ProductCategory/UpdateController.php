@@ -4,7 +4,7 @@ namespace App\Controller\Admin\ProductCategory;
 
 use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use App\Entity\User\Project;
-use App\Service\Ecommerce\ProductCategory\ProductCategoryServiceInterface;
+use App\Service\Admin\Ecommerce\ProductCategory\ProductCategoryManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UpdateController extends AbstractController
 {
     public function __construct(
-        private ProductCategoryServiceInterface $productCategoryService,
+        private ProductCategoryManagerInterface $productCategoryService,
         private ValidatorInterface $validator,
         private SerializerInterface $serializer
     ) {

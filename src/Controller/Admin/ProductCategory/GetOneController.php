@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\ProductCategory;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\ProductCategory\ProductCategoryServiceInterface;
+use App\Service\Admin\Ecommerce\ProductCategory\ProductCategoryManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetOneController extends AbstractController
 {
     public function __construct(
-        private ProductCategoryServiceInterface $productCategoryService,
+        private ProductCategoryManagerInterface $productCategoryService,
         private SerializerInterface $serializer,
     ) {}
 

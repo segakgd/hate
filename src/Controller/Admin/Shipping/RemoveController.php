@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Shipping;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\Shipping\ShippingServiceInterface;
+use App\Service\Admin\Ecommerce\Shipping\ShippingManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class RemoveController extends AbstractController
 {
     public function __construct(
-        private ShippingServiceInterface $shippingService,
+        private ShippingManagerInterface $shippingService,
     ) {}
 
     #[Route('/api/admin/project/{project}/shipping/{shippingId}/', name: 'admin_shipping_remove', methods: ['DELETE'])]

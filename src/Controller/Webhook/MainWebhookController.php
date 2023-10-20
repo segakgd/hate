@@ -4,8 +4,8 @@ namespace App\Controller\Webhook;
 
 use App\Dto\Webhook\Telegram\TelegramWebhookDto;
 use App\Entity\User\Project;
-use App\Service\VisitorEventService;
-use App\Service\VisitorSessionService;
+use App\Service\Visitor\Event\VisitorEventService;
+use App\Service\Visitor\Session\VisitorSessionService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

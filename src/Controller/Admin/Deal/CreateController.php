@@ -4,7 +4,7 @@ namespace App\Controller\Admin\Deal;
 
 use App\Dto\Ecommerce\DealDto;
 use App\Entity\User\Project;
-use App\Service\Ecommerce\Deal\DealServiceInterface;
+use App\Service\Admin\Ecommerce\Deal\DealManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class CreateController extends AbstractController
 {
     public function __construct(
-        private DealServiceInterface $dealService,
+        private DealManagerInterface $dealService,
         private ValidatorInterface $validator,
         private SerializerInterface $serializer
     ) {

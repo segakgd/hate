@@ -4,7 +4,7 @@ namespace App\Controller\Admin\Project;
 
 use App\Dto\Project\ProjectDto;
 use App\Entity\User\User;
-use App\Service\Project\ProjectServiceInterface;
+use App\Service\Common\Project\ProjectServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
