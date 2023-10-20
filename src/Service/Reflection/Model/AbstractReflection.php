@@ -2,7 +2,7 @@
 
 namespace App\Service\Reflection\Model;
 
-use App\Service\Reflection\Method\MethodManager;
+use App\Service\Reflection\MethodManager;
 
 abstract class AbstractReflection implements ReflectionInterface
 {

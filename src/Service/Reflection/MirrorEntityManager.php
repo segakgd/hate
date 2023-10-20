@@ -21,16 +21,16 @@ use Throwable;
  */
 class MirrorEntityManager
 {
-    public function __construct(
-        private EntityManagerInterface $entityManager,
-    ) {
-    }
-
     private const REFLECTION_CLASS = [
         DealField::class => DealFieldReflection::class,
         Deal::class => DealReflection::class,
         DealContacts::class => DealContactsReflection::class,
     ];
+
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+    ) {
+    }
 
     /**
      * @throws UndefinedReflectionException

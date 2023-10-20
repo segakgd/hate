@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Service\Reflection\Method;
+namespace App\Service\Reflection;
+
+use App\Service\Reflection\Method\GetMethod;
+use App\Service\Reflection\Method\SetMethod;
 
 class MethodManager
 {

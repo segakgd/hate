@@ -2,7 +2,7 @@
 
 namespace App\Service\Reflection\Method;
 
-class GetMethod
+class GetMethod implements MethodInterface
 {
     public function __construct(private string $var)
     {}

@@ -2,7 +2,7 @@
 
 namespace App\Service\Reflection\Method;
 
-class SetMethod
+class SetMethod implements MethodInterface
 {
     public function __construct(private string $var, private array $arg = [])
     {}
