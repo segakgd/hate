@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Dto\Ecommerce\_deprecated;
+namespace App\Dto\Ecommerce;
 
-use App\Dto\Ecommerce\PriceDto;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ShippingDto

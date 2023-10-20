@@ -2,7 +2,6 @@
 
 namespace App\Dto\Ecommerce;
 
-use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
 use DateTimeImmutable;
 
 class ProductDto

@@ -2,7 +2,7 @@
 
 namespace App\Service\Admin\Ecommerce\ProductCategory;
 
-use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
+use App\Dto\Ecommerce\ProductCategoryDto;
 use App\Entity\Ecommerce\ProductCategory;
 
 interface ProductCategoryManagerInterface

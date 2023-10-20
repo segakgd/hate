@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dto\Ecommerce\_deprecated;
+namespace App\Dto\Ecommerce;
 
 class ProductCategoryDto
 {

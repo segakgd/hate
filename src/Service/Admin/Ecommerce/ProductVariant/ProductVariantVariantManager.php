@@ -6,7 +6,7 @@ use App\Dto\Ecommerce\ProductVariantDto;
 use App\Entity\Ecommerce\ProductVariant;
 use App\Repository\Ecommerce\ProductVariantRepository;
 
-class ProductManagerService implements ProductManagerServiceInterface
+class ProductVariantVariantManager implements ProductVariantManagerInterface
 {
     public function __construct(
         private ProductVariantRepository $productVariantRepository

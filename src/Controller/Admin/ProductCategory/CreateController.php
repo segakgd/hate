@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\ProductCategory;
 
-use App\Dto\Ecommerce\_deprecated\ProductCategoryDto;
+use App\Dto\Ecommerce\ProductCategoryDto;
 use App\Entity\User\Project;
 use App\Service\Admin\Ecommerce\ProductCategory\ProductCategoryManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

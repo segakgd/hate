@@ -8,7 +8,7 @@ use App\Entity\Ecommerce\ProductCategory;
 use App\Repository\Ecommerce\ProductCategoryEntityRepository;
 use App\Repository\Ecommerce\ProductEntityRepository;
 use App\Service\Admin\Ecommerce\ProductCategory\ProductCategoryManager;
-use App\Service\Admin\Ecommerce\ProductVariant\ProductManagerService;
+use App\Service\Admin\Ecommerce\ProductVariant\ProductVariantManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -18,7 +18,7 @@ class ProductManager implements ProductManagerInterface
         private ProductEntityRepository $productEntityRepository,
         private ProductCategoryEntityRepository $productCategoryEntityRepository,
         private ProductCategoryManager $productCategoryService,
-        private ProductManagerService $productVariantService,
+        private ProductVariantManagerInterface $productVariantService,
         private LoggerInterface $logger,
     ) {
     }

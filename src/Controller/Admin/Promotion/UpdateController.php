@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Promotion;
 
-use App\Dto\Ecommerce\_deprecated\PromotionDto;
+use App\Dto\Ecommerce\PromotionDto;
 use App\Entity\User\Project;
 use App\Service\Admin\Ecommerce\Promotion\PromotionManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

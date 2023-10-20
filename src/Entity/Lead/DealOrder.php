@@ -2,8 +2,8 @@
 
 namespace App\Entity\Lead;
 
-use App\Dto\Ecommerce\_deprecated\PromotionDto;
 use App\Dto\Ecommerce\ProductDto;
+use App\Dto\Ecommerce\PromotionDto;
 use App\Repository\Lead\OrderEntityRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;

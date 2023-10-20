@@ -2,9 +2,6 @@
 
 namespace App\Dto\Ecommerce;
 
-use App\Dto\Ecommerce\_deprecated\PromotionDto;
-use App\Dto\Ecommerce\_deprecated\ShippingDto;
-
 class OrderDto
 {
     private ?int $id = null;

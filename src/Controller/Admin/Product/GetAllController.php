@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Product;
 
 use App\Entity\User\Project;
-use App\Service\Ecommerce\Product\ProductServiceInterface;
+use App\Service\Admin\Ecommerce\Product\ProductManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetAllController extends AbstractController
 {
     public function __construct(
-        private ProductServiceInterface $productService,
+        private ProductManagerInterface $productService,
         private SerializerInterface $serializer,
     ) {}
 

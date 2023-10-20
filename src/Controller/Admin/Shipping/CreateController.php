@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Shipping;
 
-use App\Dto\Ecommerce\_deprecated\ShippingDto;
+use App\Dto\Ecommerce\ShippingDto;
 use App\Entity\User\Project;
 use App\Service\Admin\Ecommerce\Shipping\ShippingManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
