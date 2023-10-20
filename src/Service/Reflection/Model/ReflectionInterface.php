@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Sandbox;
+namespace App\Service\Reflection\Model;
 
 /**
  * Интерыейс отражения

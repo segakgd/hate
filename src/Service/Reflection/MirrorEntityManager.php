@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Service\Sandbox;
+namespace App\Service\Reflection;
 
 use App\Entity\Lead\Deal;
 use App\Entity\Lead\DealContacts;
 use App\Entity\Lead\DealField;
 use App\Exception\Reflection\UndefinedReflectionException;
-use App\Service\Sandbox\Reflection\Reflection\DealContactsReflection;
-use App\Service\Sandbox\Reflection\Reflection\DealFieldReflection;
-use App\Service\Sandbox\Reflection\Reflection\DealReflection;
+use App\Reflection\DealContactsReflection;
+use App\Reflection\DealFieldReflection;
+use App\Reflection\DealReflection;
+use App\Service\Reflection\Model\ReflectionInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use ReflectionClass;
 use Throwable;
@@ -47,7 +48,6 @@ class MirrorEntityManager
     public function reflect(object $object)
     {
         $reflectionType = self::REFLECTION_CLASS[$object::class] ?? throw new UndefinedReflectionException($object::class);
-//        $reflectionType = self::REFLECTION_CLASS[$object::class] ?? null;
 
         if (!$reflectionType){
             return null;
@@ -72,15 +72,15 @@ class MirrorEntityManager
         return $reflection;
     }
 
-    public function save(string $name, int $id, ReflectionInterface $reflection)
+    public function save(string $name, int $id, ReflectionInterface $reflection): void
     {
         $entity = $this->entityManager->find($name, $id);
 
-        foreach ($reflection as $dd => $reflectio){
-            $ff = 'set' . ucfirst($dd);
+        foreach ($reflection as $reflectionKey => $reflectionValue){
+            $reflectionMethod = 'set' . ucfirst($reflectionKey);
 
             try {
-                $entity->$ff($reflectio);
+                $entity->$reflectionMethod($reflectionValue);
             } catch (Throwable){
                 // todo костыль
             }

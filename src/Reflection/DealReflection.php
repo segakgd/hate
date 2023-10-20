@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service\Sandbox\Reflection\Reflection;
+namespace App\Reflection;
 
 use App\Entity\Lead\DealContacts;
 use App\Entity\Lead\DealField;
 use App\Entity\Lead\DealOrder;
+use App\Service\Reflection\Model\AbstractReflection;
 use Doctrine\Common\Collections\Collection;
 
 // todo коллекции нужно превратить во что-то другое

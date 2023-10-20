@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Service\Sandbox\Reflection\Reflection;
+namespace App\Service\Reflection\Model;
 
-use App\Service\Sandbox\Reflection\Method\MethodManager;
-use App\Service\Sandbox\ReflectionInterface;
+use App\Service\Reflection\Method\MethodManager;
 
 abstract class AbstractReflection implements ReflectionInterface
 {

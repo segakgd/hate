@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lead\DealField;
-use App\Service\Sandbox\MirrorEntityManager;
+use App\Service\Reflection\MirrorEntityManager;
 use ReflectionException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Sandbox\Reflection\Method;
+namespace App\Service\Reflection\Method;
 
 class MethodManager
 {

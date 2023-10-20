@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Service\Sandbox\Reflection\Method;
+namespace App\Service\Reflection\Method;
 
 class GetMethod
 {
-    public function __construct(
-        private string $var,
-    ) {
-    }
+    public function __construct(private string $var)
+    {}
 
     public function apply(object $targetObject): mixed
     {

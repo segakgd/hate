@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Service\Sandbox\Reflection\Reflection;
+namespace App\Reflection;
+
+use App\Service\Reflection\Model\AbstractReflection;
 
 /**
  * @method int|null getId()

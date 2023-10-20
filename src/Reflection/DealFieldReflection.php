@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Service\Sandbox\Reflection\Reflection;
+namespace App\Reflection;
 
 use App\Entity\Lead\Deal;
+use App\Service\Reflection\Model\AbstractReflection;
 use DateTimeImmutable;
 
 /**

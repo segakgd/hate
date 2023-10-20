@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Service\Sandbox\Reflection\Method;
+namespace App\Service\Reflection\Method;
 
 class SetMethod
 {
-    public function __construct(
-        private string $var,
-        private array $arg = [],
-    ) {
-    }
+    public function __construct(private string $var, private array $arg = [])
+    {}
 
     public function apply(object $targetObject): void
     {
